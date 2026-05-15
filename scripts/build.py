@@ -40,7 +40,7 @@ WEEKLY_TOPICS = {
 
 ARXIV_API = "https://export.arxiv.org/api/query"
 USER_AGENT = "daily-paper/1.0 (https://github.com/; contact: github-actions)"
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-2.5-flash-lite"
 GEMINI_ENDPOINT = (
     f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 )
@@ -316,20 +316,49 @@ def call_gemini(prompt: str, api_key: str) -> str:
     }
     data = json.dumps(payload).encode("utf-8")
     url = f"{GEMINI_ENDPOINT}?key={api_key}"
-    req = urllib.request.Request(
-        url, data=data, headers={"Content-Type": "application/json"}, method="POST"
-    )
 
-    # Simple retry: Gemini free tier occasionally returns 429/503
-    last_err = None
-    for attempt in range(3):
+    last_err: Exception | None = None
+    for attempt in range(5):
+        req = urllib.request.Request(
+            url, data=data,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
                 resp = json.loads(r.read().decode("utf-8"))
             return resp["candidates"][0]["content"]["parts"][0]["text"].strip()
+        except urllib.error.HTTPError as e:
+            last_err = e
+            # Try to parse RetryInfo from Gemini's error body
+            body_wait = 0
+            try:
+                err_body = json.loads(e.read().decode("utf-8"))
+                for detail in err_body.get("error", {}).get("details", []):
+                    if detail.get("@type", "").endswith("RetryInfo"):
+                        delay = detail.get("retryDelay", "")
+                        m = re.match(r"(\d+)s", delay)
+                        if m:
+                            body_wait = int(m.group(1))
+            except Exception:
+                pass
+
+            if e.code == 429:
+                wait = max(body_wait, 30 * (2 ** attempt))  # 30, 60, 120, 240, 480s
+            elif 500 <= e.code < 600:
+                wait = 5 * (2 ** attempt)
+            else:
+                # 400/401/403 etc. won't fix themselves — fail fast.
+                raise
+            print(f"  Gemini attempt {attempt+1}/5: HTTP {e.code}; sleeping {wait}s",
+                  file=sys.stderr)
+            time.sleep(wait)
         except Exception as e:
             last_err = e
-            time.sleep(2 ** attempt)
+            wait = 5 * (2 ** attempt)
+            print(f"  Gemini attempt {attempt+1}/5 failed ({e!r}); sleeping {wait}s",
+                  file=sys.stderr)
+            time.sleep(wait)
     raise RuntimeError(f"Gemini call failed after retries: {last_err}")
 
 
