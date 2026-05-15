@@ -2,7 +2,8 @@
 
 A small personal project I built to keep up with research.
 
-Live site: **[abhijeet-and-data.github.io/daily-paper](https://github.com/bow-pow/daily-paper)** *(update with your actual URL)*
+Live site: **[abhijeet-and-data.github.io/daily-paper](https://github.com/bow-pow/daily-paper)** 
+
 LinkedIn: **[Abhijeet Sharma](https://www.linkedin.com/in/abhijeet-and-data/)**
 
 ---
