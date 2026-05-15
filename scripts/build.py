@@ -38,7 +38,8 @@ WEEKLY_TOPICS = {
     6: ("cond-mat","cond-mat.stat-mech OR cond-mat.soft OR cond-mat.mes-hall"),
 }
 
-ARXIV_API = "http://export.arxiv.org/api/query"
+ARXIV_API = "https://export.arxiv.org/api/query"
+USER_AGENT = "daily-paper/1.0 (https://github.com/; contact: github-actions)"
 GEMINI_MODEL = "gemini-2.0-flash"
 GEMINI_ENDPOINT = (
     f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
@@ -69,6 +70,23 @@ class Paper:
 ATOM_NS = {"atom": "http://www.w3.org/2005/Atom"}
 
 
+def _http_get(url: str, timeout: int = 30, attempts: int = 4) -> bytes:
+    """GET with exponential backoff. Handles transient timeouts/5xx from arXiv."""
+    last_err: Exception | None = None
+    for i in range(attempts):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read()
+        except Exception as e:
+            last_err = e
+            wait = 3 * (2 ** i)  # 3, 6, 12, 24s
+            print(f"  fetch attempt {i+1}/{attempts} failed ({e!r}); retrying in {wait}s",
+                  file=sys.stderr)
+            time.sleep(wait)
+    raise RuntimeError(f"HTTP GET failed after {attempts} attempts: {last_err}")
+
+
 def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
     """Query arXiv for recent papers in a category, newest first."""
     params = {
@@ -79,8 +97,7 @@ def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
         "sortOrder": "descending",
     }
     url = f"{ARXIV_API}?{urllib.parse.urlencode(params)}"
-    with urllib.request.urlopen(url, timeout=30) as r:
-        body = r.read().decode("utf-8")
+    body = _http_get(url, timeout=30).decode("utf-8")
 
     root = ET.fromstring(body)
     papers: list[Paper] = []
@@ -146,11 +163,7 @@ def fetch_pdf_text(pdf_url: str) -> str:
         return ""
 
     try:
-        req = urllib.request.Request(
-            pdf_url, headers={"User-Agent": "daily-paper/1.0"}
-        )
-        with urllib.request.urlopen(req, timeout=60) as r:
-            data = r.read()
+        data = _http_get(pdf_url, timeout=60, attempts=3)
     except Exception as e:
         print(f"PDF download failed: {e}", file=sys.stderr)
         return ""
