@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favorites — Daily Paper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4efe6; --ink: #1f1d1a; --ink-soft: #4a463f;
+    --ink-faded: #7a7468; --accent: #8a3324; --rule: #c9c1b0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(at 12% 8%,  rgba(138, 51, 36, 0.04), transparent 40%),
+      radial-gradient(at 88% 92%, rgba(31, 29, 26, 0.05), transparent 40%);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    min-height: 100vh;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 56px 28px 96px; }
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 18px;
+    margin-bottom: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .brand {
+    font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; font-size: 1.05rem;
+  }
+  .brand .dot { color: var(--accent); margin: 0 0.2em; }
+  a.home {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-faded);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  a.home:hover { color: var(--accent); }
+  h1 {
+    font-weight: 600;
+    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+    letter-spacing: -0.015em;
+    margin: 0 0 8px;
+  }
+  .subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    color: var(--ink-faded);
+    font-style: italic;
+    margin-bottom: 36px;
+  }
+  ul.fav-list { list-style: none; padding: 0; margin: 0; }
+  ul.fav-list li {
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 16px;
+    padding: 20px 4px;
+  }
+  ul.fav-list a.entry {
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
+  }
+  ul.fav-list a.entry:hover .title { color: var(--accent); }
+  .entry .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .entry .title {
+    font-size: 1.08rem;
+    line-height: 1.4;
+    transition: color 0.15s ease;
+  }
+  .entry .arxiv {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faded);
+    margin-top: 6px;
+  }
+  button.remove {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-faded);
+    width: 32px; height: 32px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+  button.remove:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255,255,255,0.5);
+  }
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-faded);
+  }
+  .empty .star {
+    font-size: 3rem;
+    color: var(--rule);
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+  .empty p {
+    font-size: 1.04rem;
+    line-height: 1.6;
+    margin: 0 0 8px;
+  }
+  .empty .hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    font-style: italic;
+  }
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 22px;
+    border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (max-width: 520px) {
+    .page { padding: 36px 20px 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <div class="brand">Daily<span class="dot">·</span>Paper</div>
+    <a class="home" href="./">← today</a>
+  </header>
+
+  <h1>Favorites</h1>
+  <div class="subtitle">Briefs you've starred. Saved on this device only.</div>
+
+  <div id="content"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+  const FAV_KEY = 'dailyPaper.favorites.v1';
+  const content = document.getElementById('content');
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1500);
+  }
+
+  function loadFavs() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+    catch { return []; }
+  }
+  function saveFavs(list) {
+    localStorage.setItem(FAV_KEY, JSON.stringify(list));
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function render() {
+    const favs = loadFavs();
+    if (!favs.length) {
+      content.innerHTML = `
+        <div class="empty">
+          <div class="star">☆</div>
+          <p>No favorites yet.</p>
+          <p class="hint">Tap the star on a brief you like to save it here.</p>
+        </div>`;
+      return;
+    }
+    const items = favs.map((f, i) => `
+      <li>
+        <a class="entry" href="${escapeHtml(f.pageUrl)}">
+          <div class="date">${escapeHtml(f.date || f.publishedDate || '')}</div>
+          <div class="title">${escapeHtml(f.title)}</div>
+          <div class="arxiv">arXiv:${escapeHtml(f.id)}</div>
+        </a>
+        <button class="remove" data-idx="${i}" title="Remove" aria-label="Remove from favorites">×</button>
+      </li>
+    `).join('');
+    content.innerHTML = `<ul class="fav-list">${items}</ul>`;
+
+    content.querySelectorAll('button.remove').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        const idx = parseInt(btn.dataset.idx, 10);
+        const list = loadFavs();
+        list.splice(idx, 1);
+        saveFavs(list);
+        toast('Removed');
+        render();
+      });
+    });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
