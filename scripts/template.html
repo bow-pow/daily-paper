@@ -254,6 +254,110 @@
   }
   footer.colophon a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
+  /* --- Favorite + Listen controls --- */
+  .brief-section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .brief-section-head .section-label {
+    margin: 0;
+    flex: 1;
+  }
+  .brief-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  button.icon-btn {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    padding: 0;
+  }
+  button.icon-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255,255,255,0.5);
+  }
+  button.icon-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  button.fav-btn[aria-pressed="true"] {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(138, 51, 36, 0.08);
+  }
+  button.fav-btn[aria-pressed="true"] svg {
+    fill: var(--accent);
+  }
+  button.listen-btn[data-state="playing"] {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(138, 51, 36, 0.08);
+  }
+  /* Pulse the listen button when active */
+  button.listen-btn[data-state="playing"]::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    opacity: 0;
+    animation: pulse 1.6s ease-out infinite;
+  }
+  button.listen-btn { position: relative; }
+  @keyframes pulse {
+    0%   { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 0;   transform: scale(1.2); }
+  }
+  /* Highlight currently-spoken sentence */
+  .brief .speaking-now {
+    background: rgba(138, 51, 36, 0.12);
+    border-radius: 2px;
+    box-shadow: 0 0 0 2px rgba(138, 51, 36, 0.12);
+    transition: background 0.2s ease;
+  }
+  /* Toast for "Added to favorites" feedback */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 22px;
+    border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
   @media (max-width: 520px) {
     .page { padding: 36px 20px 72px; }
     .brief { font-size: 1.04rem; }
@@ -278,8 +382,27 @@
   <h1 class="paper-title">{{TITLE}}</h1>
   <div class="authors">{{AUTHORS}}</div>
 
-  <div class="section-label">The Brief</div>
-  <div class="brief">
+  <div class="brief-section-head">
+    <div class="section-label">The Brief</div>
+    <div class="brief-actions">
+      <button class="icon-btn fav-btn" id="fav-btn" type="button"
+              aria-pressed="false" aria-label="Add to favorites" title="Favorite">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="12,3 14.8,9.3 21.6,10 16.4,14.6 18,21.4 12,17.8 6,21.4 7.6,14.6 2.4,10 9.2,9.3"/>
+        </svg>
+      </button>
+      <button class="icon-btn listen-btn" id="listen-btn" type="button"
+              data-state="idle" aria-label="Read aloud" title="Read aloud">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="6,4 20,12 6,20" fill="currentColor" stroke="none"/>
+        </svg>
+        <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true" style="display:none">
+          <rect x="6" y="6" width="12" height="12" fill="currentColor" stroke="none"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="brief" id="brief">
     {{BRIEF_HTML}}
   </div>
 
@@ -299,6 +422,7 @@
   <div class="links">
     <a href="{{ABS_URL}}" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
     <a href="{{PDF_URL}}" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
@@ -308,5 +432,240 @@
   </footer>
 
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ====== Paper metadata (injected from template) ======
+  const PAPER = {
+    id:        "{{ARXIV_ID}}",
+    title:     "{{TITLE_JS}}",
+    date:      "{{TODAY_LABEL}}",
+    publishedDate: "{{PUBLISHED}}",
+    absUrl:    "{{ABS_URL}}",
+    pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
+  };
+
+  const FAV_KEY = 'dailyPaper.favorites.v1';
+
+  // ====== Toast helper ======
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1800);
+  }
+
+  // ====== Favorites ======
+  function loadFavs() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+    catch { return []; }
+  }
+  function saveFavs(list) {
+    localStorage.setItem(FAV_KEY, JSON.stringify(list));
+  }
+  function isFavorited(id) {
+    return loadFavs().some(f => f.id === id);
+  }
+  function toggleFavorite() {
+    const favs = loadFavs();
+    const idx = favs.findIndex(f => f.id === PAPER.id);
+    if (idx >= 0) {
+      favs.splice(idx, 1);
+      saveFavs(favs);
+      favBtn.setAttribute('aria-pressed', 'false');
+      toast('Removed from favorites');
+    } else {
+      favs.unshift({
+        id: PAPER.id,
+        title: PAPER.title,
+        date: PAPER.date,
+        publishedDate: PAPER.publishedDate,
+        absUrl: PAPER.absUrl,
+        pageUrl: PAPER.pageUrl,
+        savedAt: new Date().toISOString()
+      });
+      saveFavs(favs);
+      favBtn.setAttribute('aria-pressed', 'true');
+      toast('Added to favorites ★');
+    }
+  }
+  const favBtn = document.getElementById('fav-btn');
+  if (isFavorited(PAPER.id)) favBtn.setAttribute('aria-pressed', 'true');
+  favBtn.addEventListener('click', toggleFavorite);
+
+  // ====== Read-aloud ======
+  const listenBtn = document.getElementById('listen-btn');
+  const playIcon  = listenBtn.querySelector('.play-icon');
+  const stopIcon  = listenBtn.querySelector('.stop-icon');
+  const brief     = document.getElementById('brief');
+
+  // Bail gracefully on unsupported browsers
+  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+    listenBtn.disabled = true;
+    listenBtn.title = 'Speech not supported in this browser';
+    listenBtn.style.opacity = '0.4';
+    return;
+  }
+
+  // Pick the most natural-sounding English voice available
+  function pickVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return null;
+    // Prefer English voices, and rank by quality hints in the name
+    const en = voices.filter(v => /^en[-_]/i.test(v.lang) || v.lang === 'en');
+    const ranked = en.sort((a, b) => score(b) - score(a));
+    return ranked[0] || voices[0];
+
+    function score(v) {
+      const n = v.name.toLowerCase();
+      let s = 0;
+      // High-quality neural voices on various platforms
+      if (n.includes('natural') || n.includes('neural') || n.includes('premium')) s += 40;
+      if (n.includes('enhanced') || n.includes('online')) s += 20;
+      // Known good voice names
+      if (/(samantha|ava|allison|joanna|kate|serena|tessa|moira|fiona|nicky)/.test(n)) s += 30;
+      if (/(google|microsoft)/.test(n)) s += 10;
+      // Penalize low-quality fallbacks
+      if (n.includes('compact') || n.includes('eloquence')) s -= 20;
+      if (v.localService === false) s += 5;
+      // Prefer en-US/en-GB over rarer English variants
+      if (v.lang === 'en-US' || v.lang === 'en-GB') s += 5;
+      return s;
+    }
+  }
+
+  // Some browsers populate voices asynchronously
+  let cachedVoice = null;
+  function ensureVoice(cb) {
+    cachedVoice = pickVoice();
+    if (cachedVoice) return cb();
+    speechSynthesis.onvoiceschanged = () => {
+      cachedVoice = pickVoice();
+      cb();
+    };
+  }
+
+  // Split brief into sentence-sized chunks while keeping references to the
+  // original DOM nodes so we can highlight the current sentence.
+  function buildSentenceQueue() {
+    const queue = [];
+    brief.querySelectorAll('p').forEach(p => {
+      const text = p.textContent.trim();
+      if (!text) return;
+      // Sentence split: keep the terminator, avoid splitting common abbreviations
+      const parts = text.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || [text];
+      // Wrap each sentence in its own span inside the paragraph so we can
+      // highlight one at a time without disturbing layout.
+      p.innerHTML = '';
+      parts.forEach((s, i) => {
+        const span = document.createElement('span');
+        span.className = 'sentence';
+        span.textContent = s;
+        p.appendChild(span);
+        if (i < parts.length - 1) p.appendChild(document.createTextNode(' '));
+        queue.push({ text: s.trim(), node: span });
+      });
+    });
+    return queue;
+  }
+
+  let queue = null;          // Built lazily on first play
+  let currentIndex = 0;
+  let isPlaying = false;
+  let currentUtter = null;
+
+  function setPlayingUI(playing) {
+    isPlaying = playing;
+    listenBtn.setAttribute('data-state', playing ? 'playing' : 'idle');
+    listenBtn.setAttribute('aria-label', playing ? 'Stop reading' : 'Read aloud');
+    playIcon.style.display = playing ? 'none' : '';
+    stopIcon.style.display = playing ? '' : 'none';
+  }
+
+  function clearHighlight() {
+    brief.querySelectorAll('.speaking-now').forEach(el => el.classList.remove('speaking-now'));
+  }
+
+  function speakNext() {
+    if (!isPlaying || currentIndex >= queue.length) {
+      stopReading();
+      return;
+    }
+    const item = queue[currentIndex];
+    clearHighlight();
+    item.node.classList.add('speaking-now');
+    item.node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const u = new SpeechSynthesisUtterance(item.text);
+    if (cachedVoice) u.voice = cachedVoice;
+    u.lang = (cachedVoice && cachedVoice.lang) || 'en-US';
+    u.rate = 0.95;   // very slightly slower than default — easier to follow
+    u.pitch = 1.0;
+    u.volume = 1.0;
+    u.onend = () => {
+      currentIndex++;
+      speakNext();
+    };
+    u.onerror = (e) => {
+      // Common case: user navigated away or hit stop. Just clean up.
+      stopReading();
+    };
+    currentUtter = u;
+    window.speechSynthesis.speak(u);
+  }
+
+  function startReading() {
+    if (!queue) queue = buildSentenceQueue();
+    if (!queue.length) { toast('Nothing to read'); return; }
+    currentIndex = 0;
+    setPlayingUI(true);
+    ensureVoice(() => {
+      // Some browsers (Chrome) cut off after ~15s; nudge with pause/resume.
+      window.speechSynthesis.cancel();
+      speakNext();
+      keepAlive();
+    });
+  }
+
+  function stopReading() {
+    setPlayingUI(false);
+    window.speechSynthesis.cancel();
+    clearHighlight();
+    currentUtter = null;
+    if (keepAliveTimer) { clearInterval(keepAliveTimer); keepAliveTimer = null; }
+  }
+
+  // Chrome workaround: speechSynthesis can pause silently after ~15 seconds.
+  // Periodically pause + resume to keep it talking.
+  let keepAliveTimer = null;
+  function keepAlive() {
+    keepAliveTimer = setInterval(() => {
+      if (!isPlaying) return;
+      if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+      }
+    }, 10000);
+  }
+
+  listenBtn.addEventListener('click', () => {
+    if (isPlaying) stopReading();
+    else startReading();
+  });
+
+  // Stop reading if user navigates away
+  window.addEventListener('beforeunload', stopReading);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && isPlaying) stopReading();
+  });
+
+})();
+</script>
 </body>
 </html>
