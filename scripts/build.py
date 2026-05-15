@@ -21,7 +21,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 # --- Configuration -----------------------------------------------------------
@@ -118,14 +118,17 @@ def _http_get(url: str, timeout: int = 30, attempts: int = 5) -> bytes:
     raise RuntimeError(f"HTTP GET failed after {attempts} attempts: {last_err}")
 
 
-def _fetch_via_api(category_query: str, max_results: int, years_back: int) -> list[Paper]:
+def _fetch_via_api(
+    category_query: str,
+    max_results: int,
+    start_date: datetime,
+    end_date: datetime,
+) -> list[Paper]:
     """Primary path: arXiv Atom API. Fetches up to `max_results` papers from
-    the given category, submitted within the last `years_back` years.
+    the given category, submitted between start_date and end_date.
     """
-    now = datetime.now(timezone.utc)
-    # arXiv submittedDate filter: YYYYMMDDHHMM in UTC
-    start = now.replace(year=now.year - years_back).strftime("%Y%m%d") + "0000"
-    end = now.strftime("%Y%m%d") + "2359"
+    start = start_date.strftime("%Y%m%d") + "0000"
+    end = end_date.strftime("%Y%m%d") + "2359"
 
     params = {
         "search_query": (
@@ -138,7 +141,7 @@ def _fetch_via_api(category_query: str, max_results: int, years_back: int) -> li
         "sortOrder": "descending",
     }
     url = f"{ARXIV_API}?{urllib.parse.urlencode(params)}"
-    # arXiv asks clients to wait ~3s between requests; pause before the first one
+    # arXiv asks clients to wait ~3s between requests; pause before each one
     # to be a polite neighbour on shared cloud IPs.
     time.sleep(3)
     body = _http_get(url, timeout=45).decode("utf-8")
@@ -230,99 +233,178 @@ def _fetch_via_rss(category_query: str) -> list[Paper]:
 
 def fetch_candidates(
     category_query: str,
-    max_results: int = 200,
     years_back: int = 3,
+    per_slice: int = 60,
 ) -> list[Paper]:
-    """Query arXiv for papers. Tries Atom API first, falls back to RSS.
+    """Query arXiv for papers across a multi-year window. To make sure the
+    candidate pool actually spans the whole window (rather than just the most
+    recent few weeks of a fast-moving category), we issue several queries each
+    over a time slice and combine the results.
 
-    With citation-based ranking, we want a wide pool from a multi-year window,
-    not just the last day. The RSS fallback only has yesterday's submissions,
-    so on fallback the picker just picks recency.
+    For a 3-year window we slice into 4 buckets:
+      - last 0-3 months  (truly recent)
+      - last 3-12 months (well-developed)
+      - last 1-2 years   (peak citation age)
+      - last 2-3 years   (older, well-cited classics for this window)
+    For a 5-year window we add a fifth slice covering years 3-5.
+
+    Returns up to ~per_slice * num_slices papers, deduplicated by arxiv_id.
     """
-    try:
-        papers = _fetch_via_api(category_query, max_results, years_back)
-        if papers:
-            return papers
-        print("  API returned no results; trying RSS", file=sys.stderr)
-    except Exception as e:
-        print(f"  API failed ({e!r}); trying RSS", file=sys.stderr)
+    now = datetime.now(timezone.utc)
+    # Bucket boundaries in months back from now
+    if years_back >= 5:
+        bucket_months = [(0, 3), (3, 12), (12, 24), (24, 36), (36, 60)]
+    else:  # 3
+        bucket_months = [(0, 3), (3, 12), (12, 24), (24, 36)]
+
+    all_papers: list[Paper] = []
+    seen_ids: set[str] = set()
+
+    for older_months, newer_months_unused in []:  # placeholder removed
+        pass
+
+    for newer, older in bucket_months:
+        end = now - timedelta(days=newer * 30)
+        start = now - timedelta(days=older * 30)
+        try:
+            chunk = _fetch_via_api(category_query, per_slice, start, end)
+        except Exception as e:
+            print(f"  slice {newer}-{older}mo failed: {e!r}", file=sys.stderr)
+            continue
+        added = 0
+        for p in chunk:
+            if p.arxiv_id not in seen_ids:
+                seen_ids.add(p.arxiv_id)
+                all_papers.append(p)
+                added += 1
+        print(f"  slice {newer}-{older}mo: +{added} (got {len(chunk)})")
+
+    if all_papers:
+        return all_papers
+
+    # Total failure of all slices — try RSS fallback for recency-only picking
+    print("  all slices empty; trying RSS fallback", file=sys.stderr)
     return _fetch_via_rss(category_query)
 
 
 # --- Semantic Scholar scoring ----------------------------------------------
 
-def score_with_semantic_scholar(papers: list[Paper]) -> dict[str, dict]:
-    """Look up citation data for each paper. Returns dict keyed by arxiv_id with
-    fields {citations, influential, year, score}. Papers missing from the index
-    get score=0. Failure to reach the API returns {} (caller falls back).
+# Modern arXiv IDs are YYMM.NNNNN (4-5 digits after the dot). We exclude older
+# format (e.g. hep-th/0101001) to keep request shape clean for the batch API.
+ARXIV_ID_RE = re.compile(r"^\d{4}\.\d{4,5}$")
 
-    Uses the batch endpoint which accepts up to 500 ids in one POST.
-    """
-    if not papers:
-        return {}
+# Chunk size for the batch endpoint. Semantic Scholar accepts up to 500 per
+# request, but smaller chunks isolate failures (one bad ID in a chunk only
+# loses the chunk, not all scores) and are easier on shared rate limits.
+SS_CHUNK_SIZE = 100
 
-    ids = [f"ARXIV:{p.arxiv_id}" for p in papers]
+
+def _ss_request_batch(ids: list[str]) -> list[dict | None] | None:
+    """POST one batch of IDs. Returns the list result or None on failure."""
+    if not ids:
+        return []
     payload = json.dumps({"ids": ids}).encode("utf-8")
     fields = "citationCount,influentialCitationCount,year,publicationDate,tldr"
     url = f"{SEMANTIC_SCHOLAR_API}?fields={fields}"
 
-    req = urllib.request.Request(
-        url, data=payload,
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": USER_AGENT,
-        },
-        method="POST",
-    )
-
-    # Semantic Scholar's free tier allows ~100 req / 5 min. Plenty for one
-    # call per day, but the endpoint can rate-limit on shared cloud IPs.
     for attempt in range(4):
+        req = urllib.request.Request(
+            url, data=payload,
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": USER_AGENT,
+            },
+            method="POST",
+        )
         try:
             with urllib.request.urlopen(req, timeout=45) as r:
-                results = json.loads(r.read().decode("utf-8"))
-            break
+                return json.loads(r.read().decode("utf-8"))
         except urllib.error.HTTPError as e:
             if e.code == 429 and attempt < 3:
-                wait = 20 * (2 ** attempt)  # 20, 40, 80
-                print(f"  Semantic Scholar 429; sleeping {wait}s", file=sys.stderr)
+                wait = 20 * (2 ** attempt)
+                print(f"    chunk: 429; sleeping {wait}s", file=sys.stderr)
                 time.sleep(wait)
                 continue
-            print(f"  Semantic Scholar failed: {e}", file=sys.stderr)
-            return {}
+            # Try to read the error body for diagnostic info on 400s
+            try:
+                err_body = e.read().decode("utf-8")[:200]
+                print(f"    chunk: HTTP {e.code}: {err_body}", file=sys.stderr)
+            except Exception:
+                print(f"    chunk: HTTP {e.code}", file=sys.stderr)
+            return None
         except Exception as e:
-            print(f"  Semantic Scholar failed: {e!r}", file=sys.stderr)
             if attempt < 3:
                 time.sleep(5 * (2 ** attempt))
                 continue
-            return {}
-    else:
+            print(f"    chunk: {e!r}", file=sys.stderr)
+            return None
+    return None
+
+
+def score_with_semantic_scholar(papers: list[Paper]) -> dict[str, dict]:
+    """Look up citation data for each paper. Returns dict keyed by arxiv_id with
+    fields {citations, influential, year, score, tldr}.
+
+    - Filters out arXiv IDs that don't match the modern YYMM.NNNNN format
+      (old hep-th-style IDs were causing whole-batch 400 errors).
+    - Chunks requests to isolate failures.
+    - Papers missing from the index get score=0; papers not found in any
+      successful chunk also get score=0 by default.
+    """
+    if not papers:
         return {}
 
-    # results is a list aligned with ids; entries can be None when SS doesn't
-    # have the paper (e.g. very recent submissions).
     scores: dict[str, dict] = {}
     current_year = datetime.now(timezone.utc).year
-    for paper, info in zip(papers, results):
-        if not info:
-            scores[paper.arxiv_id] = {"citations": 0, "influential": 0, "score": 0.0}
+
+    # Initialise every paper with a zero score so callers always get a value
+    for p in papers:
+        scores[p.arxiv_id] = {"citations": 0, "influential": 0, "score": 0.0}
+
+    # Filter for modern arXiv IDs only
+    valid = [p for p in papers if ARXIV_ID_RE.match(p.arxiv_id)]
+    skipped = len(papers) - len(valid)
+    if skipped:
+        print(f"  skipped {skipped} papers with legacy-format arXiv IDs", file=sys.stderr)
+    if not valid:
+        return scores
+
+    # Process in chunks
+    n_chunks = (len(valid) + SS_CHUNK_SIZE - 1) // SS_CHUNK_SIZE
+    successful_chunks = 0
+    for i in range(0, len(valid), SS_CHUNK_SIZE):
+        chunk = valid[i:i + SS_CHUNK_SIZE]
+        ids = [f"ARXIV:{p.arxiv_id}" for p in chunk]
+        results = _ss_request_batch(ids)
+        if results is None:
+            print(f"  chunk {i // SS_CHUNK_SIZE + 1}/{n_chunks}: failed", file=sys.stderr)
             continue
-        citations = info.get("citationCount") or 0
-        influential = info.get("influentialCitationCount") or 0
-        year = info.get("year") or current_year
-        age_years = max(1, current_year - year + 1)
-        # Score: weight influential 3x raw, normalize by age so a 30-cite paper
-        # from this year scores like a 90-cite paper from 3 years ago.
-        # This gives "rising" recent papers a fair shot against established old ones.
-        score = (citations + 3 * influential) / age_years
-        tldr = (info.get("tldr") or {}).get("text") if info.get("tldr") else None
-        scores[paper.arxiv_id] = {
-            "citations": citations,
-            "influential": influential,
-            "year": year,
-            "score": score,
-            "tldr": tldr,
-        }
+        successful_chunks += 1
+        for paper, info in zip(chunk, results):
+            if not info:
+                continue
+            citations = info.get("citationCount") or 0
+            influential = info.get("influentialCitationCount") or 0
+            year = info.get("year") or current_year
+            age_years = max(1, current_year - year + 1)
+            score = (citations + 3 * influential) / age_years
+            tldr = (info.get("tldr") or {}).get("text") if info.get("tldr") else None
+            scores[paper.arxiv_id] = {
+                "citations": citations,
+                "influential": influential,
+                "year": year,
+                "score": score,
+                "tldr": tldr,
+            }
+        # Be a polite neighbour between chunks
+        if i + SS_CHUNK_SIZE < len(valid):
+            time.sleep(2)
+
+    if successful_chunks == 0:
+        print("  no chunks succeeded; treating as scoring-unavailable", file=sys.stderr)
+        return {}
+
+    print(f"  successful chunks: {successful_chunks}/{n_chunks}")
     return scores
 
 
