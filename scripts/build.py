@@ -401,8 +401,76 @@ def escape_js(s: str) -> str:
     return inner.replace("</", "<\\/")
 
 
+# --- Text-to-speech via edge-tts --------------------------------------------
+
+# Voice options worth trying: en-US-AvaNeural (warm, neutral),
+# en-US-AndrewNeural (calm male), en-GB-SoniaNeural (British female),
+# en-US-EmmaNeural (animated). Full list: `edge-tts --list-voices`.
+TTS_VOICE = "en-US-AvaNeural"
+TTS_RATE = "-5%"   # slight slowdown for easier comprehension
+
+
+def _strip_for_speech(text: str) -> str:
+    """Clean up Markdown markers and other artefacts so the voice reads cleanly.
+    edge-tts speaks punctuation literally, so we want plain prose only.
+    """
+    s = text
+    # Bold/italic markers
+    s = re.sub(r"\*\*(.+?)\*\*", r"\1", s)
+    s = re.sub(r"\*(.+?)\*", r"\1", s)
+    s = re.sub(r"__(.+?)__", r"\1", s)
+    s = re.sub(r"_(.+?)_", r"\1", s)
+    # Inline code and links
+    s = re.sub(r"`([^`]+)`", r"\1", s)
+    s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
+    # Section dashes/em-dashes after a heading — keep but normalize
+    s = s.replace("—", ", ")
+    # Collapse whitespace
+    s = re.sub(r"[ \t]+", " ", s)
+    s = re.sub(r"\n{2,}", "\n\n", s).strip()
+    return s
+
+
+def synthesize_brief_audio(brief_text: str, out_path: Path) -> bool:
+    """Generate an MP3 of the brief at out_path. Returns True on success.
+
+    Failure is non-fatal — the page falls back to browser TTS.
+    """
+    try:
+        import asyncio
+        import edge_tts  # type: ignore
+    except ImportError:
+        print("edge-tts not installed; skipping audio synthesis", file=sys.stderr)
+        return False
+
+    speech_text = _strip_for_speech(brief_text)
+    if not speech_text:
+        return False
+
+    async def _run() -> None:
+        communicate = edge_tts.Communicate(
+            text=speech_text,
+            voice=TTS_VOICE,
+            rate=TTS_RATE,
+        )
+        await communicate.save(str(out_path))
+
+    # Retry a couple of times — the unofficial endpoint occasionally hiccups.
+    for attempt in range(3):
+        try:
+            asyncio.run(_run())
+            if out_path.exists() and out_path.stat().st_size > 1024:
+                return True
+            print(f"  TTS attempt {attempt+1}: file looked empty, retrying", file=sys.stderr)
+        except Exception as e:
+            print(f"  TTS attempt {attempt+1} failed: {e!r}", file=sys.stderr)
+            time.sleep(2 ** attempt)
+    return False
+
+
 def render_page(
-    paper: Paper, brief: str, deep_html: str, generated_at: str, today_label: str
+    paper: Paper, brief: str, deep_html: str,
+    generated_at: str, today_label: str, audio_url: str = ""
 ) -> str:
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     authors_str = ", ".join(paper.authors[:6]) + (" et al." if len(paper.authors) > 6 else "")
@@ -427,6 +495,7 @@ def render_page(
         .replace("{{DEEP_HTML}}", deep_html)
         .replace("{{GENERATED_AT}}", escape(generated_at))
         .replace("{{TODAY_LABEL}}", escape(today_label))
+        .replace("{{AUDIO_URL}}", escape_js(audio_url))
     )
 
 
@@ -487,12 +556,37 @@ def main() -> int:
     )
     deep_html = render_deep_summary_html(deep_raw)
 
-    html = render_page(paper, brief, deep_html, generated_at, today_label)
-
+    # Generate spoken-audio version of the brief. Non-fatal if it fails.
+    print("Synthesizing audio...")
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
-    (SITE_DIR / "index.html").write_text(html, encoding="utf-8")
-    (ARCHIVE_DIR / f"{today_iso}.html").write_text(html, encoding="utf-8")
+    audio_path = SITE_DIR / "today.mp3"
+    audio_ok = synthesize_brief_audio(brief, audio_path)
+    if audio_ok:
+        # Archive a per-date copy so old days keep their audio
+        archive_audio = ARCHIVE_DIR / f"{today_iso}.mp3"
+        archive_audio.write_bytes(audio_path.read_bytes())
+        size_kb = audio_path.stat().st_size // 1024
+        print(f"  wrote site/today.mp3 ({size_kb} KB) and archive/{today_iso}.mp3")
+    else:
+        # Stale audio from a previous day would mismatch today's text.
+        if audio_path.exists():
+            audio_path.unlink()
+        print("  audio synthesis failed; page will fall back to browser TTS")
+
+    # Render index.html — references today.mp3 (latest audio)
+    html_index = render_page(
+        paper, brief, deep_html, generated_at, today_label,
+        audio_url="today.mp3" if audio_ok else "",
+    )
+    (SITE_DIR / "index.html").write_text(html_index, encoding="utf-8")
+
+    # Render the archived copy — references its dated audio file
+    html_archive = render_page(
+        paper, brief, deep_html, generated_at, today_label,
+        audio_url=f"{today_iso}.mp3" if audio_ok else "",
+    )
+    (ARCHIVE_DIR / f"{today_iso}.html").write_text(html_archive, encoding="utf-8")
 
     # Ship the favorites page alongside the index. It's static and the same
     # every day; just copy it from the scripts/ directory.
