@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Favorites — Daily Paper</title>
+<title>Favorites — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -37,6 +37,22 @@
     text-transform: uppercase; font-size: 1.05rem;
   }
   .brand .dot { color: var(--accent); margin: 0 0.2em; }
+  .byline {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-faded);
+    font-style: italic;
+    letter-spacing: 0.01em;
+    margin-top: 4px;
+  }
+  .byline a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faded);
+    font-style: normal;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .byline a:hover { color: var(--accent); border-bottom-color: var(--accent); }
   a.home {
     font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
@@ -160,7 +176,10 @@
 <body>
 <div class="page">
   <header class="masthead">
-    <div class="brand">Daily<span class="dot">·</span>Paper</div>
+    <div class="brand-group">
+      <div class="brand">One Journal<span class="dot">·</span>A Day</div>
+      <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
+    </div>
     <a class="home" href="./">← today</a>
   </header>
 
