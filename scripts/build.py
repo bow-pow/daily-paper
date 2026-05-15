@@ -70,25 +70,47 @@ class Paper:
 ATOM_NS = {"atom": "http://www.w3.org/2005/Atom"}
 
 
-def _http_get(url: str, timeout: int = 30, attempts: int = 4) -> bytes:
-    """GET with exponential backoff. Handles transient timeouts/5xx from arXiv."""
+def _http_get(url: str, timeout: int = 30, attempts: int = 5) -> bytes:
+    """GET with exponential backoff. Handles transient timeouts/5xx/429 from arXiv.
+
+    Backoff is aggressive: arXiv's API rate-limits to ~1 req / 3s and is happiest
+    with patient clients. We also honour the Retry-After header on 429.
+    """
     last_err: Exception | None = None
     for i in range(attempts):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 return r.read()
+        except urllib.error.HTTPError as e:
+            last_err = e
+            # 429 = rate limited. Respect Retry-After or wait longer.
+            if e.code == 429:
+                retry_after = e.headers.get("Retry-After")
+                try:
+                    wait = int(retry_after) if retry_after else 0
+                except (TypeError, ValueError):
+                    wait = 0
+                wait = max(wait, 15 * (2 ** i))   # 15, 30, 60, 120, 240s
+            elif 500 <= e.code < 600:
+                wait = 5 * (2 ** i)
+            else:
+                # 4xx other than 429 won't fix itself — bail out fast.
+                raise
+            print(f"  attempt {i+1}/{attempts}: HTTP {e.code}; sleeping {wait}s",
+                  file=sys.stderr)
+            time.sleep(wait)
         except Exception as e:
             last_err = e
-            wait = 3 * (2 ** i)  # 3, 6, 12, 24s
-            print(f"  fetch attempt {i+1}/{attempts} failed ({e!r}); retrying in {wait}s",
+            wait = 5 * (2 ** i)  # 5, 10, 20, 40, 80s
+            print(f"  attempt {i+1}/{attempts} failed ({e!r}); sleeping {wait}s",
                   file=sys.stderr)
             time.sleep(wait)
     raise RuntimeError(f"HTTP GET failed after {attempts} attempts: {last_err}")
 
 
-def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
-    """Query arXiv for recent papers in a category, newest first."""
+def _fetch_via_api(category_query: str, max_results: int) -> list[Paper]:
+    """Primary path: arXiv Atom API."""
     params = {
         "search_query": f"cat:({category_query})",
         "start": 0,
@@ -97,16 +119,20 @@ def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
         "sortOrder": "descending",
     }
     url = f"{ARXIV_API}?{urllib.parse.urlencode(params)}"
+    # arXiv asks clients to wait ~3s between requests; pause before the first one
+    # to be a polite neighbour on shared cloud IPs.
+    time.sleep(3)
     body = _http_get(url, timeout=30).decode("utf-8")
+    return _parse_atom(body)
 
+
+def _parse_atom(body: str) -> list[Paper]:
     root = ET.fromstring(body)
     papers: list[Paper] = []
     for entry in root.findall("atom:entry", ATOM_NS):
         full_id = entry.findtext("atom:id", default="", namespaces=ATOM_NS).strip()
-        # Strip version suffix to get the stable id (e.g. 2501.01234v2 -> 2501.01234)
         arxiv_id = full_id.rsplit("/", 1)[-1]
         bare_id = re.sub(r"v\d+$", "", arxiv_id)
-
         title = " ".join(
             entry.findtext("atom:title", default="", namespaces=ATOM_NS).split()
         )
@@ -114,20 +140,14 @@ def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
             entry.findtext("atom:summary", default="", namespaces=ATOM_NS).split()
         )
         published = entry.findtext("atom:published", default="", namespaces=ATOM_NS)[:10]
-
         authors = [
             a.findtext("atom:name", default="", namespaces=ATOM_NS).strip()
             for a in entry.findall("atom:author", ATOM_NS)
         ]
-
         categories = [
             c.get("term", "")
             for c in entry.findall("{http://arxiv.org/schemas/atom}category")
         ]
-
-        pdf_url = f"https://arxiv.org/pdf/{bare_id}"
-        abs_url = f"https://arxiv.org/abs/{bare_id}"
-
         if title and abstract:
             papers.append(Paper(
                 arxiv_id=bare_id,
@@ -136,10 +156,69 @@ def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
                 abstract=abstract,
                 categories=categories,
                 published=published,
-                pdf_url=pdf_url,
-                abs_url=abs_url,
+                pdf_url=f"https://arxiv.org/pdf/{bare_id}",
+                abs_url=f"https://arxiv.org/abs/{bare_id}",
             ))
     return papers
+
+
+def _fetch_via_rss(category_query: str) -> list[Paper]:
+    """Fallback path: arXiv RSS feed (different infrastructure, more reliable from
+    cloud IPs). RSS doesn't support boolean OR queries — we just pick the first
+    listed category from category_query and use it alone.
+    """
+    primary_cat = category_query.split(" OR ")[0].strip().strip("()")
+    url = f"https://rss.arxiv.org/rss/{primary_cat}"
+    print(f"  fallback: trying RSS feed for {primary_cat}")
+    body = _http_get(url, timeout=30, attempts=3).decode("utf-8")
+
+    # Minimal RSS 2.0 / Atom-ish parser. Each <item> has <title>, <description>,
+    # <link>, <dc:creator>, and a <guid> containing the arXiv id.
+    root = ET.fromstring(body)
+    # Handle both rss/channel/item and feed/entry shapes
+    items = root.findall(".//item")
+    papers: list[Paper] = []
+    DC_NS = {"dc": "http://purl.org/dc/elements/1.1/"}
+    for it in items:
+        guid = (it.findtext("guid") or it.findtext("link") or "").strip()
+        m = re.search(r"(\d{4}\.\d{4,5})", guid)
+        if not m:
+            continue
+        bare_id = m.group(1)
+        title = re.sub(r"\s+", " ", (it.findtext("title") or "")).strip()
+        # arXiv RSS often prefixes title with category in brackets; clean it up.
+        title = re.sub(r"^\[[^\]]+\]\s*", "", title)
+        abstract_raw = it.findtext("description") or ""
+        # Strip HTML tags and arxiv's "Abstract:" prefix
+        abstract = re.sub(r"<[^>]+>", " ", abstract_raw)
+        abstract = re.sub(r"\s+", " ", abstract).strip()
+        abstract = re.sub(r"^Abstract:?\s*", "", abstract, flags=re.IGNORECASE)
+        authors_text = it.findtext("dc:creator", default="", namespaces=DC_NS) or ""
+        authors = [a.strip() for a in re.split(r",| and ", authors_text) if a.strip()]
+        if title and abstract:
+            papers.append(Paper(
+                arxiv_id=bare_id,
+                title=title,
+                authors=authors,
+                abstract=abstract,
+                categories=[primary_cat],
+                published=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                pdf_url=f"https://arxiv.org/pdf/{bare_id}",
+                abs_url=f"https://arxiv.org/abs/{bare_id}",
+            ))
+    return papers
+
+
+def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
+    """Query arXiv for recent papers. Tries Atom API first, falls back to RSS."""
+    try:
+        papers = _fetch_via_api(category_query, max_results)
+        if papers:
+            return papers
+        print("  API returned no results; trying RSS", file=sys.stderr)
+    except Exception as e:
+        print(f"  API failed ({e!r}); trying RSS", file=sys.stderr)
+    return _fetch_via_rss(category_query)
 
 
 def pick_paper(papers: list[Paper], seed: str) -> Paper:
