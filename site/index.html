@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution — Daily Paper</title>
+<title>Concurrency without Model Changes: Future-based Asynchronous Function Calling for LLMs — Daily Paper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -374,13 +374,13 @@
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2605.15138</span>
+    <span class="arxiv-id">arXiv:2605.15077</span>
     <span></span>
     <span>Submitted 2026-05-14</span>
   </div>
 
-  <h1 class="paper-title">Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution</h1>
-  <div class="authors">Saisab Sadhu, Pratinav Seth, Vinay Kumar Sankarapu</div>
+  <h1 class="paper-title">Concurrency without Model Changes: Future-based Asynchronous Function Calling for LLMs</h1>
+  <div class="authors">Guangyu Feng, Huanzhi Mao, Prabal Dutta, Joseph E. Gonzalez</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -403,7 +403,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research tackles the problem of &quot;unlearning&quot; specific information from large AI language models, ensuring it's truly forgotten even after the model is compressed for practical use.</p><p>The core finding is that standard unlearning methods fail when models are compressed using techniques like 4-bit quantization (reducing the precision of numbers in the model). This happens because the small changes made for unlearning are too tiny to overcome the rounding effects of quantization, effectively making the forgotten information &quot;stick.&quot; The proposed solution, MANSU, uses a clever approach called &quot;circuit attribution&quot; to pinpoint the exact parts of the model responsible for the unwanted information and then modifies only those specific parts in a way that survives compression.</p><p>This is interesting because it addresses a critical security and privacy concern: how to reliably remove sensitive data from AI models without compromising their overall performance, especially as these models become smaller and more efficient for everyday applications.</p>
+    <p>This research introduces a new way for AI language models to use external tools, like calculators or databases, much faster.</p><p>The core innovation is a system called AsyncFC that lets the AI work on generating its next response *while* a tool it called is still running, instead of waiting for it to finish. This is like a chef prepping the next dish while the oven is still cooking the first one. It achieves this by treating the results of tool calls as &quot;futures&quot; – placeholders for information that will be available later – which the AI can reason about even before the tool is done. This system works with existing AI models and tools without needing any special training.</p><p>This is interesting because it could make AI assistants and agents much more responsive and efficient, allowing them to handle complex tasks more quickly without sacrificing accuracy.</p>
   </div>
 
   <details class="deep">
@@ -415,29 +415,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <p>Here's an explainer of the research paper &quot;Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution&quot;:</p>
-<h3>Background</h3><p>Imagine you have a powerful AI language model, like the ones that can write text or answer questions. Sometimes, these models learn things they shouldn't – like how to build dangerous weapons or harmful chemicals. This &quot;hazardous knowledge&quot; needs to be removed, a process called &quot;machine unlearning.&quot; Furthermore, regulations like the GDPR give people the &quot;right to erasure,&quot; meaning their data, and any knowledge derived from it, must be removed from AI models. The problem is that when AI models are actually used, they are compressed to run faster and use less memory. This compression step, called &quot;quantization,&quot; can sometimes undo the unlearning process, making the model forget that it forgot. This research investigates why this happens and how to ensure unlearning sticks, even after compression.</p>
-<h3>What they did</h3><p>The core issue identified is that standard unlearning methods, which tweak the model's internal parameters (weights), make changes that are too small to survive the aggressive compression (4-bit quantization) used in deployed models. These tiny changes get rounded away during compression, effectively restoring the forgotten knowledge. The researchers found that this happens because unlearning methods typically spread their changes across billions of parameters, diluting their impact.</p><p>To fix this, they developed a new method called MANSU (Mechanistic-Aligned Null-Space Unlearning). MANSU works in three steps:
-1.</p>
-<h3>Localize</h3><p>It first uses a technique called &quot;causal circuit attribution&quot; to pinpoint the specific, small group of parameters (a &quot;circuit&quot;) within the model that is responsible for the knowledge to be forgotten. This is like finding the exact wires in a complex machine that control a specific function.
-2.</p>
-<h3>Project</h3><p>Instead of making broad changes, MANSU focuses its unlearning updates only on this identified circuit. It then projects these updates into a &quot;null space,&quot; which is a mathematical way of making changes that minimize disruption to other, desired knowledge (the &quot;retain set&quot;).
-3.</p>
-<h3>Floor</h3><p>Crucially, MANSU enforces a &quot;magnitude floor.&quot; This means any parameter update that is smaller than the smallest &quot;bin&quot; in the quantization process is scaled up to be at least that size. This ensures that the changes made by MANSU are large enough to survive the compression step.</p><p>They also introduced a new way to measure if unlearning is truly &quot;structural&quot; (meaning the knowledge is gone from its source) rather than just behavioral (meaning the model might be finding a workaround). This metric is called Circuit Attribution Divergence (CAD).</p>
-<h3>What they found</h3><p>The research demonstrated a &quot;dual failure mode&quot; in existing unlearning methods: gradient-based methods that successfully forget in full precision lose that ability after quantization, while methods that survive quantization barely change the model at all. Specifically, they found that per-parameter updates in existing methods were 47 to 828 times smaller than the quantization bin width.</p><p>MANSU, however, successfully addresses this. It's the first method to jointly satisfy four key properties: meaningful forgetting, preserving desired knowledge, surviving quantization (a &quot;non-positive PTQ gap,&quot; meaning quantization doesn't reverse the forgetting), and achieving structural erasure. For example, on the WMDP-bio dataset using the Llama-3.1-8B model, MANSU achieved a quantization gap of -0.040, meaning quantization amplified the erasure, while preserving general model capabilities (MMLU score within 0.030 of the original model). In contrast, gradient-based methods showed recovery under compression, with accuracy increasing by up to +0.05.</p>
-<h3>Why it matters</h3><p>This research has significant implications for AI safety and regulatory compliance. It reveals a critical flaw in how we evaluate and implement machine unlearning: current methods are not robust to the compression techniques used in real-world AI deployments. This means that models deemed &quot;unlearned&quot; might not actually be safe or compliant once deployed.</p><p>MANSU offers a concrete solution by ensuring that forgetting is permanent, even after quantization. The introduction of CAD provides a much-needed mechanistic verification metric, moving beyond simple behavioral checks to confirm that the knowledge has been structurally removed. The findings highlight that for effective and durable unlearning, it's not just *what* changes you make, but *where* you make them (the circuit) and *how large* those changes are relative to the deployment environment (the quantization floor). This work provides a framework for developing more reliable and trustworthy AI systems.</p>
+      <h3>Background</h3><p>Large Language Models (LLMs) are increasingly being used as &quot;agents&quot; that can interact with the real world by calling external tools or functions. Think of an LLM agent needing to check the weather, book a flight, or search a database. The standard way this works is synchronous: the LLM asks the tool to do something, then it has to *wait* for that tool to finish its job and report back before it can do anything else, like ask for another tool or give a final answer. This waiting period, especially if the tool takes a long time, significantly slows down the entire process, making the LLM agent feel sluggish. Previous attempts to fix this often involved changing how the LLM itself works or making the tools more complicated.</p>
+<h3>What they did</h3><p>This research introduces a new system called AsyncFC (Asynchronous Function Calling). The core idea is to separate the LLM's thinking process (decoding) from the actual execution of the tools (function execution). Instead of waiting for a tool to finish, AsyncFC immediately tells the LLM that the tool *will* finish eventually, represented by a &quot;future&quot; placeholder. The LLM can then continue thinking and even plan its next steps, potentially calling other tools, while the first tool is still running in the background. This is similar to how you might start a long download on your computer and then continue browsing the web without waiting for the download to complete.</p><p>AsyncFC achieves this by working at the &quot;execution layer,&quot; meaning it doesn't require any changes to the LLM itself or how the tools are written. It intercepts the function calls the LLM makes. When a function is called, AsyncFC dispatches it to run asynchronously and immediately gives the LLM a &quot;future&quot; object. This future is like a promise that the result will be available later. The LLM can then use these futures as if they were the actual results, or it can explicitly ask for the result using a special `await_future` function when needed.</p><p>Furthermore, AsyncFC introduces &quot;dependency-aware scheduling.&quot; This means it can figure out which function calls can run at the same time (in parallel) and which ones *must* wait for others to finish because they depend on the results. This is done by allowing developers to optionally provide &quot;annotations&quot; that describe what data a function reads or writes. This prevents &quot;race conditions&quot; (where conflicting operations happen at the same time) and allows for more efficient parallel execution.</p>
+<h3>What they found</h3><p>The experiments show that AsyncFC significantly speeds up LLM agents without sacrificing accuracy. On standard function-calling benchmarks (like the Berkeley Function Calling Leaderboard), AsyncFC achieved speedups of up to 1.26 times compared to traditional synchronous methods. When applied to more complex tasks like software engineering (using SWE-bench Lite), it provided even larger speedups, reaching 1.44 times faster. The research also found that LLMs seem to have a &quot;native capability&quot; to understand and reason about these &quot;future&quot; placeholders, meaning they can work with these asynchronous concepts without needing to be specifically trained for them. This suggests that the LLM can naturally handle these symbolic representations of future results.</p>
+<h3>Why it matters</h3><p>This work is important because it offers a practical way to make LLM agents much faster and more responsive, especially when they need to interact with tools that take time to complete. By decoupling the LLM's thinking from tool execution, AsyncFC unlocks significant performance gains. This is crucial for building more capable and efficient AI systems that can handle complex, real-world tasks. The finding that LLMs can natively reason over futures is particularly exciting, as it opens up new possibilities for designing more sophisticated asynchronous interactions between LLMs and their tools, without requiring complex model retraining or modifications. The main takeaway is that by intelligently managing the execution of tools in the background, we can make LLM agents feel much snappier and more capable.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2605.15138" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2605.15138" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2605.15077" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2605.15077" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-05-15 09:37 UTC</span>
+    <span>Generated 2026-05-15 09:54 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -451,11 +444,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2605.15138",
-    title:     "Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution",
+    id:        "2605.15077",
+    title:     "Concurrency without Model Changes: Future-based Asynchronous Function Calling for LLMs",
     date:      "Friday, May 15, 2026",
     publishedDate: "2026-05-14",
-    absUrl:    "https://arxiv.org/abs/2605.15138",
+    absUrl:    "https://arxiv.org/abs/2605.15077",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
