@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Self-Evolving Curriculum for LLM Reasoning — Daily Paper</title>
+<title>Diffusion-based Reinforcement Learning via Q-weighted Variational Policy Optimization — Daily Paper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -374,13 +374,13 @@
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2505.14970</span>
+    <span class="arxiv-id">arXiv:2405.16173</span>
     <span></span>
-    <span>Submitted 2025-05-20</span>
+    <span>Submitted 2024-05-25</span>
   </div>
 
-  <h1 class="paper-title">Self-Evolving Curriculum for LLM Reasoning</h1>
-  <div class="authors">Xiaoyin Chen, Jiarui Lu, Minsu Kim, Dinghuai Zhang, Jian Tang, Alexandre Piché et al.</div>
+  <h1 class="paper-title">Diffusion-based Reinforcement Learning via Q-weighted Variational Policy Optimization</h1>
+  <div class="authors">Shutong Ding, Ke Hu, Zhenhao Zhang, Kan Ren, Weinan Zhang, Jingyi Yu et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -403,7 +403,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces a new way to teach large language models (LLMs) how to reason better by automatically figuring out the best order to present them with practice problems.</p><p>The core idea is to treat the selection of problem types as a game where the model learns which types of problems are most helpful for its progress. They use a technique called reinforcement learning (RL), where the model gets &quot;rewards&quot; for learning effectively. The system learns a &quot;curriculum policy&quot; – essentially a strategy for picking problem categories – at the same time it's improving its reasoning skills. This curriculum policy aims to maximize the immediate learning gain, measured by something called &quot;absolute advantage.&quot;</p><p>This is interesting because it could lead to LLMs that are much better at solving complex problems, like math or logic puzzles, without needing humans to carefully design every step of their training.</p>
+    <p>This research introduces a new way to train AI agents to learn complex tasks in real-time, using a powerful technique called diffusion models.</p><p>The core innovation is a method called Q-weighted Variational Policy Optimization (QVPO), which adapts diffusion models for online reinforcement learning. Diffusion models, known for their ability to generate diverse and realistic outputs, are typically used in offline learning where all data is pre-collected. However, in online learning, where agents learn by interacting with an environment, directly optimizing diffusion models is tricky because &quot;good&quot; actions aren't always available. QVPO overcomes this by introducing a &quot;Q-weighted variational loss,&quot; a clever mathematical trick that allows the diffusion model to learn effectively even with incomplete information, leading to better exploration and preventing the agent from getting stuck in poor solutions.</p><p>This work could be interesting because it pushes the boundaries of how AI agents can learn and adapt in dynamic environments, potentially leading to more robust and capable robots or autonomous systems that can learn on the fly.</p>
   </div>
 
   <details class="deep">
@@ -415,22 +415,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Large language models (LLMs) are powerful tools for tasks like math and coding, but they can struggle with complex reasoning. Researchers have found that a technique called reinforcement learning (RL) can significantly improve these reasoning skills. However, the effectiveness of RL fine-tuning depends heavily on *how* the training problems are presented to the model. Imagine teaching a student: showing them only the hardest problems first might be overwhelming, while showing them only the easiest might not push them to learn new skills. This order of presenting problems is called a &quot;curriculum.&quot; While random ordering is a common starting point, it's not optimal. Manually designing a good curriculum is difficult and requires a lot of expert knowledge, and automatically filtering problems during training can be too slow and computationally expensive. This research aims to solve this problem by creating an automatic way to learn the best training order.</p>
-<h3>What they did</h3><p>The core idea is to create a &quot;Self-Evolving Curriculum&quot; (SEC) that learns the optimal training order *while* the LLM is being fine-tuned with reinforcement learning. They frame this problem as a &quot;Multi-Armed Bandit&quot; (MAB) problem. Think of a bandit machine with multiple levers (arms), where each lever represents a category of training problems (e.g., easy math problems, medium planning problems, hard inductive reasoning problems). The goal is to figure out which lever to pull (which category of problems to train on) to get the best reward.</p><p>In this context, the &quot;reward&quot; for pulling an arm (selecting a problem category) is a measure of how much the LLM is expected to learn from it. The researchers use a concept called &quot;absolute advantage&quot; from reinforcement learning as a proxy for this learning gain. Essentially, problems that are neither too easy nor too hard for the LLM at a given moment are likely to provide the biggest learning boost. The SEC system has a &quot;curriculum policy&quot; that decides which problem categories to sample from at each training step, aiming to maximize this expected learning gain. This curriculum policy is updated continuously using a method called TD(0), which is a standard technique for learning from sequential data. So, the LLM learns to reason better, and at the same time, the system learns how to present the problems to the LLM in the most effective order.</p>
-<h3>What they found</h3><p>Experiments across three different reasoning domains—planning (like logic puzzles), inductive reasoning (finding patterns), and mathematics—showed that SEC significantly improves the LLM's reasoning abilities. Crucially, SEC enabled models to generalize better to harder problems that were not seen during training (&quot;out-of-distribution&quot; problems). For instance, on the Countdown game, SEC improved out-of-distribution accuracy by about 13% compared to a random curriculum. For the challenging AIME math dataset, SEC achieved a relative improvement of about 33% over the random baseline.</p><p>SEC also proved effective when the LLM was trained simultaneously on multiple reasoning domains. It helped balance the learning across different tasks, preventing one task from being neglected while others improved. The research also showed that SEC adapts the difficulty of problems presented over time, starting with easier problems and gradually introducing harder ones as the LLM's capabilities grow, which is a key aspect of effective learning.</p>
-<h3>Why it matters</h3><p>This work introduces a practical and automatic way to improve how LLMs learn complex reasoning skills. Instead of relying on human experts to design tricky training schedules or using computationally expensive methods, SEC offers an adaptive solution. This means LLMs can become better at tasks requiring logical deduction, pattern recognition, and problem-solving more efficiently. The ability to generalize to unseen, harder problems is particularly important for real-world applications where LLMs might encounter novel situations. The finding that SEC can balance learning across multiple skills simultaneously is also a significant step towards building more versatile AI systems. While SEC introduces some new parameters to tune, its ability to automatically discover effective learning pathways makes it a promising direction for future LLM development, potentially leading to more capable and robust AI.</p>
+      <h3>Background</h3><p>Imagine you're teaching a robot to perform a complex task, like walking or picking up an object. In Reinforcement Learning (RL), the robot learns by trial and error, receiving &quot;rewards&quot; for good actions and &quot;penalties&quot; for bad ones. A key challenge is how the robot decides which action to take next. Traditional methods often assume the best action is predictable, like picking the most likely move from a simple distribution (e.g., a bell curve, called a Gaussian policy). However, real-world tasks can be much more complex, requiring a variety of actions or &quot;strategies&quot; to succeed. This is where diffusion models, powerful tools for generating complex data, have shown promise. They can capture a richer set of possible actions, potentially leading to better exploration and performance. However, applying these advanced diffusion policies to *online* RL – where the agent learns and acts in real-time – has been tricky. The standard way diffusion models are trained doesn't directly align with how online RL agents improve their policies based on immediate feedback.</p>
+<h3>What they did</h3><p>This research introduces a new approach called Q-weighted Variational Policy Optimization (QVPO) to bridge the gap between diffusion policies and online RL. The core idea is to adapt the diffusion model's training objective, known as the Variational Lower Bound (VLO), to work effectively in an online RL setting. They discovered that by weighting the VLO objective with the &quot;value&quot; of taking a particular action (its Q-value, which estimates future rewards), they could create a &quot;tight lower bound&quot; of the policy's true objective. This means optimizing this weighted VLO helps improve the policy without introducing significant errors.</p><p>To handle situations where the Q-value might be negative (which can happen in RL) and to ensure they are using high-quality action samples, they developed &quot;Q-weight transformation functions.&quot; These functions effectively convert Q-values into positive weights that guide the diffusion model. Two specific transformations, &quot;qcut&quot; and &quot;qadv&quot; (using the &quot;advantage&quot; function, which measures how much better an action is than average), are proposed.</p><p>Furthermore, to boost the robot's ability to explore new possibilities, QVPO incorporates a special &quot;entropy regularization term.&quot; This term encourages the diffusion policy to explore a wider range of actions, preventing it from getting stuck in suboptimal strategies. Finally, to improve how efficiently the robot learns from its interactions, they designed an &quot;efficient behavior policy&quot; that selects actions with higher Q-values to guide the learning process, reducing the randomness and variance that can sometimes plague diffusion policies.</p>
+<h3>What they found</h3><p>Experiments on challenging continuous control tasks (MuJoCo locomotion benchmarks) show that QVPO significantly outperforms existing online RL algorithms, including other diffusion-based methods like DIPO and QSM. For instance, on the Ant-v3 environment, QVPO achieved a cumulative reward of 6425.1, substantially higher than DIPO's 5665.9 and QSM's N/A (indicating it didn't work well). Across multiple environments, QVPO consistently achieved state-of-the-art results in both cumulative reward and sample efficiency, meaning it learned to perform well with fewer interactions. The ablation studies also confirmed the effectiveness of their proposed components: the entropy regularization term helped improve performance even with fewer diffusion steps, and the efficient behavior policy significantly boosted sample efficiency.</p>
+<h3>Why it matters</h3><p>QVPO represents a significant step forward in applying the powerful capabilities of diffusion models to real-time learning in robotics and other complex control scenarios. By overcoming the technical hurdles of integrating diffusion models into online RL, this work allows agents to leverage the richness and multimodality of diffusion policies for better exploration and performance. This could lead to more capable and adaptable robots that can learn complex tasks more quickly and effectively. While the inference time is slightly higher than traditional methods, it remains acceptable for many real-world applications. Future work aims to further enhance this by developing adaptive entropy adjustment mechanisms, potentially leading to even more robust and efficient learning agents.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2505.14970" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2505.14970" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2405.16173" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2405.16173" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-05-15 11:57 UTC</span>
+    <span>Generated 2026-05-15 12:03 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -444,11 +444,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2505.14970",
-    title:     "Self-Evolving Curriculum for LLM Reasoning",
+    id:        "2405.16173",
+    title:     "Diffusion-based Reinforcement Learning via Q-weighted Variational Policy Optimization",
     date:      "Friday, May 15, 2026",
-    publishedDate: "2025-05-20",
-    absUrl:    "https://arxiv.org/abs/2505.14970",
+    publishedDate: "2024-05-25",
+    absUrl:    "https://arxiv.org/abs/2405.16173",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
