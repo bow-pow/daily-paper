@@ -60,7 +60,7 @@ def main() -> None:
     page = f"""<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Archive — Daily Paper</title>
+<title>Archive — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -72,6 +72,11 @@ def main() -> None:
             display:flex; justify-content:space-between; align-items:baseline; }}
   .brand {{ font-weight:700; letter-spacing:.04em; text-transform:uppercase; }}
   .brand .dot {{ color:var(--accent); margin:0 .2em; }}
+  .byline {{ font-family:'Inter',sans-serif; font-size:.72rem; color:var(--ink-faded);
+             font-style:italic; letter-spacing:.01em; margin-top:4px; }}
+  .byline a {{ color:#4a463f; text-decoration:none; border-bottom:1px dotted var(--ink-faded);
+               font-style:normal; transition:color .15s, border-color .15s; }}
+  .byline a:hover {{ color:var(--accent); border-bottom-color:var(--accent); }}
   h1 {{ font-weight:600; font-size:2.2rem; letter-spacing:-.015em; margin:0 0 28px; }}
   a.home {{ font-family:'Inter',sans-serif; font-size:.78rem; color:var(--ink-faded);
             text-decoration:none; letter-spacing:.08em; text-transform:uppercase; }}
@@ -92,7 +97,10 @@ def main() -> None:
 </style></head><body>
 <div class="page">
   <header>
-    <div class="brand">Daily<span class="dot">·</span>Paper</div>
+    <div class="brand-group">
+      <div class="brand">One Journal<span class="dot">·</span>A Day</div>
+      <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
+    </div>
     <a class="home" href="../">← today</a>
   </header>
   <h1>Archive</h1>
