@@ -403,7 +403,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces TabPFN-3, a significantly improved AI model designed to make predictions from structured data, like spreadsheets or databases.</p><p>TabPFN-3 builds upon previous work by being much faster and capable of handling vastly larger datasets, up to a million rows. It achieves this by using a clever technique called &quot;test-time compute scaling,&quot; which allows it to adjust its processing power during prediction, and by optimizing how it stores and accesses information, even for very large amounts of data. This model demonstrates exceptional performance, outperforming other leading methods on various benchmarks, including those involving time series, relational information, and text mixed with tabular data.</p><p>For anyone interested in how AI is becoming more powerful and efficient, TabPFN-3 shows a leap forward in making sophisticated prediction tools accessible for real-world problems across many industries.</p>
+    <p>This research introduces TabPFN-3, an advanced AI model designed to make highly accurate predictions from structured data, like spreadsheets or databases.</p><p>TabPFN-3 builds upon previous work by significantly improving its ability to handle very large datasets, up to a million rows, while also becoming much faster to train and use. A key innovation is &quot;test-time compute scaling,&quot; which allows the model to adjust its processing power during prediction to achieve better results, especially when dealing with complex problems. This model was trained entirely on simulated data, demonstrating that high performance can be achieved without needing real-world information for initial training.</p><p>This advancement is exciting because it promises more powerful and efficient AI for a wide range of real-world applications, from scientific discovery to business forecasting, making sophisticated data analysis more accessible and effective.</p>
   </div>
 
   <details class="deep">
@@ -415,10 +415,20 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Most of the important predictions we make in science and business rely on tabular data – think of spreadsheets or databases with rows and columns. For a long time, a type of model called gradient-boosted trees was the go-to for these tasks. However, recent advancements, particularly with &quot;foundation models&quot; (large models trained on vast amounts of data that can be adapted to many tasks), have shown promise in outperforming these traditional methods. The previous generation of TabPFN models was a significant step in this direction for tabular data, but they were limited in the size of datasets they could handle and their training and prediction speeds. This research aims to address these limitations, pushing the boundaries of what's possible with tabular foundation models.</p>
-<h3>What they did</h3><p>This paper introduces TabPFN-3, an upgraded version of their tabular foundation model. The core idea behind TabPFN is &quot;in-context learning&quot; (ICL), where the model learns from examples provided directly in its input, much like how a human might learn a new concept by seeing a few examples. TabPFN-3 builds on this by introducing several key improvements. First, its architecture is redesigned to handle much larger datasets, scaling up to 1 million training rows. This involves a new &quot;many-class decoder&quot; that can handle classification problems with a very large number of possible outcomes, and optimizations like &quot;row-chunking&quot; and a &quot;reduced KV cache&quot; that allow the model to process these massive datasets efficiently on a single GPU without running out of memory. They also developed a more sophisticated &quot;synthetic prior&quot; – essentially, a way to generate vast amounts of realistic-looking fake data – to train the model on an unprecedented scale (over 8 trillion tokens). This training on synthetic data allows the model to learn general patterns in tabular data without needing to be trained on specific real-world datasets from scratch. Furthermore, they introduce &quot;TabPFN-3-Plus (Thinking),&quot; a special mode that uses additional computation at prediction time to further boost accuracy, and also adds native support for handling text data directly within the tabular structure.</p>
-<h3>What they found</h3><p>TabPFN-3 demonstrates a significant leap in performance. On the standard TabArena benchmark, a single pass of TabPFN-3 outperforms all other models, including highly tuned and ensembled (combined) baselines, by a substantial margin. Its &quot;Thinking&quot; mode, TabPFN-3-Plus (Thinking), achieves even more impressive results, outperforming models like AutoGluon 1.5 extreme by over 200 Elo points on TabArena and being 10 times faster. Crucially, TabPFN-3 scales effectively to datasets with up to 1 million training rows and 200 features, outperforming 8-hour-tuned gradient-boosted tree baselines. It also shows state-of-the-art performance on relational data and tabular-text data. The model is also significantly faster than its predecessor, TabPFN-2.5, being up to 20 times faster. For interpretability, the speed improvements mean that calculating Shapley values (a way to understand feature importance) is up to 120 times faster.</p>
-<h3>Why it matters</h3><p>This work represents a major advancement in applying foundation models to tabular data, which is the backbone of many critical applications. By dramatically increasing the scale and speed of tabular prediction, TabPFN-3 makes high-performance machine learning more accessible and practical for real-world problems involving large datasets. The ability to handle millions of rows and even text data natively within a tabular context opens up new possibilities for predictive modeling in fields like finance, healthcare, and scientific research. While the model is trained on synthetic data, its strong performance on diverse benchmarks suggests it generalizes exceptionally well to real-world scenarios. The &quot;Thinking&quot; mode and native text support in TabPFN-3-Plus further enhance its versatility and power, offering a compelling alternative to traditional methods and even other advanced AutoML systems, all while being significantly faster.</p>
+      <h3>Background</h3><p>Most of the important predictions we make in science and business rely on tabular data. Think of spreadsheets or databases with rows and columns of information. For years, a type of model called gradient-boosted trees has been the go-to tool for these tasks. However, recent advancements, particularly with &quot;foundation models&quot; adapted for tabular data, have started to outperform these traditional methods. The TabPFN (Tabular Probabilistic Foundation Network) family of models has been at the forefront of this revolution, showing that a single forward pass of a powerful, pre-trained model can achieve state-of-the-art results. This research builds on that success, aiming to make these advanced models even more powerful, faster, and capable of handling much larger datasets than before.</p>
+<h3>What they did</h3><p>This paper introduces TabPFN-3, a significant upgrade to the Tabular Probabilistic Foundation Network. The core idea is to take the existing TabPFN architecture, which uses a transformer-like neural network, and make it scale to datasets with up to 1 million training rows. This is a massive leap from previous versions that topped out around 100,000 rows.</p><p>To achieve this, they've made several key architectural and engineering changes:
+*</p>
+<h3>Scaling Up</h3><p>The architecture has been redesigned to handle more data. It now uses a &quot;two-stage row-compression&quot; approach. First, it processes features column by column to understand their distributions, then it aggregates these features row by row into a fixed-size representation. Finally, a transformer layer performs &quot;in-context learning,&quot; where it learns relationships between the training data and uses them to make predictions on new data. This separation allows it to process many more rows without becoming computationally infeasible.
+*</p>
+<h3>Many-Class Classification</h3><p>A new &quot;attention-based retrieval decoder&quot; has been added. This allows TabPFN-3 to handle classification problems with a very large number of possible outcomes (classes), something older models struggled with.
+*</p>
+<h3>Inference Optimization</h3><p>To make predictions fast, especially on large datasets, they've introduced &quot;row-chunking&quot; and a &quot;reduced KV cache.&quot; Row-chunking breaks down the processing of large datasets into smaller, manageable pieces that fit into the GPU's memory. The reduced KV cache is a clever way to store intermediate calculations from the training data that are needed for predictions, significantly speeding up the prediction process and reducing memory usage.
+*</p>
+<h3>Synthetic Prior</h3><p>Like its predecessors, TabPFN-3 is pre-trained on a vast amount of *synthetic* data generated by a sophisticated system called a Structural Causal Model (SCM). This SCM has been improved to create more diverse and realistic data, covering more complex relationships, including temporal and spatial structures, and even out-of-distribution scenarios.
+*</p>
+<h3>TabPFN-3-Plus and Thinking Mode</h3><p>Beyond the core open-source model, they offer TabPFN-3-Plus, which can natively handle text data within tables without requiring separate text processing steps. Furthermore, &quot;Thinking mode&quot; (TabPFN-3-Plus (Thinking)) applies extra computation *at prediction time* to further boost accuracy, achieving remarkable results without using external tools like large language models (LLMs).</p>
+<h3>What they found</h3><p>The results are impressive across the board. On the standard TabArena benchmark, TabPFN-3's single forward pass outperforms all other models, including highly tuned and ensembled traditional methods. TabPFN-3-Plus (Thinking) is even more remarkable, achieving over 200 Elo points higher than any non-TabPFN model and significantly outperforming AutoGluon 1.5 extreme (a complex ensemble tuned for 4 hours) while being 10 times faster.</p><p>Crucially, TabPFN-3 scales to datasets with up to 1 million training rows and 200 features, outperforming 8-hour-tuned gradient-boosted trees on these large datasets. It also ranks first on datasets with many classes. For time-series forecasting, a specialized version, TabPFN-TS-3, ranks second on the fev-bench benchmark. Interpretability tools like SHAP-value computation are also dramatically faster, up to 120x with the new caching mechanism. The new architecture and optimizations make TabPFN-3 up to 20 times faster than its predecessor, TabPFN-2.5, while handling much larger datasets.</p>
+<h3>Why it matters</h3><p>TabPFN-3 represents a significant step forward in making powerful, general-purpose machine learning models accessible for tabular data. The ability to handle datasets up to 1 million rows efficiently means that previously intractable problems in fields like finance, healthcare, and scientific research can now be tackled with state-of-the-art accuracy. The speed improvements and the &quot;Thinking mode&quot; offer a compelling trade-off between performance and computational cost, making advanced AI more practical for real-world deployment. Furthermore, the native handling of text in tables broadens its applicability to a wider range of business problems. While the model is highly capable, its limitations include the fact that its pre-training is still based on synthetic data, and the &quot;Thinking mode&quot; adds computational cost at inference time, even though it's much faster than alternatives. Nevertheless, TabPFN-3 pushes the frontier of what's possible with tabular data, democratizing access to high-performance prediction models.</p>
     </div>
   </details>
 
@@ -430,7 +440,7 @@
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-05-15 06:23 UTC</span>
+    <span>Generated 2026-05-15 07:39 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -449,6 +459,7 @@
     date:      "Friday, May 15, 2026",
     publishedDate: "2026-05-15",
     absUrl:    "https://arxiv.org/abs/2605.13986",
+    audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
 
@@ -508,13 +519,68 @@
   const stopIcon  = listenBtn.querySelector('.stop-icon');
   const brief     = document.getElementById('brief');
 
-  // Bail gracefully on unsupported browsers
-  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
-    listenBtn.disabled = true;
-    listenBtn.title = 'Speech not supported in this browser';
-    listenBtn.style.opacity = '0.4';
-    return;
+  function setPlayingUI(playing) {
+    listenBtn.setAttribute('data-state', playing ? 'playing' : 'idle');
+    listenBtn.setAttribute('aria-label', playing ? 'Stop reading' : 'Read aloud');
+    playIcon.style.display = playing ? 'none' : '';
+    stopIcon.style.display = playing ? '' : 'none';
   }
+
+  // ====== MP3 playback (primary path: pre-rendered edge-tts audio) ======
+  if (PAPER.audioUrl) {
+    const audio = new Audio(PAPER.audioUrl);
+    audio.preload = 'metadata';
+    let mp3Working = true;
+
+    audio.addEventListener('play',  () => setPlayingUI(true));
+    audio.addEventListener('pause', () => setPlayingUI(false));
+    audio.addEventListener('ended', () => setPlayingUI(false));
+    audio.addEventListener('error', () => {
+      // 404 / decode error / etc. — fall back to browser TTS by failing closed.
+      mp3Working = false;
+      console.warn('MP3 audio unavailable, falling back to browser TTS');
+      setPlayingUI(false);
+      wireBrowserTTS();
+    });
+
+    listenBtn.addEventListener('click', () => {
+      if (!mp3Working) return;   // fallback path will have replaced this handler
+      if (audio.paused) {
+        audio.play().catch(err => {
+          console.warn('MP3 play failed:', err);
+          mp3Working = false;
+          wireBrowserTTS();
+        });
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+
+    // Stop on navigation away
+    window.addEventListener('beforeunload', () => audio.pause());
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && !audio.paused) audio.pause();
+    });
+
+    return;   // MP3 path is wired; skip browser TTS setup entirely
+  }
+
+  // ====== Browser TTS fallback ======
+  wireBrowserTTS();
+
+  function wireBrowserTTS() {
+    // Bail gracefully on unsupported browsers
+    if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+      listenBtn.disabled = true;
+      listenBtn.title = 'Speech not supported in this browser';
+      listenBtn.style.opacity = '0.4';
+      return;
+    }
+    setupBrowserTTS();
+  }
+
+  function setupBrowserTTS() {
 
   // Pick the most natural-sounding English voice available
   function pickVoice() {
@@ -583,12 +649,9 @@
   let isPlaying = false;
   let currentUtter = null;
 
-  function setPlayingUI(playing) {
+  function setTTSPlaying(playing) {
     isPlaying = playing;
-    listenBtn.setAttribute('data-state', playing ? 'playing' : 'idle');
-    listenBtn.setAttribute('aria-label', playing ? 'Stop reading' : 'Read aloud');
-    playIcon.style.display = playing ? 'none' : '';
-    stopIcon.style.display = playing ? '' : 'none';
+    setPlayingUI(playing);
   }
 
   function clearHighlight() {
@@ -627,7 +690,7 @@
     if (!queue) queue = buildSentenceQueue();
     if (!queue.length) { toast('Nothing to read'); return; }
     currentIndex = 0;
-    setPlayingUI(true);
+    setTTSPlaying(true);
     ensureVoice(() => {
       // Some browsers (Chrome) cut off after ~15s; nudge with pause/resume.
       window.speechSynthesis.cancel();
@@ -637,7 +700,7 @@
   }
 
   function stopReading() {
-    setPlayingUI(false);
+    setTTSPlaying(false);
     window.speechSynthesis.cancel();
     clearHighlight();
     currentUtter = null;
@@ -667,6 +730,8 @@
   document.addEventListener('visibilitychange', () => {
     if (document.hidden && isPlaying) stopReading();
   });
+
+  } // end setupBrowserTTS
 
 })();
 </script>
