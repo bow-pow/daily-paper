@@ -818,16 +818,29 @@ def main() -> int:
     print("Synthesizing audio...")
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Pick a non-colliding archive filename stem for today. If today's date file
+    # already exists, append a counter: 2026-05-15.html, then 2026-05-15-2.html,
+    # 2026-05-15-3.html, etc. This way running multiple times in one day keeps
+    # all picks instead of overwriting earlier ones.
+    archive_stem = today_iso
+    if (ARCHIVE_DIR / f"{archive_stem}.html").exists():
+        n = 2
+        while (ARCHIVE_DIR / f"{today_iso}-{n}.html").exists():
+            n += 1
+        archive_stem = f"{today_iso}-{n}"
+    print(f"Archive stem for this run: {archive_stem}")
+
     audio_path = SITE_DIR / "today.mp3"
     audio_ok = synthesize_brief_audio(brief, audio_path)
     if audio_ok:
-        # Archive a per-date copy so old days keep their audio
-        archive_audio = ARCHIVE_DIR / f"{today_iso}.mp3"
+        # Archive a per-stem copy so old entries keep their audio intact.
+        archive_audio = ARCHIVE_DIR / f"{archive_stem}.mp3"
         archive_audio.write_bytes(audio_path.read_bytes())
         size_kb = audio_path.stat().st_size // 1024
-        print(f"  wrote site/today.mp3 ({size_kb} KB) and archive/{today_iso}.mp3")
+        print(f"  wrote site/today.mp3 ({size_kb} KB) and archive/{archive_stem}.mp3")
     else:
-        # Stale audio from a previous day would mismatch today's text.
+        # Stale audio from a previous run would mismatch today's text.
         if audio_path.exists():
             audio_path.unlink()
         print("  audio synthesis failed; page will fall back to browser TTS")
@@ -839,12 +852,13 @@ def main() -> int:
     )
     (SITE_DIR / "index.html").write_text(html_index, encoding="utf-8")
 
-    # Render the archived copy — references its dated audio file
+    # Render the archived copy — references its own dated audio file so reruns
+    # don't clobber earlier picks
     html_archive = render_page(
         paper, brief, deep_html, generated_at, today_label,
-        audio_url=f"{today_iso}.mp3" if audio_ok else "",
+        audio_url=f"{archive_stem}.mp3" if audio_ok else "",
     )
-    (ARCHIVE_DIR / f"{today_iso}.html").write_text(html_archive, encoding="utf-8")
+    (ARCHIVE_DIR / f"{archive_stem}.html").write_text(html_archive, encoding="utf-8")
 
     # Ship the favorites page alongside the index. It's static and the same
     # every day; just copy it from the scripts/ directory.
@@ -854,7 +868,7 @@ def main() -> int:
             favs_src.read_text(encoding="utf-8"), encoding="utf-8"
         )
 
-    print(f"Wrote site/index.html and archive/{today_iso}.html")
+    print(f"Wrote site/index.html and archive/{archive_stem}.html")
     return 0
 
 
