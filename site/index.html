@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TabPFN-3: Technical Report — Daily Paper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #f4efe6;
+    --paper-edge:   #e8e1d3;
+    --ink:          #1f1d1a;
+    --ink-soft:     #4a463f;
+    --ink-faded:    #7a7468;
+    --accent:       #8a3324;
+    --rule:         #c9c1b0;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-image:
+      radial-gradient(at 12% 8%,  rgba(138, 51, 36, 0.04), transparent 40%),
+      radial-gradient(at 88% 92%, rgba(31, 29, 26, 0.05), transparent 40%);
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+
+  /* --- Masthead --- */
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 18px;
+    margin-bottom: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .brand .dot {
+    color: var(--accent);
+    margin: 0 0.2em;
+  }
+  .date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+
+  /* --- Meta strip --- */
+  .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faded);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .meta span { white-space: nowrap; }
+  .meta .arxiv-id { color: var(--accent); }
+
+  /* --- Title --- */
+  h1.paper-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(1.7rem, 4.5vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin: 0 0 18px;
+    color: var(--ink);
+  }
+  .authors {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+
+  /* --- Section labels --- */
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* --- Brief --- */
+  .brief {
+    font-size: 1.12rem;
+    line-height: 1.75;
+    margin-bottom: 44px;
+  }
+  .brief p { margin: 0 0 1em; }
+  .brief p:first-child::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 3.4em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.08em 0.08em 0 0;
+    color: var(--accent);
+  }
+
+  /* --- Deep dive --- */
+  details.deep {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 0;
+    margin: 0 0 36px;
+  }
+  details.deep summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    user-select: none;
+  }
+  details.deep summary::-webkit-details-marker { display: none; }
+  details.deep summary .label-text { display: flex; flex-direction: column; gap: 4px; }
+  details.deep summary .label-text .sub {
+    font-weight: 400;
+    color: var(--ink-faded);
+    font-size: 0.78rem;
+    font-style: italic;
+  }
+  details.deep summary .chev {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--accent);
+    transition: transform 0.25s ease;
+  }
+  details.deep[open] summary .chev { transform: rotate(45deg); }
+  details.deep .deep-body {
+    margin-top: 28px;
+    animation: fadein 0.4s ease;
+  }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  details.deep h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 28px 0 10px;
+  }
+  details.deep h3:first-child { margin-top: 4px; }
+  details.deep p {
+    margin: 0 0 0.95em;
+    font-size: 1.04rem;
+    line-height: 1.72;
+  }
+
+  /* --- Footer links --- */
+  .links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .links a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    padding: 9px 16px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.4);
+    transition: all 0.15s ease;
+  }
+  .links a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255,255,255,0.7);
+  }
+  .links a .arrow {
+    margin-left: 6px;
+    font-family: 'Fraunces', serif;
+  }
+
+  footer.colophon {
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faded);
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  footer.colophon a {
+    color: var(--ink-faded);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faded);
+  }
+  footer.colophon a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  @media (max-width: 520px) {
+    .page { padding: 36px 20px 72px; }
+    .brief { font-size: 1.04rem; }
+    .brief p:first-child::first-letter { font-size: 2.8em; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="brand">Daily<span class="dot">·</span>Paper</div>
+    <div class="date">Friday, May 15, 2026</div>
+  </header>
+
+  <div class="meta">
+    <span class="arxiv-id">arXiv:2605.13986</span>
+    <span>cs.LG</span>
+    <span>Submitted 2026-05-15</span>
+  </div>
+
+  <h1 class="paper-title">TabPFN-3: Technical Report</h1>
+  <div class="authors">L\'eo Grinsztajn (Liam), Klemens Fl\&quot;oge (Liam), Oscar Key (Liam), Felix Birkel (Liam), Philipp Jund (Liam), Brendan Roof (Liam) et al.</div>
+
+  <div class="section-label">The Brief</div>
+  <div class="brief">
+    <p>This research introduces TabPFN-3, a significantly improved AI model designed to make predictions from tabular data, which is the kind of data found in spreadsheets and databases.</p><p>TabPFN-3 builds upon previous work by being able to handle much larger datasets, up to a million rows, and doing so much faster. It achieves this by using a clever technique called &quot;test-time compute scaling,&quot; which allows it to adapt its processing power during prediction. This model was trained entirely on synthetic, or artificially generated, data, yet it demonstrates remarkable performance across various prediction tasks, including time series, relational data, and data combining tables with text.</p><p>For someone not in the field, this is interesting because it means AI can now tackle more complex, real-world prediction problems that rely on large amounts of structured data, potentially leading to better insights and decisions in areas like finance, healthcare, and scientific research.</p>
+  </div>
+
+  <details class="deep">
+    <summary>
+      <span class="label-text">
+        <span>Read the full-paper summary</span>
+        <span class="sub">A deeper section-by-section walkthrough</span>
+      </span>
+      <span class="chev">+</span>
+    </summary>
+    <div class="deep-body">
+      <h3>Background</h3><p>Most of the important predictions we make in science and business rely on tabular data – think of spreadsheets or databases where information is organized into rows and columns. For a long time, a type of algorithm called gradient-boosted trees was the go-to for these tasks. However, more recently, a new approach called &quot;foundation models&quot; has started to outperform these traditional methods, especially on smaller datasets. The TabPFN (Tabular Probabilistic Foundation Network) has been a leader in this area, showing that a single model, trained on a lot of synthetic (artificially generated) data, can achieve excellent results without needing extensive tuning for each new problem. This research aims to build on that success, specifically by tackling the challenge of much larger datasets and improving the speed of these powerful models.</p>
+<h3>What they did</h3><p>This paper introduces TabPFN-3, an upgraded version of the Tabular Probabilistic Foundation Network. The core idea is to make these foundation models work effectively on datasets with up to 1 million rows, a significant jump from previous capabilities. To achieve this, they redesigned the model's architecture. Instead of processing each row and feature individually in a way that becomes computationally expensive with more data, TabPFN-3 uses a multi-stage approach. First, it compresses information within each row (feature aggregation), and then it uses a transformer-based mechanism (in-context learning) to learn relationships between these compressed row representations. This allows the model to scale to many more rows.</p><p>Key innovations include:
+*</p>
+<h3>Scaling to 1 Million Rows</h3><p>Achieved through techniques like &quot;row-chunking,&quot; which breaks down the processing of large datasets into smaller, manageable parts that fit into a GPU's memory, and a &quot;reduced KV cache&quot; that efficiently stores intermediate calculations.
+*</p>
+<h3>Many-Class Decoder</h3><p>A new component that allows the model to handle classification problems with a very large number of possible outcomes (classes), something previous versions struggled with.
+*</p>
+<h3>Synthetic Prior</h3><p>The model is trained on a vast amount of synthetically generated data (over 8 trillion tokens) using an improved &quot;Structural Causal Model&quot; (SCM) prior. This prior is designed to mimic the complex relationships found in real-world data, including temporal and spatial structures.
+*</p>
+<h3>TabPFN-3-Plus (Thinking Mode)</h3><p>This is a special version accessible via an API. It uses &quot;test-time compute scaling,&quot; meaning it performs additional calculations during prediction to further boost accuracy. It also natively handles text data within tables.</p>
+<h3>What they found</h3><p>TabPFN-3 demonstrates significant improvements across various benchmarks. On the standard TabArena benchmark, a single forward pass of TabPFN-3 outperforms all other models, including highly tuned and ensembled (combined) traditional methods. The &quot;Thinking mode&quot; of TabPFN-3-Plus achieves even higher performance, beating AutoGluon 1.5 extreme (a strong AutoML system) by over 200 Elo points on TabArena, while being 10 times faster.</p><p>Crucially, TabPFN-3 scales to large datasets: it outperforms 8-hour-tuned gradient-boosted tree baselines on datasets up to 1 million training rows and 200 features. It also achieves state-of-the-art results on relational and tabular-text data. For time-series forecasting, a specialized checkpoint, TabPFN-TS-3, ranks second on the fev-bench benchmark. Furthermore, interpretability tools like SHAP-value computation are up to 120 times faster. Overall, TabPFN-3 is up to 20 times faster than its predecessor, TabPFN-2.5.</p>
+<h3>Why it matters</h3><p>TabPFN-3 represents a major step forward in making powerful, general-purpose predictive models accessible for real-world problems involving large tabular datasets. Its ability to achieve state-of-the-art performance with significantly reduced training and inference times means that businesses and researchers can deploy more accurate models faster and more efficiently. The native handling of text data and improved performance on diverse data types (time-series, relational) broaden its applicability. While the &quot;Thinking mode&quot; is currently an API offering, the open-source release of TabPFN-3 itself democratizes access to advanced tabular prediction capabilities. The key takeaway is that foundation models are now not only matching but exceeding traditional methods, even on massive datasets, and are becoming faster and more versatile. However, the full capabilities of the &quot;Thinking mode&quot; and its reliance on proprietary API access might be a limitation for some users.</p>
+    </div>
+  </details>
+
+  <div class="links">
+    <a href="https://arxiv.org/abs/2605.13986" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2605.13986" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
+  </div>
+
+  <footer class="colophon">
+    <span>Generated 2026-05-15 05:56 UTC</span>
+    <span>One paper a day · arXiv + Gemini</span>
+  </footer>
+
+</div>
+</body>
+</html>
