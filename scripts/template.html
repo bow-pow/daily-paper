@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} — Daily Paper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #f4efe6;
+    --paper-edge:   #e8e1d3;
+    --ink:          #1f1d1a;
+    --ink-soft:     #4a463f;
+    --ink-faded:    #7a7468;
+    --accent:       #8a3324;
+    --rule:         #c9c1b0;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-image:
+      radial-gradient(at 12% 8%,  rgba(138, 51, 36, 0.04), transparent 40%),
+      radial-gradient(at 88% 92%, rgba(31, 29, 26, 0.05), transparent 40%);
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+
+  /* --- Masthead --- */
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 18px;
+    margin-bottom: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .brand .dot {
+    color: var(--accent);
+    margin: 0 0.2em;
+  }
+  .date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+
+  /* --- Meta strip --- */
+  .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faded);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .meta span { white-space: nowrap; }
+  .meta .arxiv-id { color: var(--accent); }
+
+  /* --- Title --- */
+  h1.paper-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(1.7rem, 4.5vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin: 0 0 18px;
+    color: var(--ink);
+  }
+  .authors {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+
+  /* --- Section labels --- */
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* --- Brief --- */
+  .brief {
+    font-size: 1.12rem;
+    line-height: 1.75;
+    margin-bottom: 44px;
+  }
+  .brief p { margin: 0 0 1em; }
+  .brief p:first-child::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 3.4em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.08em 0.08em 0 0;
+    color: var(--accent);
+  }
+
+  /* --- Deep dive --- */
+  details.deep {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 0;
+    margin: 0 0 36px;
+  }
+  details.deep summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    user-select: none;
+  }
+  details.deep summary::-webkit-details-marker { display: none; }
+  details.deep summary .label-text { display: flex; flex-direction: column; gap: 4px; }
+  details.deep summary .label-text .sub {
+    font-weight: 400;
+    color: var(--ink-faded);
+    font-size: 0.78rem;
+    font-style: italic;
+  }
+  details.deep summary .chev {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--accent);
+    transition: transform 0.25s ease;
+  }
+  details.deep[open] summary .chev { transform: rotate(45deg); }
+  details.deep .deep-body {
+    margin-top: 28px;
+    animation: fadein 0.4s ease;
+  }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  details.deep h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 28px 0 10px;
+  }
+  details.deep h3:first-child { margin-top: 4px; }
+  details.deep p {
+    margin: 0 0 0.95em;
+    font-size: 1.04rem;
+    line-height: 1.72;
+  }
+
+  /* --- Footer links --- */
+  .links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .links a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    padding: 9px 16px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.4);
+    transition: all 0.15s ease;
+  }
+  .links a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255,255,255,0.7);
+  }
+  .links a .arrow {
+    margin-left: 6px;
+    font-family: 'Fraunces', serif;
+  }
+
+  footer.colophon {
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faded);
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  footer.colophon a {
+    color: var(--ink-faded);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faded);
+  }
+  footer.colophon a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  @media (max-width: 520px) {
+    .page { padding: 36px 20px 72px; }
+    .brief { font-size: 1.04rem; }
+    .brief p:first-child::first-letter { font-size: 2.8em; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="brand">Daily<span class="dot">·</span>Paper</div>
+    <div class="date">{{TODAY_LABEL}}</div>
+  </header>
+
+  <div class="meta">
+    <span class="arxiv-id">arXiv:{{ARXIV_ID}}</span>
+    <span>{{CATEGORIES}}</span>
+    <span>Submitted {{PUBLISHED}}</span>
+  </div>
+
+  <h1 class="paper-title">{{TITLE}}</h1>
+  <div class="authors">{{AUTHORS}}</div>
+
+  <div class="section-label">The Brief</div>
+  <div class="brief">
+    {{BRIEF_HTML}}
+  </div>
+
+  <details class="deep">
+    <summary>
+      <span class="label-text">
+        <span>Read the full-paper summary</span>
+        <span class="sub">A deeper section-by-section walkthrough</span>
+      </span>
+      <span class="chev">+</span>
+    </summary>
+    <div class="deep-body">
+      {{DEEP_HTML}}
+    </div>
+  </details>
+
+  <div class="links">
+    <a href="{{ABS_URL}}" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="{{PDF_URL}}" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
+  </div>
+
+  <footer class="colophon">
+    <span>Generated {{GENERATED_AT}}</span>
+    <span>One paper a day · arXiv + Gemini</span>
+  </footer>
+
+</div>
+</body>
+</html>
