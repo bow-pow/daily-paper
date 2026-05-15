@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TabPFN-3: Technical Report — Daily Paper</title>
+<title>Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution — Daily Paper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -374,13 +374,13 @@
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2605.13986</span>
-    <span>cs.LG</span>
-    <span>Submitted 2026-05-15</span>
+    <span class="arxiv-id">arXiv:2605.15138</span>
+    <span></span>
+    <span>Submitted 2026-05-14</span>
   </div>
 
-  <h1 class="paper-title">TabPFN-3: Technical Report</h1>
-  <div class="authors">L\'eo Grinsztajn (Liam), Klemens Fl\&quot;oge (Liam), Oscar Key (Liam), Felix Birkel (Liam), Philipp Jund (Liam), Brendan Roof (Liam) et al.</div>
+  <h1 class="paper-title">Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution</h1>
+  <div class="authors">Saisab Sadhu, Pratinav Seth, Vinay Kumar Sankarapu</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -403,7 +403,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces TabPFN-3, an advanced AI model designed to make highly accurate predictions from structured data, like spreadsheets or databases.</p><p>TabPFN-3 builds upon previous work by significantly improving its ability to handle very large datasets, up to a million rows, while also becoming much faster to train and use. A key innovation is &quot;test-time compute scaling,&quot; which allows the model to adjust its processing power during prediction to achieve better results, especially when dealing with complex problems. This model was trained entirely on simulated data, demonstrating that high performance can be achieved without needing real-world information for initial training.</p><p>This advancement is exciting because it promises more powerful and efficient AI for a wide range of real-world applications, from scientific discovery to business forecasting, making sophisticated data analysis more accessible and effective.</p>
+    <p>This research tackles the problem of &quot;unlearning&quot; specific information from large AI language models, ensuring it's truly forgotten even after the model is compressed for practical use.</p><p>The core finding is that standard unlearning methods fail when models are compressed using techniques like 4-bit quantization (reducing the precision of numbers in the model). This happens because the small changes made for unlearning are too tiny to overcome the rounding effects of quantization, effectively making the forgotten information &quot;stick.&quot; The proposed solution, MANSU, uses a clever approach called &quot;circuit attribution&quot; to pinpoint the exact parts of the model responsible for the unwanted information and then modifies only those specific parts in a way that survives compression.</p><p>This is interesting because it addresses a critical security and privacy concern: how to reliably remove sensitive data from AI models without compromising their overall performance, especially as these models become smaller and more efficient for everyday applications.</p>
   </div>
 
   <details class="deep">
@@ -415,32 +415,29 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Most of the important predictions we make in science and business rely on tabular data. Think of spreadsheets or databases with rows and columns of information. For years, a type of model called gradient-boosted trees has been the go-to tool for these tasks. However, recent advancements, particularly with &quot;foundation models&quot; adapted for tabular data, have started to outperform these traditional methods. The TabPFN (Tabular Probabilistic Foundation Network) family of models has been at the forefront of this revolution, showing that a single forward pass of a powerful, pre-trained model can achieve state-of-the-art results. This research builds on that success, aiming to make these advanced models even more powerful, faster, and capable of handling much larger datasets than before.</p>
-<h3>What they did</h3><p>This paper introduces TabPFN-3, a significant upgrade to the Tabular Probabilistic Foundation Network. The core idea is to take the existing TabPFN architecture, which uses a transformer-like neural network, and make it scale to datasets with up to 1 million training rows. This is a massive leap from previous versions that topped out around 100,000 rows.</p><p>To achieve this, they've made several key architectural and engineering changes:
-*</p>
-<h3>Scaling Up</h3><p>The architecture has been redesigned to handle more data. It now uses a &quot;two-stage row-compression&quot; approach. First, it processes features column by column to understand their distributions, then it aggregates these features row by row into a fixed-size representation. Finally, a transformer layer performs &quot;in-context learning,&quot; where it learns relationships between the training data and uses them to make predictions on new data. This separation allows it to process many more rows without becoming computationally infeasible.
-*</p>
-<h3>Many-Class Classification</h3><p>A new &quot;attention-based retrieval decoder&quot; has been added. This allows TabPFN-3 to handle classification problems with a very large number of possible outcomes (classes), something older models struggled with.
-*</p>
-<h3>Inference Optimization</h3><p>To make predictions fast, especially on large datasets, they've introduced &quot;row-chunking&quot; and a &quot;reduced KV cache.&quot; Row-chunking breaks down the processing of large datasets into smaller, manageable pieces that fit into the GPU's memory. The reduced KV cache is a clever way to store intermediate calculations from the training data that are needed for predictions, significantly speeding up the prediction process and reducing memory usage.
-*</p>
-<h3>Synthetic Prior</h3><p>Like its predecessors, TabPFN-3 is pre-trained on a vast amount of *synthetic* data generated by a sophisticated system called a Structural Causal Model (SCM). This SCM has been improved to create more diverse and realistic data, covering more complex relationships, including temporal and spatial structures, and even out-of-distribution scenarios.
-*</p>
-<h3>TabPFN-3-Plus and Thinking Mode</h3><p>Beyond the core open-source model, they offer TabPFN-3-Plus, which can natively handle text data within tables without requiring separate text processing steps. Furthermore, &quot;Thinking mode&quot; (TabPFN-3-Plus (Thinking)) applies extra computation *at prediction time* to further boost accuracy, achieving remarkable results without using external tools like large language models (LLMs).</p>
-<h3>What they found</h3><p>The results are impressive across the board. On the standard TabArena benchmark, TabPFN-3's single forward pass outperforms all other models, including highly tuned and ensembled traditional methods. TabPFN-3-Plus (Thinking) is even more remarkable, achieving over 200 Elo points higher than any non-TabPFN model and significantly outperforming AutoGluon 1.5 extreme (a complex ensemble tuned for 4 hours) while being 10 times faster.</p><p>Crucially, TabPFN-3 scales to datasets with up to 1 million training rows and 200 features, outperforming 8-hour-tuned gradient-boosted trees on these large datasets. It also ranks first on datasets with many classes. For time-series forecasting, a specialized version, TabPFN-TS-3, ranks second on the fev-bench benchmark. Interpretability tools like SHAP-value computation are also dramatically faster, up to 120x with the new caching mechanism. The new architecture and optimizations make TabPFN-3 up to 20 times faster than its predecessor, TabPFN-2.5, while handling much larger datasets.</p>
-<h3>Why it matters</h3><p>TabPFN-3 represents a significant step forward in making powerful, general-purpose machine learning models accessible for tabular data. The ability to handle datasets up to 1 million rows efficiently means that previously intractable problems in fields like finance, healthcare, and scientific research can now be tackled with state-of-the-art accuracy. The speed improvements and the &quot;Thinking mode&quot; offer a compelling trade-off between performance and computational cost, making advanced AI more practical for real-world deployment. Furthermore, the native handling of text in tables broadens its applicability to a wider range of business problems. While the model is highly capable, its limitations include the fact that its pre-training is still based on synthetic data, and the &quot;Thinking mode&quot; adds computational cost at inference time, even though it's much faster than alternatives. Nevertheless, TabPFN-3 pushes the frontier of what's possible with tabular data, democratizing access to high-performance prediction models.</p>
+      <p>Here's an explainer of the research paper &quot;Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution&quot;:</p>
+<h3>Background</h3><p>Imagine you have a powerful AI language model, like the ones that can write text or answer questions. Sometimes, these models learn things they shouldn't – like how to build dangerous weapons or harmful chemicals. This &quot;hazardous knowledge&quot; needs to be removed, a process called &quot;machine unlearning.&quot; Furthermore, regulations like the GDPR give people the &quot;right to erasure,&quot; meaning their data, and any knowledge derived from it, must be removed from AI models. The problem is that when AI models are actually used, they are compressed to run faster and use less memory. This compression step, called &quot;quantization,&quot; can sometimes undo the unlearning process, making the model forget that it forgot. This research investigates why this happens and how to ensure unlearning sticks, even after compression.</p>
+<h3>What they did</h3><p>The core issue identified is that standard unlearning methods, which tweak the model's internal parameters (weights), make changes that are too small to survive the aggressive compression (4-bit quantization) used in deployed models. These tiny changes get rounded away during compression, effectively restoring the forgotten knowledge. The researchers found that this happens because unlearning methods typically spread their changes across billions of parameters, diluting their impact.</p><p>To fix this, they developed a new method called MANSU (Mechanistic-Aligned Null-Space Unlearning). MANSU works in three steps:
+1.</p>
+<h3>Localize</h3><p>It first uses a technique called &quot;causal circuit attribution&quot; to pinpoint the specific, small group of parameters (a &quot;circuit&quot;) within the model that is responsible for the knowledge to be forgotten. This is like finding the exact wires in a complex machine that control a specific function.
+2.</p>
+<h3>Project</h3><p>Instead of making broad changes, MANSU focuses its unlearning updates only on this identified circuit. It then projects these updates into a &quot;null space,&quot; which is a mathematical way of making changes that minimize disruption to other, desired knowledge (the &quot;retain set&quot;).
+3.</p>
+<h3>Floor</h3><p>Crucially, MANSU enforces a &quot;magnitude floor.&quot; This means any parameter update that is smaller than the smallest &quot;bin&quot; in the quantization process is scaled up to be at least that size. This ensures that the changes made by MANSU are large enough to survive the compression step.</p><p>They also introduced a new way to measure if unlearning is truly &quot;structural&quot; (meaning the knowledge is gone from its source) rather than just behavioral (meaning the model might be finding a workaround). This metric is called Circuit Attribution Divergence (CAD).</p>
+<h3>What they found</h3><p>The research demonstrated a &quot;dual failure mode&quot; in existing unlearning methods: gradient-based methods that successfully forget in full precision lose that ability after quantization, while methods that survive quantization barely change the model at all. Specifically, they found that per-parameter updates in existing methods were 47 to 828 times smaller than the quantization bin width.</p><p>MANSU, however, successfully addresses this. It's the first method to jointly satisfy four key properties: meaningful forgetting, preserving desired knowledge, surviving quantization (a &quot;non-positive PTQ gap,&quot; meaning quantization doesn't reverse the forgetting), and achieving structural erasure. For example, on the WMDP-bio dataset using the Llama-3.1-8B model, MANSU achieved a quantization gap of -0.040, meaning quantization amplified the erasure, while preserving general model capabilities (MMLU score within 0.030 of the original model). In contrast, gradient-based methods showed recovery under compression, with accuracy increasing by up to +0.05.</p>
+<h3>Why it matters</h3><p>This research has significant implications for AI safety and regulatory compliance. It reveals a critical flaw in how we evaluate and implement machine unlearning: current methods are not robust to the compression techniques used in real-world AI deployments. This means that models deemed &quot;unlearned&quot; might not actually be safe or compliant once deployed.</p><p>MANSU offers a concrete solution by ensuring that forgetting is permanent, even after quantization. The introduction of CAD provides a much-needed mechanistic verification metric, moving beyond simple behavioral checks to confirm that the knowledge has been structurally removed. The findings highlight that for effective and durable unlearning, it's not just *what* changes you make, but *where* you make them (the circuit) and *how large* those changes are relative to the deployment environment (the quantization floor). This work provides a framework for developing more reliable and trustworthy AI systems.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2605.13986" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2605.13986" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2605.15138" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2605.15138" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-05-15 07:39 UTC</span>
+    <span>Generated 2026-05-15 09:37 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -454,11 +451,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2605.13986",
-    title:     "TabPFN-3: Technical Report",
+    id:        "2605.15138",
+    title:     "Forgetting That Sticks: Quantization-Permanent Unlearning via Circuit Attribution",
     date:      "Friday, May 15, 2026",
-    publishedDate: "2026-05-15",
-    absUrl:    "https://arxiv.org/abs/2605.13986",
+    publishedDate: "2026-05-14",
+    absUrl:    "https://arxiv.org/abs/2605.15138",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
