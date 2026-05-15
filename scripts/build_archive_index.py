@@ -25,10 +25,24 @@ def extract_cats(html: str) -> str:
     return m.group(1).strip() if m else ""
 
 
+def _sort_key(p):
+    """Sort archive entries so the newest pick of the newest date comes first.
+    Stem looks like '2026-05-15' or '2026-05-15-2' (suffix for same-day reruns).
+    """
+    stem = p.stem
+    m = re.match(r"^(\d{4}-\d{2}-\d{2})(?:-(\d+))?$", stem)
+    if not m:
+        return ("", 0)
+    date_str = m.group(1)
+    suffix = int(m.group(2)) if m.group(2) else 1
+    return (date_str, suffix)
+
+
 def main() -> None:
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     files = sorted(
         (p for p in ARCHIVE_DIR.glob("*.html") if p.name != "index.html"),
+        key=_sort_key,
         reverse=True,
     )
     rows = []
