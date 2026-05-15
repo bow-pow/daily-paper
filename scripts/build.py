@@ -49,6 +49,15 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "site"
 ARCHIVE_DIR = SITE_DIR / "archive"
 TEMPLATE_PATH = ROOT / "scripts" / "template.html"
+SEEN_PATH = ROOT / "seen.json"
+
+SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1/paper/batch"
+
+# How far back to look for candidates, per topic. CS fields move fast and
+# citations accumulate quickly, so 3 years is plenty. Math/physics/astro
+# citations build more slowly, so we widen the window to 5 years.
+def years_back_for(topic_label: str) -> int:
+    return 3 if topic_label.startswith("cs.") else 5
 
 
 # --- Data model --------------------------------------------------------------
@@ -109,10 +118,20 @@ def _http_get(url: str, timeout: int = 30, attempts: int = 5) -> bytes:
     raise RuntimeError(f"HTTP GET failed after {attempts} attempts: {last_err}")
 
 
-def _fetch_via_api(category_query: str, max_results: int) -> list[Paper]:
-    """Primary path: arXiv Atom API."""
+def _fetch_via_api(category_query: str, max_results: int, years_back: int) -> list[Paper]:
+    """Primary path: arXiv Atom API. Fetches up to `max_results` papers from
+    the given category, submitted within the last `years_back` years.
+    """
+    now = datetime.now(timezone.utc)
+    # arXiv submittedDate filter: YYYYMMDDHHMM in UTC
+    start = now.replace(year=now.year - years_back).strftime("%Y%m%d") + "0000"
+    end = now.strftime("%Y%m%d") + "2359"
+
     params = {
-        "search_query": f"cat:({category_query})",
+        "search_query": (
+            f"cat:({category_query}) "
+            f"AND submittedDate:[{start} TO {end}]"
+        ),
         "start": 0,
         "max_results": max_results,
         "sortBy": "submittedDate",
@@ -122,7 +141,7 @@ def _fetch_via_api(category_query: str, max_results: int) -> list[Paper]:
     # arXiv asks clients to wait ~3s between requests; pause before the first one
     # to be a polite neighbour on shared cloud IPs.
     time.sleep(3)
-    body = _http_get(url, timeout=30).decode("utf-8")
+    body = _http_get(url, timeout=45).decode("utf-8")
     return _parse_atom(body)
 
 
@@ -209,10 +228,19 @@ def _fetch_via_rss(category_query: str) -> list[Paper]:
     return papers
 
 
-def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
-    """Query arXiv for recent papers. Tries Atom API first, falls back to RSS."""
+def fetch_candidates(
+    category_query: str,
+    max_results: int = 200,
+    years_back: int = 3,
+) -> list[Paper]:
+    """Query arXiv for papers. Tries Atom API first, falls back to RSS.
+
+    With citation-based ranking, we want a wide pool from a multi-year window,
+    not just the last day. The RSS fallback only has yesterday's submissions,
+    so on fallback the picker just picks recency.
+    """
     try:
-        papers = _fetch_via_api(category_query, max_results)
+        papers = _fetch_via_api(category_query, max_results, years_back)
         if papers:
             return papers
         print("  API returned no results; trying RSS", file=sys.stderr)
@@ -221,14 +249,148 @@ def fetch_candidates(category_query: str, max_results: int = 25) -> list[Paper]:
     return _fetch_via_rss(category_query)
 
 
-def pick_paper(papers: list[Paper], seed: str) -> Paper:
-    """Pick one paper deterministically per day so reruns give the same result."""
+# --- Semantic Scholar scoring ----------------------------------------------
+
+def score_with_semantic_scholar(papers: list[Paper]) -> dict[str, dict]:
+    """Look up citation data for each paper. Returns dict keyed by arxiv_id with
+    fields {citations, influential, year, score}. Papers missing from the index
+    get score=0. Failure to reach the API returns {} (caller falls back).
+
+    Uses the batch endpoint which accepts up to 500 ids in one POST.
+    """
+    if not papers:
+        return {}
+
+    ids = [f"ARXIV:{p.arxiv_id}" for p in papers]
+    payload = json.dumps({"ids": ids}).encode("utf-8")
+    fields = "citationCount,influentialCitationCount,year,publicationDate,tldr"
+    url = f"{SEMANTIC_SCHOLAR_API}?fields={fields}"
+
+    req = urllib.request.Request(
+        url, data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": USER_AGENT,
+        },
+        method="POST",
+    )
+
+    # Semantic Scholar's free tier allows ~100 req / 5 min. Plenty for one
+    # call per day, but the endpoint can rate-limit on shared cloud IPs.
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                results = json.loads(r.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < 3:
+                wait = 20 * (2 ** attempt)  # 20, 40, 80
+                print(f"  Semantic Scholar 429; sleeping {wait}s", file=sys.stderr)
+                time.sleep(wait)
+                continue
+            print(f"  Semantic Scholar failed: {e}", file=sys.stderr)
+            return {}
+        except Exception as e:
+            print(f"  Semantic Scholar failed: {e!r}", file=sys.stderr)
+            if attempt < 3:
+                time.sleep(5 * (2 ** attempt))
+                continue
+            return {}
+    else:
+        return {}
+
+    # results is a list aligned with ids; entries can be None when SS doesn't
+    # have the paper (e.g. very recent submissions).
+    scores: dict[str, dict] = {}
+    current_year = datetime.now(timezone.utc).year
+    for paper, info in zip(papers, results):
+        if not info:
+            scores[paper.arxiv_id] = {"citations": 0, "influential": 0, "score": 0.0}
+            continue
+        citations = info.get("citationCount") or 0
+        influential = info.get("influentialCitationCount") or 0
+        year = info.get("year") or current_year
+        age_years = max(1, current_year - year + 1)
+        # Score: weight influential 3x raw, normalize by age so a 30-cite paper
+        # from this year scores like a 90-cite paper from 3 years ago.
+        # This gives "rising" recent papers a fair shot against established old ones.
+        score = (citations + 3 * influential) / age_years
+        tldr = (info.get("tldr") or {}).get("text") if info.get("tldr") else None
+        scores[paper.arxiv_id] = {
+            "citations": citations,
+            "influential": influential,
+            "year": year,
+            "score": score,
+            "tldr": tldr,
+        }
+    return scores
+
+
+# --- Picking ---------------------------------------------------------------
+
+def load_seen() -> set[str]:
+    """Load the set of arxiv IDs we've already shown the user."""
+    if not SEEN_PATH.exists():
+        return set()
+    try:
+        data = json.loads(SEEN_PATH.read_text(encoding="utf-8"))
+        return set(data.get("ids", []))
+    except Exception:
+        return set()
+
+
+def save_seen(seen: set[str]) -> None:
+    """Persist the seen set. Trimmed to 1000 entries (the most recent ones win)
+    so the file doesn't grow forever.
+    """
+    ids = list(seen)
+    if len(ids) > 1000:
+        ids = ids[-1000:]
+    SEEN_PATH.write_text(
+        json.dumps({"ids": ids}, indent=2), encoding="utf-8"
+    )
+
+
+def pick_paper(
+    papers: list[Paper],
+    scores: dict[str, dict],
+    seen: set[str],
+    seed: str,
+) -> tuple[Paper, dict | None]:
+    """Pick the highest-scored paper that the user hasn't been shown before.
+
+    Returns (paper, score_info). score_info is None if scoring was unavailable
+    or empty for this paper, in which case the caller knows it's a fallback pick.
+
+    If every paper has been seen (very rare — we keep 1000 in seen.json so this
+    only happens after >1000 days), fall back to a deterministic random pick.
+    """
+    # Filter out already-seen papers
+    fresh = [p for p in papers if p.arxiv_id not in seen]
+    if not fresh:
+        print("  all candidates seen; ignoring seen list", file=sys.stderr)
+        fresh = papers
+
+    if scores:
+        # Sort by score descending, breaking ties by recency (papers come in
+        # newest-first from arXiv, so stable sort preserves that)
+        ranked = sorted(fresh, key=lambda p: scores.get(p.arxiv_id, {}).get("score", 0), reverse=True)
+        top = ranked[0]
+        info = scores.get(top.arxiv_id)
+        # If the top-scored paper has zero citations, the scoring didn't help
+        # us — log it but still return the pick (it's still a recent paper).
+        if info and info.get("score", 0) > 0:
+            print(f"  top score: {info['citations']} citations "
+                  f"({info['influential']} influential), score={info['score']:.1f}")
+        else:
+            print("  top candidate has no citation data — likely too recent")
+        return top, info
+
+    # No scoring at all (Semantic Scholar unreachable). Deterministic random
+    # from the top of the recency list, same as the original behaviour.
     rng = random.Random(seed)
-    # Light bias toward papers with shorter, punchier abstracts — they're often
-    # cleaner reads. Just sample 5 candidates, keep the first that has >=4 authors
-    # or fallback to random pick. Keeps the rotation feeling fresh.
-    pool = papers[:15] or papers
-    return rng.choice(pool)
+    pool = fresh[:25] or fresh
+    return rng.choice(pool), None
 
 
 # --- PDF text extraction -----------------------------------------------------
@@ -514,16 +676,30 @@ def main() -> int:
     today_label = now.strftime("%A, %B %-d, %Y")
     generated_at = now.strftime("%Y-%m-%d %H:%M UTC")
 
-    print(f"[{today_iso}] Topic: {topic_label} ({category_query})")
+    years = years_back_for(topic_label)
+    print(f"[{today_iso}] Topic: {topic_label} ({category_query}); window: last {years} years")
 
-    candidates = fetch_candidates(category_query)
+    candidates = fetch_candidates(category_query, years_back=years)
     if not candidates:
         print("No candidates returned; aborting", file=sys.stderr)
         return 1
     print(f"Got {len(candidates)} candidates")
 
-    paper = pick_paper(candidates, seed=today_iso)
+    print("Scoring with Semantic Scholar...")
+    scores = score_with_semantic_scholar(candidates)
+    if scores:
+        scored = sum(1 for s in scores.values() if s.get("score", 0) > 0)
+        print(f"  scored {scored}/{len(candidates)} papers (others had no citations yet)")
+    else:
+        print("  scoring unavailable; will fall back to random pick")
+
+    seen = load_seen()
+    paper, score_info = pick_paper(candidates, scores, seen, seed=today_iso)
     print(f"Picked: {paper.arxiv_id} — {paper.title}")
+
+    # Record this pick so we don't repeat it next time
+    seen.add(paper.arxiv_id)
+    save_seen(seen)
 
     print("Generating brief summary...")
     brief = call_gemini(
