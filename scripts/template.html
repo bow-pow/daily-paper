@@ -446,6 +446,7 @@
     date:      "{{TODAY_LABEL}}",
     publishedDate: "{{PUBLISHED}}",
     absUrl:    "{{ABS_URL}}",
+    audioUrl:  "{{AUDIO_URL}}",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
 
@@ -505,13 +506,68 @@
   const stopIcon  = listenBtn.querySelector('.stop-icon');
   const brief     = document.getElementById('brief');
 
-  // Bail gracefully on unsupported browsers
-  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
-    listenBtn.disabled = true;
-    listenBtn.title = 'Speech not supported in this browser';
-    listenBtn.style.opacity = '0.4';
-    return;
+  function setPlayingUI(playing) {
+    listenBtn.setAttribute('data-state', playing ? 'playing' : 'idle');
+    listenBtn.setAttribute('aria-label', playing ? 'Stop reading' : 'Read aloud');
+    playIcon.style.display = playing ? 'none' : '';
+    stopIcon.style.display = playing ? '' : 'none';
   }
+
+  // ====== MP3 playback (primary path: pre-rendered edge-tts audio) ======
+  if (PAPER.audioUrl) {
+    const audio = new Audio(PAPER.audioUrl);
+    audio.preload = 'metadata';
+    let mp3Working = true;
+
+    audio.addEventListener('play',  () => setPlayingUI(true));
+    audio.addEventListener('pause', () => setPlayingUI(false));
+    audio.addEventListener('ended', () => setPlayingUI(false));
+    audio.addEventListener('error', () => {
+      // 404 / decode error / etc. — fall back to browser TTS by failing closed.
+      mp3Working = false;
+      console.warn('MP3 audio unavailable, falling back to browser TTS');
+      setPlayingUI(false);
+      wireBrowserTTS();
+    });
+
+    listenBtn.addEventListener('click', () => {
+      if (!mp3Working) return;   // fallback path will have replaced this handler
+      if (audio.paused) {
+        audio.play().catch(err => {
+          console.warn('MP3 play failed:', err);
+          mp3Working = false;
+          wireBrowserTTS();
+        });
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+
+    // Stop on navigation away
+    window.addEventListener('beforeunload', () => audio.pause());
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && !audio.paused) audio.pause();
+    });
+
+    return;   // MP3 path is wired; skip browser TTS setup entirely
+  }
+
+  // ====== Browser TTS fallback ======
+  wireBrowserTTS();
+
+  function wireBrowserTTS() {
+    // Bail gracefully on unsupported browsers
+    if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+      listenBtn.disabled = true;
+      listenBtn.title = 'Speech not supported in this browser';
+      listenBtn.style.opacity = '0.4';
+      return;
+    }
+    setupBrowserTTS();
+  }
+
+  function setupBrowserTTS() {
 
   // Pick the most natural-sounding English voice available
   function pickVoice() {
@@ -580,12 +636,9 @@
   let isPlaying = false;
   let currentUtter = null;
 
-  function setPlayingUI(playing) {
+  function setTTSPlaying(playing) {
     isPlaying = playing;
-    listenBtn.setAttribute('data-state', playing ? 'playing' : 'idle');
-    listenBtn.setAttribute('aria-label', playing ? 'Stop reading' : 'Read aloud');
-    playIcon.style.display = playing ? 'none' : '';
-    stopIcon.style.display = playing ? '' : 'none';
+    setPlayingUI(playing);
   }
 
   function clearHighlight() {
@@ -624,7 +677,7 @@
     if (!queue) queue = buildSentenceQueue();
     if (!queue.length) { toast('Nothing to read'); return; }
     currentIndex = 0;
-    setPlayingUI(true);
+    setTTSPlaying(true);
     ensureVoice(() => {
       // Some browsers (Chrome) cut off after ~15s; nudge with pause/resume.
       window.speechSynthesis.cancel();
@@ -634,7 +687,7 @@
   }
 
   function stopReading() {
-    setPlayingUI(false);
+    setTTSPlaying(false);
     window.speechSynthesis.cancel();
     clearHighlight();
     currentUtter = null;
@@ -664,6 +717,8 @@
   document.addEventListener('visibilitychange', () => {
     if (document.hidden && isPlaying) stopReading();
   });
+
+  } // end setupBrowserTTS
 
 })();
 </script>
