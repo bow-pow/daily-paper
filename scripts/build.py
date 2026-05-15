@@ -391,6 +391,16 @@ def render_deep_summary_html(text: str) -> str:
     return "\n".join(chunks)
 
 
+def escape_js(s: str) -> str:
+    """Escape a string for safe embedding inside a JS string literal in HTML.
+    Uses json.dumps for correct escaping, strips its outer quotes, and also
+    breaks any '</script' sequence that could otherwise close our script tag.
+    """
+    inner = json.dumps(s, ensure_ascii=False)[1:-1]
+    # Defend against accidental script-tag closure in the title
+    return inner.replace("</", "<\\/")
+
+
 def render_page(
     paper: Paper, brief: str, deep_html: str, generated_at: str, today_label: str
 ) -> str:
@@ -406,6 +416,7 @@ def render_page(
 
     return (template
         .replace("{{TITLE}}", escape(paper.title))
+        .replace("{{TITLE_JS}}", escape_js(paper.title))
         .replace("{{AUTHORS}}", escape(authors_str))
         .replace("{{CATEGORIES}}", escape(cats_str))
         .replace("{{PUBLISHED}}", escape(paper.published))
@@ -482,6 +493,14 @@ def main() -> int:
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "index.html").write_text(html, encoding="utf-8")
     (ARCHIVE_DIR / f"{today_iso}.html").write_text(html, encoding="utf-8")
+
+    # Ship the favorites page alongside the index. It's static and the same
+    # every day; just copy it from the scripts/ directory.
+    favs_src = ROOT / "scripts" / "favorites_page.html"
+    if favs_src.exists():
+        (SITE_DIR / "favorites.html").write_text(
+            favs_src.read_text(encoding="utf-8"), encoding="utf-8"
+        )
 
     print(f"Wrote site/index.html and archive/{today_iso}.html")
     return 0
