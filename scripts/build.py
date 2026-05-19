@@ -50,6 +50,8 @@ SITE_DIR = ROOT / "site"
 ARCHIVE_DIR = SITE_DIR / "archive"
 TEMPLATE_PATH = ROOT / "scripts" / "template.html"
 SEEN_PATH = ROOT / "seen.json"
+CACHE_DIR = ROOT / "candidates_cache"
+CACHE_MAX_AGE_DAYS = 7   # Reuse a cached candidate pool for up to a week.
 
 SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1/paper/batch"
 
@@ -93,14 +95,25 @@ def _http_get(url: str, timeout: int = 30, attempts: int = 5) -> bytes:
                 return r.read()
         except urllib.error.HTTPError as e:
             last_err = e
-            # 429 = rate limited. Respect Retry-After or wait longer.
+            # 429 = rate limited. arXiv per-IP blocks usually last hours; retrying
+            # inside one run just wastes time and digs the hole deeper. Try once
+            # with a short wait, then give up so the caller can fall back to cache.
             if e.code == 429:
-                retry_after = e.headers.get("Retry-After")
-                try:
-                    wait = int(retry_after) if retry_after else 0
-                except (TypeError, ValueError):
-                    wait = 0
-                wait = max(wait, 15 * (2 ** i))   # 15, 30, 60, 120, 240s
+                if i == 0:
+                    retry_after = e.headers.get("Retry-After")
+                    try:
+                        wait = int(retry_after) if retry_after else 15
+                    except (TypeError, ValueError):
+                        wait = 15
+                    wait = min(wait, 30)  # cap at 30s even if the server asks more
+                    print(f"  attempt {i+1}/{attempts}: HTTP 429; sleeping {wait}s",
+                          file=sys.stderr)
+                    time.sleep(wait)
+                    continue
+                # Second 429 means we're in the penalty box. Bail.
+                print(f"  attempt {i+1}/{attempts}: HTTP 429 again; giving up",
+                      file=sys.stderr)
+                raise
             elif 500 <= e.code < 600:
                 wait = 5 * (2 ** i)
             else:
@@ -234,7 +247,7 @@ def _fetch_via_rss(category_query: str) -> list[Paper]:
 def fetch_candidates(
     category_query: str,
     years_back: int = 3,
-    per_slice: int = 60,
+    per_slice: int = 30,
 ) -> list[Paper]:
     """Query arXiv for papers across a multi-year window. To make sure the
     candidate pool actually spans the whole window (rather than just the most
@@ -431,6 +444,49 @@ def save_seen(seen: set[str]) -> None:
     SEEN_PATH.write_text(
         json.dumps({"ids": ids}, indent=2), encoding="utf-8"
     )
+
+
+# --- Candidate caching ------------------------------------------------------
+
+def _cache_path(topic_label: str) -> Path:
+    """Cache filename per topic. Sanitize since labels can contain dots/slashes."""
+    safe = re.sub(r"[^a-zA-Z0-9._-]", "_", topic_label)
+    return CACHE_DIR / f"{safe}.json"
+
+
+def load_cached_candidates(topic_label: str) -> list[Paper] | None:
+    """Load a cached candidate pool if it's fresh enough. Returns None if no
+    cache exists or the cache is older than CACHE_MAX_AGE_DAYS.
+    """
+    path = _cache_path(topic_label)
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        fetched_at = datetime.fromisoformat(data["fetched_at"])
+        age = datetime.now(timezone.utc) - fetched_at
+        if age.days >= CACHE_MAX_AGE_DAYS:
+            print(f"  cache for {topic_label} is {age.days}d old; will refetch")
+            return None
+        papers = [Paper(**p) for p in data["papers"]]
+        print(f"  cache hit for {topic_label}: {len(papers)} papers, {age.days}d old")
+        return papers
+    except Exception as e:
+        print(f"  cache read failed for {topic_label}: {e!r}", file=sys.stderr)
+        return None
+
+
+def save_cached_candidates(topic_label: str, papers: list[Paper]) -> None:
+    """Persist a freshly-fetched candidate pool for reuse this week."""
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    path = _cache_path(topic_label)
+    data = {
+        "topic": topic_label,
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "papers": [p.__dict__ for p in papers],
+    }
+    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    print(f"  cached {len(papers)} papers for {topic_label}")
 
 
 def pick_paper(
@@ -761,9 +817,31 @@ def main() -> int:
     years = years_back_for(topic_label)
     print(f"[{today_iso}] Topic: {topic_label} ({category_query}); window: last {years} years")
 
-    candidates = fetch_candidates(category_query, years_back=years)
+    # Try cache first — if a fresh pool exists for this topic, skip arXiv entirely.
+    candidates = load_cached_candidates(topic_label)
+
     if not candidates:
-        print("No candidates returned; aborting", file=sys.stderr)
+        try:
+            candidates = fetch_candidates(category_query, years_back=years)
+            if candidates:
+                save_cached_candidates(topic_label, candidates)
+        except Exception as e:
+            print(f"  fetch failed: {e!r}", file=sys.stderr)
+            candidates = []
+
+        # If fresh fetch failed, last-ditch: try a stale cache (any age)
+        if not candidates:
+            stale_path = _cache_path(topic_label)
+            if stale_path.exists():
+                try:
+                    data = json.loads(stale_path.read_text(encoding="utf-8"))
+                    candidates = [Paper(**p) for p in data["papers"]]
+                    print(f"  using STALE cache for {topic_label}: {len(candidates)} papers")
+                except Exception as e:
+                    print(f"  stale cache read failed: {e!r}", file=sys.stderr)
+
+    if not candidates:
+        print("No candidates returned and no cache; aborting", file=sys.stderr)
         return 1
     print(f"Got {len(candidates)} candidates")
 
