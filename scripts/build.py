@@ -17,6 +17,7 @@ import random
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -272,17 +273,32 @@ def fetch_candidates(
 
     all_papers: list[Paper] = []
     seen_ids: set[str] = set()
-
-    for older_months, newer_months_unused in []:  # placeholder removed
-        pass
+    consecutive_failures = 0
+    rate_limited = False
 
     for newer, older in bucket_months:
         end = now - timedelta(days=newer * 30)
         start = now - timedelta(days=older * 30)
         try:
             chunk = _fetch_via_api(category_query, per_slice, start, end)
+            consecutive_failures = 0
+        except urllib.error.HTTPError as e:
+            print(f"  slice {newer}-{older}mo: HTTP {e.code}", file=sys.stderr)
+            if e.code == 429:
+                rate_limited = True
+            consecutive_failures += 1
+            if consecutive_failures >= 2:
+                print("  too many failures; abandoning Atom API for this run",
+                      file=sys.stderr)
+                break
+            continue
         except Exception as e:
             print(f"  slice {newer}-{older}mo failed: {e!r}", file=sys.stderr)
+            consecutive_failures += 1
+            if consecutive_failures >= 2:
+                print("  too many failures; abandoning Atom API for this run",
+                      file=sys.stderr)
+                break
             continue
         added = 0
         for p in chunk:
@@ -295,8 +311,12 @@ def fetch_candidates(
     if all_papers:
         return all_papers
 
-    # Total failure of all slices — try RSS fallback for recency-only picking
-    print("  all slices empty; trying RSS fallback", file=sys.stderr)
+    # Atom API returned nothing usable (empty, or fully blocked). Try RSS
+    # which lives on different infrastructure and is rarely rate-limited.
+    if rate_limited:
+        print("  Atom API is rate-limiting us; falling back to RSS", file=sys.stderr)
+    else:
+        print("  Atom API returned no candidates; trying RSS fallback", file=sys.stderr)
     return _fetch_via_rss(category_query)
 
 
