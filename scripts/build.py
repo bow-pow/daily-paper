@@ -353,12 +353,17 @@ def _ss_request_batch(ids: list[str]) -> list[dict | None] | None:
             with urllib.request.urlopen(req, timeout=45) as r:
                 return json.loads(r.read().decode("utf-8"))
         except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < 3:
-                wait = 20 * (2 ** attempt)
-                print(f"    chunk: 429; sleeping {wait}s", file=sys.stderr)
-                time.sleep(wait)
-                continue
-            # Try to read the error body for diagnostic info on 400s
+            # 429 from Semantic Scholar: one short retry, then bail. Long
+            # backoffs in a single run just waste time and dig us deeper.
+            if e.code == 429:
+                if attempt == 0:
+                    print(f"    chunk: 429; sleeping 15s", file=sys.stderr)
+                    time.sleep(15)
+                    continue
+                print(f"    chunk: 429 again; giving up on Semantic Scholar",
+                      file=sys.stderr)
+                return None
+            # Read error body for diagnostic info on 400s
             try:
                 err_body = e.read().decode("utf-8")[:200]
                 print(f"    chunk: HTTP {e.code}: {err_body}", file=sys.stderr)
@@ -405,13 +410,20 @@ def score_with_semantic_scholar(papers: list[Paper]) -> dict[str, dict]:
     # Process in chunks
     n_chunks = (len(valid) + SS_CHUNK_SIZE - 1) // SS_CHUNK_SIZE
     successful_chunks = 0
+    consecutive_failures = 0
     for i in range(0, len(valid), SS_CHUNK_SIZE):
         chunk = valid[i:i + SS_CHUNK_SIZE]
         ids = [f"ARXIV:{p.arxiv_id}" for p in chunk]
         results = _ss_request_batch(ids)
         if results is None:
             print(f"  chunk {i // SS_CHUNK_SIZE + 1}/{n_chunks}: failed", file=sys.stderr)
+            consecutive_failures += 1
+            if consecutive_failures >= 2:
+                print("  Semantic Scholar appears to be blocking; abandoning scoring",
+                      file=sys.stderr)
+                break
             continue
+        consecutive_failures = 0
         successful_chunks += 1
         for paper, info in zip(chunk, results):
             if not info:
