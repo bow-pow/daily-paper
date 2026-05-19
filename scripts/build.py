@@ -39,7 +39,7 @@ WEEKLY_TOPICS = {
 }
 
 ARXIV_API = "https://export.arxiv.org/api/query"
-USER_AGENT = "daily-paper/1.0 (https://github.com/; contact: github-actions)"
+USER_AGENT = "OneJournalADay/1.0 (https://www.linkedin.com/in/abhijeet-and-data/; personal-research-reader)"
 GEMINI_MODEL = "gemini-2.5-flash-lite"
 GEMINI_ENDPOINT = (
     f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
@@ -811,7 +811,9 @@ def main() -> int:
     weekday = now.weekday()
     topic_label, category_query = WEEKLY_TOPICS[weekday]
     today_iso = now.strftime("%Y-%m-%d")
-    today_label = now.strftime("%A, %B %-d, %Y")
+    # Build today_label manually because %-d (no zero-pad) is not portable to
+    # Windows — strftime there raises ValueError. f-string with int() handles it.
+    today_label = f"{now.strftime('%A, %B')} {now.day}, {now.year}"
     generated_at = now.strftime("%Y-%m-%d %H:%M UTC")
 
     years = years_back_for(topic_label)
