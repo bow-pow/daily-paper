@@ -637,8 +637,19 @@ Write a 500-700 word explainer with these sections, each on its own line prefixe
 Be direct and concrete. Do not say "this paper" or "the authors" — talk about the ideas directly. Do not invent details that aren't in the source. If the full text is missing or unhelpful, rely on the abstract and say less rather than guessing."""
 
 
-def call_gemini(prompt: str, api_key: str) -> str:
-    """Send a single prompt to Gemini and return the text response."""
+GEMINI_MAX_ATTEMPTS = 6      # was 5 — buys ~2 more minutes of runway for overload spikes
+GEMINI_MAX_WAIT_5XX = 90     # cap per-attempt sleep so a bad run doesn't spiral
+GEMINI_MAX_WAIT_429 = 300
+
+
+def call_gemini(prompt: str, api_key: str, *, required: bool = True) -> str | None:
+    """Send a single prompt to Gemini and return the text response.
+
+    If `required` is False and every retry is exhausted, this returns None
+    instead of raising, so callers with a sensible fallback (e.g. use the
+    abstract instead of a Gemini-written brief) can keep the build going
+    rather than aborting the whole run over one flaky API call.
+    """
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -650,7 +661,7 @@ def call_gemini(prompt: str, api_key: str) -> str:
     url = f"{GEMINI_ENDPOINT}?key={api_key}"
 
     last_err: Exception | None = None
-    for attempt in range(5):
+    for attempt in range(GEMINI_MAX_ATTEMPTS):
         req = urllib.request.Request(
             url, data=data,
             headers={"Content-Type": "application/json"},
@@ -676,22 +687,32 @@ def call_gemini(prompt: str, api_key: str) -> str:
                 pass
 
             if e.code == 429:
-                wait = max(body_wait, 30 * (2 ** attempt))  # 30, 60, 120, 240, 480s
+                wait = min(max(body_wait, 30 * (2 ** attempt)), GEMINI_MAX_WAIT_429)
             elif 500 <= e.code < 600:
-                wait = 5 * (2 ** attempt)
+                wait = min(5 * (2 ** attempt), GEMINI_MAX_WAIT_5XX)
             else:
                 # 400/401/403 etc. won't fix themselves — fail fast.
-                raise
-            print(f"  Gemini attempt {attempt+1}/5: HTTP {e.code}; sleeping {wait}s",
+                if required:
+                    raise
+                print(f"  Gemini attempt {attempt+1}/{GEMINI_MAX_ATTEMPTS}: "
+                      f"HTTP {e.code} (non-retryable); giving up on this call",
+                      file=sys.stderr)
+                return None
+            print(f"  Gemini attempt {attempt+1}/{GEMINI_MAX_ATTEMPTS}: HTTP {e.code}; sleeping {wait}s",
                   file=sys.stderr)
             time.sleep(wait)
         except Exception as e:
             last_err = e
-            wait = 5 * (2 ** attempt)
-            print(f"  Gemini attempt {attempt+1}/5 failed ({e!r}); sleeping {wait}s",
+            wait = min(5 * (2 ** attempt), GEMINI_MAX_WAIT_5XX)
+            print(f"  Gemini attempt {attempt+1}/{GEMINI_MAX_ATTEMPTS} failed ({e!r}); sleeping {wait}s",
                   file=sys.stderr)
             time.sleep(wait)
-    raise RuntimeError(f"Gemini call failed after retries: {last_err}")
+
+    if required:
+        raise RuntimeError(f"Gemini call failed after retries: {last_err}")
+    print(f"  Gemini call failed after {GEMINI_MAX_ATTEMPTS} attempts ({last_err!r}); "
+          f"continuing without it", file=sys.stderr)
+    return None
 
 
 # --- HTML rendering ----------------------------------------------------------
@@ -904,7 +925,12 @@ def main() -> int:
             abstract=paper.abstract,
         ),
         api_key,
+        required=False,
     )
+    if brief is None:
+        print("  brief summary unavailable; falling back to the raw abstract",
+              file=sys.stderr)
+        brief = paper.abstract
 
     print("Downloading PDF for deep summary...")
     fulltext = fetch_pdf_text(paper.pdf_url)
@@ -923,8 +949,19 @@ def main() -> int:
             fulltext=fulltext or "(full text unavailable; rely on abstract)",
         ),
         api_key,
+        required=False,
     )
-    deep_html = render_deep_summary_html(deep_raw)
+    if deep_raw is not None:
+        deep_html = render_deep_summary_html(deep_raw)
+    else:
+        print("  deep summary unavailable; publishing brief-only today",
+              file=sys.stderr)
+        deep_html = (
+            "<p><em>The deep explainer couldn't be generated today "
+            "&mdash; the AI service was temporarily unavailable. "
+            "Check back tomorrow, or read the abstract and full paper "
+            "via the links above.</em></p>"
+        )
 
     # Generate spoken-audio version of the brief. Non-fatal if it fails.
     print("Synthesizing audio...")
