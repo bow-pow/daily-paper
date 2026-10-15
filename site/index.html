@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finite generation of higher rank quasi-monomial valuations via the extended Rees algebra — One Journal A Day by Abhijeet</title>
+<title>DistRL: An Asynchronous Distributed Reinforcement Learning Framework for On-Device Control Agents — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Wednesday, October 14, 2026</div>
+    <div class="date">Thursday, October 15, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2510.10737</span>
+    <span class="arxiv-id">arXiv:2410.14803</span>
     <span></span>
-    <span>Submitted 2025-10-12</span>
+    <span>Submitted 2024-10-18</span>
   </div>
 
-  <h1 class="paper-title">Finite generation of higher rank quasi-monomial valuations via the extended Rees algebra</h1>
-  <div class="authors">Zhiyuan Chen</div>
+  <h1 class="paper-title">DistRL: An Asynchronous Distributed Reinforcement Learning Framework for On-Device Control Agents</h1>
+  <div class="authors">Taiyi Wang, Zhihao Wu, Jianheng Liu, Jianye Hao, Jun Wang, Kun Shao</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research tackles a fundamental problem in algebraic geometry concerning the structure of certain algebraic objects called &quot;valuations.&quot;</p><p>The core idea is to prove that a specific type of algebraic structure, the &quot;graded algebra associated with higher rank quasi-monomial valuations,&quot; can be built from a finite set of basic components. This is achieved by analyzing a related algebraic construction called the &quot;extended Rees algebra&quot; using purely algebraic techniques. This approach allows the results to extend to more complex situations than previously possible, including certain types of geometric &quot;fibrations&quot; and algebraic structures arising from &quot;divisors.&quot;</p><p>Understanding this finite generation is crucial because it provides a more manageable way to study the geometry of complex spaces, potentially leading to breakthroughs in understanding their properties and classification.</p>
+    <p>This research introduces a new system called DistRL that makes it much faster and more efficient to train AI agents that can control mobile devices, like your smartphone.</p><p>The core innovation is a clever way to handle the training process: while the AI learns from user interactions (data acquisition) happening on many devices simultaneously and independently (decentralized), a central &quot;brain&quot; (centralized training) uses this data to improve the AI's decision-making. They also developed a special learning algorithm that smartly decides what new experiences are most valuable to learn from, preventing wasted effort and ensuring the AI learns reliably. This combination speeds up training significantly and leads to AI agents that are better at understanding and performing tasks on Android devices.</p><p>This is exciting because it could lead to smarter, more helpful AI assistants on your phone that can understand complex requests and perform actions more accurately, all while being trained efficiently without needing massive, dedicated computing clusters.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,42 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>In the study of K-stability, a crucial concept in understanding the geometry of certain spaces (like Fano varieties) and their singularities, mathematicians are trying to understand how &quot;stable&quot; these objects are. A key tool is to associate a graded algebra to certain &quot;valuations&quot; (ways of measuring how &quot;big&quot; or &quot;small&quot; functions are near a point or on a variety). A major challenge has been to prove that these associated graded algebras are &quot;finitely generated.&quot; This means they can be described using a finite set of building blocks, which is essential for many advanced geometric constructions and proofs. Previous work had established this finite generation for specific types of valuations on &quot;qdlt Fano type&quot; models.</p>
-<h3>What they did</h3><p>This paper tackles the problem of finite generation for a broader class of valuations, called &quot;higher rank quasi-monomial valuations.&quot; Instead of relying on geometric degeneration methods used previously, the authors introduce a more algebraic approach. They focus on studying a structure called the &quot;extended Rees algebra.&quot; This is a sophisticated algebraic object that encodes information about filtrations (ordered sets of submodules) on rings, which are induced by valuations. By analyzing the properties of this extended Rees algebra, particularly its &quot;flatness&quot; (a technical term related to how well-behaved it is under certain algebraic operations) over a polynomial ring, they can deduce the finite generation of the associated graded algebra. This algebraic viewpoint allows them to generalize previous results to situations with more complex singularities or to different types of geometric objects like &quot;arbitrary divisors.&quot;</p>
-<h3>What they found</h3><p>The main result (Theorem 1.1) establishes that for a certain class of pairs (Y, ∆) and specific valuations (called quasi-monomial valuations), the associated graded algebra, denoted gr_v(R), is finitely generated over a base ring A. This theorem applies to valuations on models of &quot;Fano type&quot; even if the singularities are &quot;worse than qdlt&quot; (meaning they are not as well-behaved as previously studied cases). As a consequence, this finite generation holds for graded algebras arising from the &quot;multi-section ring&quot; of arbitrary divisors. The paper also provides a detailed structure for these graded algebras, showing they are related to polynomial rings over function fields of certain geometric centers.</p>
-<h3>Why it matters</h3><p>The finite generation of these graded algebras is a fundamental technical step that underpins many significant results in algebraic geometry, particularly in the theory of K-stability. It is essential for proving the equivalence of different notions of stability (K-stability and uniform K-stability), and for establishing the existence and properties of moduli spaces (spaces that parameterize geometric objects). By providing a new, more algebraic method, this work not only generalizes existing results to a wider range of geometric situations (including fibrations with worse singularities and arbitrary divisors) but also offers a powerful new tool for tackling similar problems in the future. The paper's approach is more flexible and can handle more complex valuations than previous methods.</p>
+      <h3>Background</h3><p>Imagine you're using your smartphone, and you want to do something complex, like &quot;find a recipe for vegan lasagna and add the ingredients to my shopping list.&quot; Right now, your phone can't really understand that command directly. To make this happen, we need &quot;on-device control agents&quot; – smart programs that can operate your phone's apps to fulfill your requests. The exciting part is that we can make these agents much smarter by using Large Language Models (LLMs), especially multimodal ones (MLLMs) that can understand text, images, and even sounds. However, teaching these powerful AI models to control a phone is tough. We don't have many examples of how to do it perfectly, and training them &quot;online&quot; (meaning, as they interact with the phone in real-time) is slow and inefficient. This research tackles this problem: how can we efficiently train AI agents to control mobile devices using LLMs, especially when we need them to learn and adapt as they go?</p>
+<h3>What they did</h3><p>This work introduces a new framework called DistRL, designed to make training these on-device control agents much faster and more effective. The core idea is to separate the &quot;thinking&quot; (training the AI model) from the &quot;doing&quot; (the AI agent actually interacting with the phone).</p><p>Here's how it works:</p><p>*</p>
+<h3>Decentralized Data Collection</h3><p>Instead of having one central computer try to control many phones, DistRL spreads this task out. Many &quot;worker&quot; machines, which can be different types of devices, each run an AI agent that interacts with a phone (or a phone emulator). These workers collect data by performing actions on the phone and observing the results. This is &quot;decentralized&quot; because each worker is doing its own thing independently.
+*</p>
+<h3>Centralized Training</h3><p>All the data collected by the many workers is sent to a powerful &quot;host learner&quot; machine. This machine, usually equipped with high-performance GPUs, uses this data to train and improve the AI model. This is &quot;centralized&quot; because the actual learning happens in one place.
+*</p>
+<h3>Asynchronous Operation</h3><p>A key innovation is that the workers and the host learner don't have to wait for each other. Workers can collect data at their own pace, and as soon as they have some data, they send it to the host. The host can then start training with whatever data it has received, without waiting for all workers to finish. This &quot;asynchronous&quot; approach is crucial because phone tasks can take vastly different amounts of time.
+*</p>
+<h3>A-RIDE Algorithm</h3><p>To make the most of this distributed and asynchronous setup, they developed a custom Reinforcement Learning (RL) algorithm called A-RIDE. RL is a way for AI to learn by trial and error, receiving rewards for good actions. A-RIDE is designed to:
+    *</p>
+<h3>Prioritize Important Data</h3><p>It uses a &quot;prioritized experience replay&quot; system, meaning it pays more attention to and replays the data that is most useful for learning, rather than just randomly using all collected data. This is like a student focusing on the hardest problems.
+    *</p>
+<h3>Improve Value Estimation</h3><p>It uses a technique called &quot;Retrace&quot; to make its estimates of how good a particular situation is more accurate, even when learning from data collected by slightly older versions of the AI.
+    *</p>
+<h3>Balance Exploration and Exploitation</h3><p>It encourages the AI to try new actions (&quot;exploration&quot;) while also using what it has learned to perform well (&quot;exploitation&quot;).</p>
+<h3>What they found</h3><p>The results show that DistRL is significantly more efficient and effective than previous methods.</p><p>*</p>
+<h3>Training Efficiency</h3><p>DistRL improves training efficiency by an average of 3 times. It also collects training data 2.4 times faster than leading synchronous multi-machine methods.
+*</p>
+<h3>Performance Improvement</h3><p>After training, agents trained with DistRL achieved a 20% relative improvement in success rate compared to state-of-the-art methods on general Android tasks.
+*</p>
+<h3>Scalability</h3><p>The framework scales well, with nearly linear performance increases as more computing resources (CPUs) are added.
+*</p>
+<h3>Comparison to Baselines</h3><p>DistRL outperformed methods like DigiRL (a previous leading framework), AutoUI, and even powerful models like GPT-4V and Gemini when used in a prompting-based approach, especially on complex, multi-step tasks. For instance, on the General test set, DistRL achieved a 73.2% success rate, compared to DigiRL's 61.2%.</p>
+<h3>Why it matters</h3><p>This research is important because it makes it much more feasible to train AI agents that can truly understand and operate our mobile devices. The current limitations of slow and inefficient training have been a major bottleneck. By introducing DistRL, the researchers have created a system that can learn more quickly and achieve better performance. This means we can expect more capable and helpful AI assistants on our phones and other devices in the future, leading to more seamless and intuitive interactions. The ability to learn &quot;in-the-wild&quot; and adapt to real-time changes in apps is crucial for these agents to be useful in the long run. While the current system is focused on Android, the principles of asynchronous, distributed training and prioritized data usage could be applied to other complex control tasks. A limitation, however, is the reliance on an AI evaluator for rewards, which, while efficient, might not perfectly capture human preferences in all nuanced situations.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2510.10737" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2510.10737" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2410.14803" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2410.14803" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-14 12:34 UTC</span>
+    <span>Generated 2026-10-15 12:20 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +483,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2510.10737",
-    title:     "Finite generation of higher rank quasi-monomial valuations via the extended Rees algebra",
-    date:      "Wednesday, October 14, 2026",
-    publishedDate: "2025-10-12",
-    absUrl:    "https://arxiv.org/abs/2510.10737",
+    id:        "2410.14803",
+    title:     "DistRL: An Asynchronous Distributed Reinforcement Learning Framework for On-Device Control Agents",
+    date:      "Thursday, October 15, 2026",
+    publishedDate: "2024-10-18",
+    absUrl:    "https://arxiv.org/abs/2410.14803",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
