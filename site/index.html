@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DistRL: An Asynchronous Distributed Reinforcement Learning Framework for On-Device Control Agents — One Journal A Day by Abhijeet</title>
+<title>A Control Theory of Predictability in Latent World Models — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Thursday, October 15, 2026</div>
+    <div class="date">Friday, October 16, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2410.14803</span>
+    <span class="arxiv-id">arXiv:2607.10362</span>
     <span></span>
-    <span>Submitted 2024-10-18</span>
+    <span>Submitted 2026-07-11</span>
   </div>
 
-  <h1 class="paper-title">DistRL: An Asynchronous Distributed Reinforcement Learning Framework for On-Device Control Agents</h1>
-  <div class="authors">Taiyi Wang, Zhihao Wu, Jianheng Liu, Jianye Hao, Jun Wang, Kun Shao</div>
+  <h1 class="paper-title">A Control Theory of Predictability in Latent World Models</h1>
+  <div class="authors">Hanzhe You, Yonggang Zhang, Maohao Ran, Zhiqin Yang, Zhenyuan Zhang, Wei Xue et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces a new system called DistRL that makes it much faster and more efficient to train AI agents that can control mobile devices, like your smartphone.</p><p>The core innovation is a clever way to handle the training process: while the AI learns from user interactions (data acquisition) happening on many devices simultaneously and independently (decentralized), a central &quot;brain&quot; (centralized training) uses this data to improve the AI's decision-making. They also developed a special learning algorithm that smartly decides what new experiences are most valuable to learn from, preventing wasted effort and ensuring the AI learns reliably. This combination speeds up training significantly and leads to AI agents that are better at understanding and performing tasks on Android devices.</p><p>This is exciting because it could lead to smarter, more helpful AI assistants on your phone that can understand complex requests and perform actions more accurately, all while being trained efficiently without needing massive, dedicated computing clusters.</p>
+    <p>This research proposes a new way to train AI systems that learn about the world to make better decisions.</p><p>Current AI models that predict future states from learned representations often use prediction error on past data as their main training goal, assuming less error means better control. However, this paper reveals that this assumption is flawed. When an AI planner tries out different actions, it often explores states that are different from the data it was trained on. Therefore, an error averaged over the training data doesn't accurately reflect how well the AI will perform in real-world planning. Instead, the paper suggests focusing on the difference between the AI's predicted cost of a plan and the actual cost, proving that this discrepancy directly bounds the AI's decision-making errors.</p><p>This work is interesting because it highlights a fundamental limitation in how we train AI for decision-making and offers a more robust approach that could lead to AI systems that are more reliable and perform better in complex, dynamic environments.</p>
   </div>
 
   <details class="deep">
@@ -434,42 +434,23 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine you're using your smartphone, and you want to do something complex, like &quot;find a recipe for vegan lasagna and add the ingredients to my shopping list.&quot; Right now, your phone can't really understand that command directly. To make this happen, we need &quot;on-device control agents&quot; – smart programs that can operate your phone's apps to fulfill your requests. The exciting part is that we can make these agents much smarter by using Large Language Models (LLMs), especially multimodal ones (MLLMs) that can understand text, images, and even sounds. However, teaching these powerful AI models to control a phone is tough. We don't have many examples of how to do it perfectly, and training them &quot;online&quot; (meaning, as they interact with the phone in real-time) is slow and inefficient. This research tackles this problem: how can we efficiently train AI agents to control mobile devices using LLMs, especially when we need them to learn and adapt as they go?</p>
-<h3>What they did</h3><p>This work introduces a new framework called DistRL, designed to make training these on-device control agents much faster and more effective. The core idea is to separate the &quot;thinking&quot; (training the AI model) from the &quot;doing&quot; (the AI agent actually interacting with the phone).</p><p>Here's how it works:</p><p>*</p>
-<h3>Decentralized Data Collection</h3><p>Instead of having one central computer try to control many phones, DistRL spreads this task out. Many &quot;worker&quot; machines, which can be different types of devices, each run an AI agent that interacts with a phone (or a phone emulator). These workers collect data by performing actions on the phone and observing the results. This is &quot;decentralized&quot; because each worker is doing its own thing independently.
-*</p>
-<h3>Centralized Training</h3><p>All the data collected by the many workers is sent to a powerful &quot;host learner&quot; machine. This machine, usually equipped with high-performance GPUs, uses this data to train and improve the AI model. This is &quot;centralized&quot; because the actual learning happens in one place.
-*</p>
-<h3>Asynchronous Operation</h3><p>A key innovation is that the workers and the host learner don't have to wait for each other. Workers can collect data at their own pace, and as soon as they have some data, they send it to the host. The host can then start training with whatever data it has received, without waiting for all workers to finish. This &quot;asynchronous&quot; approach is crucial because phone tasks can take vastly different amounts of time.
-*</p>
-<h3>A-RIDE Algorithm</h3><p>To make the most of this distributed and asynchronous setup, they developed a custom Reinforcement Learning (RL) algorithm called A-RIDE. RL is a way for AI to learn by trial and error, receiving rewards for good actions. A-RIDE is designed to:
-    *</p>
-<h3>Prioritize Important Data</h3><p>It uses a &quot;prioritized experience replay&quot; system, meaning it pays more attention to and replays the data that is most useful for learning, rather than just randomly using all collected data. This is like a student focusing on the hardest problems.
-    *</p>
-<h3>Improve Value Estimation</h3><p>It uses a technique called &quot;Retrace&quot; to make its estimates of how good a particular situation is more accurate, even when learning from data collected by slightly older versions of the AI.
-    *</p>
-<h3>Balance Exploration and Exploitation</h3><p>It encourages the AI to try new actions (&quot;exploration&quot;) while also using what it has learned to perform well (&quot;exploitation&quot;).</p>
-<h3>What they found</h3><p>The results show that DistRL is significantly more efficient and effective than previous methods.</p><p>*</p>
-<h3>Training Efficiency</h3><p>DistRL improves training efficiency by an average of 3 times. It also collects training data 2.4 times faster than leading synchronous multi-machine methods.
-*</p>
-<h3>Performance Improvement</h3><p>After training, agents trained with DistRL achieved a 20% relative improvement in success rate compared to state-of-the-art methods on general Android tasks.
-*</p>
-<h3>Scalability</h3><p>The framework scales well, with nearly linear performance increases as more computing resources (CPUs) are added.
-*</p>
-<h3>Comparison to Baselines</h3><p>DistRL outperformed methods like DigiRL (a previous leading framework), AutoUI, and even powerful models like GPT-4V and Gemini when used in a prompting-based approach, especially on complex, multi-step tasks. For instance, on the General test set, DistRL achieved a 73.2% success rate, compared to DigiRL's 61.2%.</p>
-<h3>Why it matters</h3><p>This research is important because it makes it much more feasible to train AI agents that can truly understand and operate our mobile devices. The current limitations of slow and inefficient training have been a major bottleneck. By introducing DistRL, the researchers have created a system that can learn more quickly and achieve better performance. This means we can expect more capable and helpful AI assistants on our phones and other devices in the future, leading to more seamless and intuitive interactions. The ability to learn &quot;in-the-wild&quot; and adapt to real-time changes in apps is crucial for these agents to be useful in the long run. While the current system is focused on Android, the principles of asynchronous, distributed training and prioritized data usage could be applied to other complex control tasks. A limitation, however, is the reliance on an AI evaluator for rewards, which, while efficient, might not perfectly capture human preferences in all nuanced situations.</p>
+      <p>Here's an explainer of the research paper, broken down into the requested sections:</p>
+<h3>Background</h3><p>Imagine you're teaching a robot to navigate a complex environment. You want it to learn how the world works so it can plan its actions effectively. A common approach is to build a &quot;world model&quot; – essentially, a simplified, internal simulation of the environment. This model is trained on observed data, learning to predict what will happen next given the current state and an action. The hope is that a more accurate prediction model will lead to better decision-making by the robot. However, this paper questions a fundamental assumption: that simply minimizing prediction errors on the data the model was trained on will automatically lead to good real-world performance. The problem is that when a robot plans, it often explores actions that lead it to situations *not* seen in the training data. The model might be great at predicting within its comfort zone but fail spectacularly when asked to extrapolate.</p>
+<h3>What they did</h3><p>This research proposes a new way to think about training these world models for planning. Instead of focusing solely on minimizing the average prediction error across the training data, they argue that the crucial factor is how well the model's *predicted plan cost* matches the *true plan cost* for the specific plans the planner is considering. Think of &quot;plan cost&quot; as how good or bad a sequence of actions is expected to be. They prove that the robot's overall performance (its &quot;suboptimality,&quot; meaning how far its chosen plan is from the best possible plan) is directly bounded by the difference between these predicted and true plan costs. This difference, they call the &quot;discrepancy.&quot;</p><p>They then break down this discrepancy into two parts. The first part is an &quot;on-manifold residual.&quot; This refers to prediction errors that happen when the model is still operating within the realm of its training data. The second, and more critical, part is an &quot;off-manifold divergence.&quot; This occurs when an action takes the robot's internal state *away* from the familiar data distribution. This divergence is the main culprit for poor planning, and they show that standard prediction errors, averaged over the training data, cannot capture or bound this off-manifold problem. They introduce concepts like a &quot;spectral tax&quot; to price the on-manifold part and a &quot;rollout tax&quot; for the off-manifold divergence, linking these to mathematical properties of the learned model, particularly its &quot;non-normality&quot; (a technical term describing how its internal dynamics behave).</p>
+<h3>What they found</h3><p>The core finding is that the standard way of training world models by minimizing prediction error is fundamentally flawed for planning. They demonstrate, both theoretically and empirically, that this &quot;data-averaged prediction error&quot; is largely uncorrelated with actual control success. In their experiments, they trained models using both the standard single-step prediction error and a multi-step rollout loss. They found that across different training runs (&quot;seeds&quot;), models with very similar prediction errors could have vastly different success rates in controlling a robot. For instance, on the &quot;PUSHT&quot; task, models with validation prediction losses within 8% of each other showed success rates ranging from 78% to 92%.</p><p>Crucially, they found that a different metric, a &quot;fidelity score&quot; measured on the states the planner *actually reaches* (the &quot;planner-reachable measure&quot;), *did* correlate strongly with control success. This score, which captures how well the model predicts trajectories in the states it's likely to encounter during planning, had a rank correlation of 0.62 with success, compared to 0.024 for the standard prediction error. They also introduced a &quot;linear state readout&quot; as a theory-guided intervention, which improved performance by focusing on the on-manifold aspects, showing gains of up to 7.8 percentage points on some tasks.</p>
+<h3>Why it matters</h3><p>This research fundamentally shifts how we should think about training AI models for tasks that involve planning and decision-making. It highlights that simply making a model good at predicting what it has already seen isn't enough. The real challenge lies in ensuring the model's predictions are reliable in novel situations – the very situations a planner will explore. The key takeaway is that for effective planning, we need to prioritize how well the model's predictions align with the true outcomes of planned actions, especially when those actions lead the model into unfamiliar territory. This means developing new training objectives and evaluation metrics that specifically target this &quot;off-manifold&quot; behavior, rather than relying on traditional prediction error. This has implications for robotics, game playing, and any AI system that needs to make sequential decisions in a dynamic environment. The paper suggests that future work should focus on methods that explicitly address this off-manifold divergence, perhaps through techniques like counterfactual training or by penalizing the model for making overly optimistic predictions in unexplored regions.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2410.14803" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2410.14803" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2607.10362" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2607.10362" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-15 12:20 UTC</span>
+    <span>Generated 2026-10-16 12:01 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -483,11 +464,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2410.14803",
-    title:     "DistRL: An Asynchronous Distributed Reinforcement Learning Framework for On-Device Control Agents",
-    date:      "Thursday, October 15, 2026",
-    publishedDate: "2024-10-18",
-    absUrl:    "https://arxiv.org/abs/2410.14803",
+    id:        "2607.10362",
+    title:     "A Control Theory of Predictability in Latent World Models",
+    date:      "Friday, October 16, 2026",
+    publishedDate: "2026-07-11",
+    absUrl:    "https://arxiv.org/abs/2607.10362",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
