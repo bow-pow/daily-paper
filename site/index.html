@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Control Theory of Predictability in Latent World Models — One Journal A Day by Abhijeet</title>
+<title>High-precision pulse calibration of tunable couplers for high-fidelity two-qubit gates in superconducting quantum processors — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Friday, October 16, 2026</div>
+    <div class="date">Saturday, October 17, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2607.10362</span>
+    <span class="arxiv-id">arXiv:2410.15041</span>
     <span></span>
-    <span>Submitted 2026-07-11</span>
+    <span>Submitted 2024-10-19</span>
   </div>
 
-  <h1 class="paper-title">A Control Theory of Predictability in Latent World Models</h1>
-  <div class="authors">Hanzhe You, Yonggang Zhang, Maohao Ran, Zhiqin Yang, Zhenyuan Zhang, Wei Xue et al.</div>
+  <h1 class="paper-title">High-precision pulse calibration of tunable couplers for high-fidelity two-qubit gates in superconducting quantum processors</h1>
+  <div class="authors">Tian-Ming Li, Jia-Chi Zhang, Bing-Jie Chen, Kaixuan Huang, Hao-Tian Liu, Yong-Xi Xiao et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research proposes a new way to train AI systems that learn about the world to make better decisions.</p><p>Current AI models that predict future states from learned representations often use prediction error on past data as their main training goal, assuming less error means better control. However, this paper reveals that this assumption is flawed. When an AI planner tries out different actions, it often explores states that are different from the data it was trained on. Therefore, an error averaged over the training data doesn't accurately reflect how well the AI will perform in real-world planning. Instead, the paper suggests focusing on the difference between the AI's predicted cost of a plan and the actual cost, proving that this discrepancy directly bounds the AI's decision-making errors.</p><p>This work is interesting because it highlights a fundamental limitation in how we train AI for decision-making and offers a more robust approach that could lead to AI systems that are more reliable and perform better in complex, dynamic environments.</p>
+    <p>This research presents a new way to precisely control the building blocks of superconducting quantum computers, leading to more reliable quantum operations.</p><p>The core problem is that the electrical signals used to control these computers, called &quot;flux pulses,&quot; get distorted as they travel. This distortion makes it hard to perform accurate two-qubit operations, which are crucial for quantum computation. The new method cleverly uses the natural interaction between the control element (a &quot;tunable coupler&quot;) and the quantum bits themselves to measure and correct these distortions directly, without needing extra, complicated equipment. By understanding how the coupler responds to short and long pulses, they can &quot;pre-distort&quot; future signals so they arrive correctly.</p><p>This work is interesting because it directly addresses a fundamental challenge in building better quantum computers, potentially leading to more powerful and stable quantum devices for future applications.</p>
   </div>
 
   <details class="deep">
@@ -434,23 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <p>Here's an explainer of the research paper, broken down into the requested sections:</p>
-<h3>Background</h3><p>Imagine you're teaching a robot to navigate a complex environment. You want it to learn how the world works so it can plan its actions effectively. A common approach is to build a &quot;world model&quot; – essentially, a simplified, internal simulation of the environment. This model is trained on observed data, learning to predict what will happen next given the current state and an action. The hope is that a more accurate prediction model will lead to better decision-making by the robot. However, this paper questions a fundamental assumption: that simply minimizing prediction errors on the data the model was trained on will automatically lead to good real-world performance. The problem is that when a robot plans, it often explores actions that lead it to situations *not* seen in the training data. The model might be great at predicting within its comfort zone but fail spectacularly when asked to extrapolate.</p>
-<h3>What they did</h3><p>This research proposes a new way to think about training these world models for planning. Instead of focusing solely on minimizing the average prediction error across the training data, they argue that the crucial factor is how well the model's *predicted plan cost* matches the *true plan cost* for the specific plans the planner is considering. Think of &quot;plan cost&quot; as how good or bad a sequence of actions is expected to be. They prove that the robot's overall performance (its &quot;suboptimality,&quot; meaning how far its chosen plan is from the best possible plan) is directly bounded by the difference between these predicted and true plan costs. This difference, they call the &quot;discrepancy.&quot;</p><p>They then break down this discrepancy into two parts. The first part is an &quot;on-manifold residual.&quot; This refers to prediction errors that happen when the model is still operating within the realm of its training data. The second, and more critical, part is an &quot;off-manifold divergence.&quot; This occurs when an action takes the robot's internal state *away* from the familiar data distribution. This divergence is the main culprit for poor planning, and they show that standard prediction errors, averaged over the training data, cannot capture or bound this off-manifold problem. They introduce concepts like a &quot;spectral tax&quot; to price the on-manifold part and a &quot;rollout tax&quot; for the off-manifold divergence, linking these to mathematical properties of the learned model, particularly its &quot;non-normality&quot; (a technical term describing how its internal dynamics behave).</p>
-<h3>What they found</h3><p>The core finding is that the standard way of training world models by minimizing prediction error is fundamentally flawed for planning. They demonstrate, both theoretically and empirically, that this &quot;data-averaged prediction error&quot; is largely uncorrelated with actual control success. In their experiments, they trained models using both the standard single-step prediction error and a multi-step rollout loss. They found that across different training runs (&quot;seeds&quot;), models with very similar prediction errors could have vastly different success rates in controlling a robot. For instance, on the &quot;PUSHT&quot; task, models with validation prediction losses within 8% of each other showed success rates ranging from 78% to 92%.</p><p>Crucially, they found that a different metric, a &quot;fidelity score&quot; measured on the states the planner *actually reaches* (the &quot;planner-reachable measure&quot;), *did* correlate strongly with control success. This score, which captures how well the model predicts trajectories in the states it's likely to encounter during planning, had a rank correlation of 0.62 with success, compared to 0.024 for the standard prediction error. They also introduced a &quot;linear state readout&quot; as a theory-guided intervention, which improved performance by focusing on the on-manifold aspects, showing gains of up to 7.8 percentage points on some tasks.</p>
-<h3>Why it matters</h3><p>This research fundamentally shifts how we should think about training AI models for tasks that involve planning and decision-making. It highlights that simply making a model good at predicting what it has already seen isn't enough. The real challenge lies in ensuring the model's predictions are reliable in novel situations – the very situations a planner will explore. The key takeaway is that for effective planning, we need to prioritize how well the model's predictions align with the true outcomes of planned actions, especially when those actions lead the model into unfamiliar territory. This means developing new training objectives and evaluation metrics that specifically target this &quot;off-manifold&quot; behavior, rather than relying on traditional prediction error. This has implications for robotics, game playing, and any AI system that needs to make sequential decisions in a dynamic environment. The paper suggests that future work should focus on methods that explicitly address this off-manifold divergence, perhaps through techniques like counterfactual training or by penalizing the model for making overly optimistic predictions in unexplored regions.</p>
+      <h3>Background</h3><p>Quantum computers, especially those built with superconducting circuits, rely on precisely controlling the interactions between their fundamental units, called qubits. To perform complex computations, we need to entangle pairs of qubits, which is often achieved using a special intermediary component called a tunable coupler. This coupler acts like a switch, allowing us to turn the interaction between two qubits on and off. However, the &quot;instructions&quot; we send to control this coupler, in the form of electrical pulses, often get distorted as they travel through the wires and electronics. This distortion is like static on a phone call – it makes it hard to send clear instructions, leading to errors in the quantum operations. Existing methods to fix these pulse distortions are often complicated, require extra hardware, and can be inefficient, especially for couplers that are only controlled by magnetic flux (a type of electrical current). This research aims to solve this problem by developing a simpler, more precise, and efficient way to calibrate and correct these control pulses for tunable couplers.</p>
+<h3>What they did</h3><p>The core idea is to use the strong interaction *between* a qubit and its neighboring tunable coupler to &quot;listen&quot; to the coupler's control pulse. Instead of trying to directly measure the coupler's state (which is difficult and often unnecessary for flux-controlled couplers), they exploit how the coupler's frequency affects the qubit's frequency. When the coupler's frequency is close to the qubit's frequency, their interaction becomes very strong, causing a noticeable &quot;anti-crossing&quot; in their energy levels.</p><p>They send a simple &quot;step&quot; in the control pulse to the coupler and then observe how the qubit's energy levels shift. This shift directly reveals how the coupler's pulse is distorted, both immediately after the step (short-time response) and over a longer period (long-time response). They measure these distortions by looking at how well a specific pulse can excite the qubit.</p><p>Once they have a precise measurement of the distortion, they use mathematical techniques to &quot;undo&quot; it. For short-time distortions, they use a method called Fast Fourier Transformation (FFT) to analyze the pulse in its frequency components and correct it. For long-time distortions, which are more critical for gate stability, they use a technique called deconvolution, specifically a second-order reversed convolution, to reconstruct the ideal pulse. This process of correcting the pulse before sending it is called &quot;predistortion.&quot; The key innovation here is that they can measure and correct both short- and long-time distortions with a single, simplified calibration step, without needing to excite or read out the coupler itself.</p>
+<h3>What they found</h3><p>This new calibration and predistortion method significantly improves the precision and stability of controlling the tunable coupler. They demonstrated this by implementing high-fidelity two-qubit gates. Specifically, they achieved fidelities of $99.61 \pm 0.04\%$ for a diabatic CZ gate and $99.82 \pm 0.02\%$ for an iSWAP gate. They also successfully implemented a series of CPhase gates with very high fidelities, as confirmed by cross-entropy benchmarking. Furthermore, they showed that their method reduces pulse distortion and phase errors, leading to more consistent performance, especially when performing multiple gates in sequence (multilayer CZ gates).</p>
+<h3>Why it matters</h3><p>Accurate control of tunable couplers is fundamental for building reliable superconducting quantum computers. This research presents a much-needed improvement in how we calibrate and correct the control pulses for these couplers. By simplifying the calibration process and eliminating the need for extra hardware, this method makes it easier and more efficient to achieve high-fidelity two-qubit gates. This is crucial for scaling up quantum processors, as complex and error-prone calibration procedures become a major bottleneck. The improved precision and stability directly translate to more accurate quantum computations, bringing us closer to realizing the full potential of quantum computing for scientific discovery and technological advancement. The method's ability to work even when direct coupler excitation is difficult makes it particularly valuable for certain types of quantum hardware.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2607.10362" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2607.10362" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2410.15041" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2410.15041" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-16 12:01 UTC</span>
+    <span>Generated 2026-10-17 11:17 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -464,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2607.10362",
-    title:     "A Control Theory of Predictability in Latent World Models",
-    date:      "Friday, October 16, 2026",
-    publishedDate: "2026-07-11",
-    absUrl:    "https://arxiv.org/abs/2607.10362",
+    id:        "2410.15041",
+    title:     "High-precision pulse calibration of tunable couplers for high-fidelity two-qubit gates in superconducting quantum processors",
+    date:      "Saturday, October 17, 2026",
+    publishedDate: "2024-10-19",
+    absUrl:    "https://arxiv.org/abs/2410.15041",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
