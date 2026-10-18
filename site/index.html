@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>High-precision pulse calibration of tunable couplers for high-fidelity two-qubit gates in superconducting quantum processors — One Journal A Day by Abhijeet</title>
+<title>Imaging supermoiré relaxation in helical trilayer graphene — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Saturday, October 17, 2026</div>
+    <div class="date">Sunday, October 18, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2410.15041</span>
+    <span class="arxiv-id">arXiv:2410.16269</span>
     <span></span>
-    <span>Submitted 2024-10-19</span>
+    <span>Submitted 2024-10-21</span>
   </div>
 
-  <h1 class="paper-title">High-precision pulse calibration of tunable couplers for high-fidelity two-qubit gates in superconducting quantum processors</h1>
-  <div class="authors">Tian-Ming Li, Jia-Chi Zhang, Bing-Jie Chen, Kaixuan Huang, Hao-Tian Liu, Yong-Xi Xiao et al.</div>
+  <h1 class="paper-title">Imaging supermoiré relaxation in helical trilayer graphene</h1>
+  <div class="authors">Jesse C. Hoke, Yifan Li, Yuwen Hu, Julian May-Mann, Kenji Watanabe, Takashi Taniguchi et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research presents a new way to precisely control the building blocks of superconducting quantum computers, leading to more reliable quantum operations.</p><p>The core problem is that the electrical signals used to control these computers, called &quot;flux pulses,&quot; get distorted as they travel. This distortion makes it hard to perform accurate two-qubit operations, which are crucial for quantum computation. The new method cleverly uses the natural interaction between the control element (a &quot;tunable coupler&quot;) and the quantum bits themselves to measure and correct these distortions directly, without needing extra, complicated equipment. By understanding how the coupler responds to short and long pulses, they can &quot;pre-distort&quot; future signals so they arrive correctly.</p><p>This work is interesting because it directly addresses a fundamental challenge in building better quantum computers, potentially leading to more powerful and stable quantum devices for future applications.</p>
+    <p>This research visualizes how atomic arrangements change in a special type of layered material called helical trilayer graphene, revealing a new, larger pattern that influences its electrical behavior.</p><p>When two sheets of graphene are stacked with a slight twist, they create a &quot;moiré pattern,&quot; a repeating grid of light and dark areas. In this work, three layers are stacked helically, leading to an even larger, &quot;supermoiré&quot; pattern. The researchers discovered that this supermoiré pattern isn't perfectly uniform; instead, it breaks into large, distinct domains where the supermoiré periodicity is consistent within each domain. They found that applying strain can enlarge these domains and that their size can be adjusted without changing the properties inside the domains. Interestingly, the boundaries between these domains show higher electrical conductivity, suggesting they host unique electron behavior.</p><p>This study offers a direct look at how subtle atomic shifts create large-scale electronic effects in novel materials, potentially paving the way for designing new electronic devices with tunable properties.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Quantum computers, especially those built with superconducting circuits, rely on precisely controlling the interactions between their fundamental units, called qubits. To perform complex computations, we need to entangle pairs of qubits, which is often achieved using a special intermediary component called a tunable coupler. This coupler acts like a switch, allowing us to turn the interaction between two qubits on and off. However, the &quot;instructions&quot; we send to control this coupler, in the form of electrical pulses, often get distorted as they travel through the wires and electronics. This distortion is like static on a phone call – it makes it hard to send clear instructions, leading to errors in the quantum operations. Existing methods to fix these pulse distortions are often complicated, require extra hardware, and can be inefficient, especially for couplers that are only controlled by magnetic flux (a type of electrical current). This research aims to solve this problem by developing a simpler, more precise, and efficient way to calibrate and correct these control pulses for tunable couplers.</p>
-<h3>What they did</h3><p>The core idea is to use the strong interaction *between* a qubit and its neighboring tunable coupler to &quot;listen&quot; to the coupler's control pulse. Instead of trying to directly measure the coupler's state (which is difficult and often unnecessary for flux-controlled couplers), they exploit how the coupler's frequency affects the qubit's frequency. When the coupler's frequency is close to the qubit's frequency, their interaction becomes very strong, causing a noticeable &quot;anti-crossing&quot; in their energy levels.</p><p>They send a simple &quot;step&quot; in the control pulse to the coupler and then observe how the qubit's energy levels shift. This shift directly reveals how the coupler's pulse is distorted, both immediately after the step (short-time response) and over a longer period (long-time response). They measure these distortions by looking at how well a specific pulse can excite the qubit.</p><p>Once they have a precise measurement of the distortion, they use mathematical techniques to &quot;undo&quot; it. For short-time distortions, they use a method called Fast Fourier Transformation (FFT) to analyze the pulse in its frequency components and correct it. For long-time distortions, which are more critical for gate stability, they use a technique called deconvolution, specifically a second-order reversed convolution, to reconstruct the ideal pulse. This process of correcting the pulse before sending it is called &quot;predistortion.&quot; The key innovation here is that they can measure and correct both short- and long-time distortions with a single, simplified calibration step, without needing to excite or read out the coupler itself.</p>
-<h3>What they found</h3><p>This new calibration and predistortion method significantly improves the precision and stability of controlling the tunable coupler. They demonstrated this by implementing high-fidelity two-qubit gates. Specifically, they achieved fidelities of $99.61 \pm 0.04\%$ for a diabatic CZ gate and $99.82 \pm 0.02\%$ for an iSWAP gate. They also successfully implemented a series of CPhase gates with very high fidelities, as confirmed by cross-entropy benchmarking. Furthermore, they showed that their method reduces pulse distortion and phase errors, leading to more consistent performance, especially when performing multiple gates in sequence (multilayer CZ gates).</p>
-<h3>Why it matters</h3><p>Accurate control of tunable couplers is fundamental for building reliable superconducting quantum computers. This research presents a much-needed improvement in how we calibrate and correct the control pulses for these couplers. By simplifying the calibration process and eliminating the need for extra hardware, this method makes it easier and more efficient to achieve high-fidelity two-qubit gates. This is crucial for scaling up quantum processors, as complex and error-prone calibration procedures become a major bottleneck. The improved precision and stability directly translate to more accurate quantum computations, bringing us closer to realizing the full potential of quantum computing for scientific discovery and technological advancement. The method's ability to work even when direct coupler excitation is difficult makes it particularly valuable for certain types of quantum hardware.</p>
+      <h3>Background</h3><p>Imagine stacking sheets of graphene, a single layer of carbon atoms arranged in a honeycomb lattice. When you stack these sheets, you can twist them relative to each other. This twisting creates a new, larger pattern called a moiré pattern. In materials like twisted trilayer graphene, where three layers are stacked with specific twists, the interaction between these moiré patterns can lead to even larger, more complex patterns known as &quot;supermoiré&quot; patterns. These supermoiré patterns are incredibly sensitive to how the atoms arrange themselves locally, a phenomenon called &quot;lattice relaxation.&quot; Understanding this relaxation is crucial because it can dramatically change the material's electronic properties, potentially leading to exotic quantum states. The problem this research tackles is how to visualize and understand this atomic-level rearrangement and its impact on the electronic behavior of helical trilayer graphene (HTG), a specific type of twisted trilayer graphene.</p>
+<h3>What they did</h3><p>The researchers used a technique called scanning single-electron transistor (SET) microscopy. Think of an SET as an extremely sensitive probe that can measure tiny changes in electrical properties at specific points on a material's surface. By scanning this probe across the helical trilayer graphene sample, they could map out variations in its electronic character. They focused on measuring &quot;inverse electronic compressibility,&quot; which essentially tells them how easy or hard it is to add or remove electrons at different locations. This measurement is directly related to the energy gaps in the material's electronic structure. They also applied strain to the material, which is like gently stretching or squeezing it, to see how this affects the atomic arrangement and electronic properties.</p>
+<h3>What they found</h3><p>The key finding is that the helical trilayer graphene doesn't maintain a perfectly uniform atomic structure. Instead, it naturally rearranges itself into large, distinct regions called &quot;domains.&quot; Within each domain, the atoms have a uniform arrangement and a consistent moiré pattern. These domains are separated by &quot;domain walls.&quot; The size of these supermoiré domains is much larger than the individual moiré patterns, on the order of hundreds of nanometers (around 380 nm). Importantly, they discovered that applying strain can change the size and shape of these supermoiré domains, sometimes increasing their area by up to four times, without altering the fundamental electronic properties *inside* each domain. Furthermore, they observed that the domain walls themselves are more electrically conductive than the domain interiors, consistent with theoretical predictions of special &quot;edge modes&quot; that can carry current.</p>
+<h3>Why it matters</h3><p>This research provides the first direct, real-space visualization of how atoms rearrange themselves in helical trilayer graphene to form these supermoiré domains. This is a significant step because it confirms theoretical predictions about lattice relaxation in these complex materials. The ability to independently control two different length scales – the moiré pattern within domains and the supermoiré pattern formed by the domains – is a major breakthrough. It means scientists can now &quot;engineer&quot; the electronic properties of these materials by controlling strain, potentially designing novel electronic devices or exploring new quantum phenomena. The enhanced conductivity at domain walls suggests these boundaries could be used to create specialized electronic pathways. This work opens up new avenues for designing materials with tailored electronic and topological properties by manipulating their atomic structure on multiple scales.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2410.15041" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2410.15041" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2410.16269" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2410.16269" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-17 11:17 UTC</span>
+    <span>Generated 2026-10-18 11:53 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2410.15041",
-    title:     "High-precision pulse calibration of tunable couplers for high-fidelity two-qubit gates in superconducting quantum processors",
-    date:      "Saturday, October 17, 2026",
-    publishedDate: "2024-10-19",
-    absUrl:    "https://arxiv.org/abs/2410.15041",
+    id:        "2410.16269",
+    title:     "Imaging supermoiré relaxation in helical trilayer graphene",
+    date:      "Sunday, October 18, 2026",
+    publishedDate: "2024-10-21",
+    absUrl:    "https://arxiv.org/abs/2410.16269",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
