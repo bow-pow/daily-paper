@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Freeze-Omni: A Smart and Low Latency Speech-to-speech Dialogue Model with Frozen LLM — One Journal A Day by Abhijeet</title>
+<title>Diffusion Models as Cartoonists: The Curious Case of High Density Regions — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Thursday, October 22, 2026</div>
+    <div class="date">Friday, October 23, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.00774</span>
+    <span class="arxiv-id">arXiv:2411.01293</span>
     <span></span>
-    <span>Submitted 2024-11-01</span>
+    <span>Submitted 2024-11-02</span>
   </div>
 
-  <h1 class="paper-title">Freeze-Omni: A Smart and Low Latency Speech-to-speech Dialogue Model with Frozen LLM</h1>
-  <div class="authors">Xiong Wang, Yangze Li, Chaoyou Fu, Yunhang Shen, Lei Xie, Ke Li et al.</div>
+  <h1 class="paper-title">Diffusion Models as Cartoonists: The Curious Case of High Density Regions</h1>
+  <div class="authors">Rafał Karczewski, Markus Heinonen, Vikas Garg</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces Freeze-Omni, a system that enables a large language model (LLM) to understand and generate speech directly, like having a spoken conversation.</p><p>The core innovation is connecting speech input and output to a powerful text-based LLM without retraining the LLM itself, keeping its original knowledge intact. This is achieved by training small, separate modules that handle the speech-to-text and text-to-speech conversions, allowing the LLM to process spoken language as if it were text. This approach uses readily available speech data and a modest amount of text conversation data, making it efficient to train.</p><p>This development is exciting because it paves the way for more natural, real-time spoken interactions with AI, potentially leading to more intuitive voice assistants and conversational agents that don't require extensive, costly retraining of massive AI models.</p>
+    <p>This research explores what kinds of images are considered &quot;most typical&quot; or &quot;most likely&quot; by a powerful type of AI image generator called a diffusion model.</p><p>The core idea is that diffusion models, which learn to create images by gradually removing noise, have certain &quot;sweet spots&quot; where they are most confident about generating an image. By developing a new way to find these high-confidence areas, the researchers discovered that diffusion models can produce images that are surprisingly cartoon-like or blurry, even when trained on datasets that don't contain such examples. This happens because these high-density regions represent the model's strongest learned patterns, which can sometimes deviate from the training data's explicit content.</p><p>This is interesting because it reveals an unexpected creative tendency within these AI systems, suggesting they can generate novel styles not directly present in their training data, which could lead to new artistic tools or a deeper understanding of how AI &quot;thinks.&quot;</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine talking to a computer that can understand your voice, think about what you said, and then reply in a natural-sounding voice, all in real-time. This kind of seamless speech-to-speech interaction is becoming a reality, with systems like OpenAI's GPT-4o showcasing its impressive capabilities. However, building these systems is challenging. Traditional approaches often involve chaining together separate modules for speech recognition (turning speech into text), language understanding (processing the text), and speech synthesis (turning text back into speech). This &quot;pipeline&quot; approach can lead to noticeable delays, making conversations feel unnatural. Researchers are exploring ways to create more integrated, end-to-end systems, but a major hurdle is the immense amount of data and computational power needed to train these complex models, especially when trying to adapt powerful text-based AI models (Large Language Models or LLMs) to handle speech. A key problem is that when you try to teach an LLM to understand speech, you often have to tweak its internal workings (fine-tune its parameters). This can sometimes make the LLM &quot;forget&quot; some of its original text-based intelligence, a phenomenon called &quot;catastrophic forgetting.&quot;</p>
-<h3>What they did</h3><p>This research introduces Freeze-Omni, a new way to build speech-to-speech dialogue systems that cleverly avoids fine-tuning the core LLM. The central idea is to keep the LLM's parameters completely &quot;frozen&quot; – meaning they don't change during training. Instead, they've developed specialized modules that act as bridges between the speech input/output and the frozen LLM.</p><p>To handle speech input, they first train a &quot;speech encoder&quot; to convert spoken audio into a format the LLM can understand. This encoder is trained in stages: first, on a massive amount of speech-to-text data to learn basic speech recognition, and then, with the LLM frozen, it's further trained to map speech features into the LLM's internal &quot;embedding space&quot; (its way of representing meaning). They use a &quot;prompt embedding&quot; technique to guide the LLM to understand speech queries.</p><p>For speech output, they use a &quot;speech decoder&quot; that generates speech from text. This decoder is also trained in stages. First, a &quot;codec model&quot; learns to convert speech into discrete tokens (like building blocks of sound). Then, using text-speech paired data, the speech decoder learns to generate these speech tokens from text representations that are aligned with the LLM's output. Crucially, a &quot;prefix kv-cache&quot; strategy is used to connect the LLM's internal states to the speech decoder, allowing it to generate speech that matches the LLM's thought process, all while the LLM remains frozen.</p><p>Finally, to enable natural, back-and-forth conversation (duplex dialogue), they add a &quot;chunk-level state prediction&quot; mechanism. This system can detect when a user might be interrupting and signal the LLM to adjust its response accordingly, making the dialogue more fluid. This whole process is designed to be efficient, using relatively small datasets and computational resources.</p>
-<h3>What they found</h3><p>Freeze-Omni demonstrates strong performance across several key areas. In speech input understanding, its accuracy on Mandarin evaluation sets is impressive, with a Character Error Rate (CER) as low as 2.15% on the Aishell-1 dataset. For speech output, when compared to the LLM's text output, their system achieves a low CER of 1.69% with certain decoding parameters, indicating high-quality synthesized speech.</p><p>Crucially, Freeze-Omni maintains the intelligence of its backbone LLM. When tested on spoken question-answering tasks, its accuracy is very close to that of the LLM processing text directly. For example, on the Web Questions dataset, Freeze-Omni achieves 44.73% accuracy, while the text-only LLM achieves 45.13%. This small gap suggests that the LLM's original capabilities are well-preserved. The system also achieves low end-to-end latency, with a total statistical latency of around 745ms on average, making real-time conversation feasible.</p>
-<h3>Why it matters</h3><p>The primary significance of Freeze-Omni lies in its ability to create powerful speech-to-speech dialogue systems without the need to fine-tune the LLM. This is a major breakthrough because it bypasses the problem of catastrophic forgetting, ensuring the LLM retains its vast knowledge and reasoning abilities. It also makes building these advanced systems more accessible, requiring less data and fewer computational resources compared to methods that fine-tune LLMs. This opens the door for more researchers and developers to create intelligent, responsive voice interfaces. The low latency and high accuracy mean that conversations feel more natural and less robotic. While the current work focuses on single-speaker output, future plans include supporting multiple voices and more complex instruction following, further enhancing the system's versatility and potential for real-world applications. The takeaway for a non-specialist is that this research offers a more efficient and effective path towards truly conversational AI that understands and speaks naturally.</p>
+      <h3>Background</h3><p>Generative AI models, like diffusion models, are trained to learn the underlying distribution of data, such as images. When these models generate new images, they typically produce samples that are &quot;typical&quot; or representative of the training data. However, there's a question about what happens if we push these models to generate images that are not just typical, but exceptionally &quot;likely&quot; according to the model's learned distribution. This research asks: what kind of images lie in these &quot;high-density&quot; regions of a diffusion model's learned probability landscape, and how do we find them?</p>
+<h3>What they did</h3><p>The core challenge is that standard diffusion models, especially those using stochastic differential equations (SDEs), don't easily tell you how likely a generated image is. To address this, the researchers first developed a way to track the &quot;log-likelihood&quot; (a measure of how probable an image is) as a diffusion model generates an image. They introduced &quot;augmented SDEs&quot; that allow the model to estimate the likelihood of a sample *during* the generation process, without adding significant computational cost.</p><p>Next, they tackled the problem of finding the *most likely* images. They developed a theoretical method to &quot;track the mode&quot; of the denoising distribution. The &quot;denoising distribution&quot; at a certain stage of generation describes all possible ways to refine a noisy image into a clearer one. Finding its &quot;mode&quot; means finding the most probable way to do this. While this theoretical method is computationally expensive, they proposed a practical &quot;high-density sampler&quot; that approximates this by solving a simplified equation (the &quot;High-Density ODE&quot; or HD-ODE). This sampler essentially steers the generation process towards regions of higher likelihood.</p>
+<h3>What they found</h3><p>The most striking finding is that the images residing in the highest-density regions of diffusion models are often *unrealistic*. Specifically, at high noise levels, these are often blank images. At moderate noise levels, they tend to be cartoon-like drawings, even when the training dataset contains no cartoons. At low noise levels, the high-density images appear blurry. For instance, on the FFHQ-256 dataset, they observed a 97% correlation between the model's likelihood estimates and the amount of information (or compression size) in the image, suggesting that simpler, less detailed images are assigned higher probabilities. Their high-density sampler consistently generated images with higher likelihoods than standard samplers. For example, when comparing their high-density samples to regular samples on CIFAR-10, they found that 0% of the regular samples had a higher likelihood than the high-density ones.</p>
+<h3>Why it matters</h3><p>This research reveals a surprising aspect of how diffusion models learn. While avoiding *low-likelihood* (outlier) samples is crucial for generating good quality images, this work shows that avoiding *high-likelihood* (unnatural) samples is also important. The fact that cartoon-like or blurry images are assigned the highest probabilities suggests that diffusion models might be learning a simplified representation of the data, or that their internal &quot;understanding&quot; of what constitutes a probable image differs from human perception of quality. This has implications for understanding the limitations of current diffusion models and could lead to new methods for generating higher-quality, more realistic images by actively steering away from these high-density, but unrealistic, regions. It also provides valuable tools for analyzing the internal workings and probability landscapes of these powerful generative models.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.00774" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.00774" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.01293" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.01293" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-22 12:40 UTC</span>
+    <span>Generated 2026-10-23 12:18 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.00774",
-    title:     "Freeze-Omni: A Smart and Low Latency Speech-to-speech Dialogue Model with Frozen LLM",
-    date:      "Thursday, October 22, 2026",
-    publishedDate: "2024-11-01",
-    absUrl:    "https://arxiv.org/abs/2411.00774",
+    id:        "2411.01293",
+    title:     "Diffusion Models as Cartoonists: The Curious Case of High Density Regions",
+    date:      "Friday, October 23, 2026",
+    publishedDate: "2024-11-02",
+    absUrl:    "https://arxiv.org/abs/2411.01293",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
