@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diffusion Models as Cartoonists: The Curious Case of High Density Regions — One Journal A Day by Abhijeet</title>
+<title>Towards adiabatic quantum computing using compressed quantum circuits — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Friday, October 23, 2026</div>
+    <div class="date">Saturday, October 24, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.01293</span>
+    <span class="arxiv-id">arXiv:2311.05544</span>
     <span></span>
-    <span>Submitted 2024-11-02</span>
+    <span>Submitted 2023-11-09</span>
   </div>
 
-  <h1 class="paper-title">Diffusion Models as Cartoonists: The Curious Case of High Density Regions</h1>
-  <div class="authors">Rafał Karczewski, Markus Heinonen, Vikas Garg</div>
+  <h1 class="paper-title">Towards adiabatic quantum computing using compressed quantum circuits</h1>
+  <div class="authors">Conor Mc Keever, Michael Lubasch</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores what kinds of images are considered &quot;most typical&quot; or &quot;most likely&quot; by a powerful type of AI image generator called a diffusion model.</p><p>The core idea is that diffusion models, which learn to create images by gradually removing noise, have certain &quot;sweet spots&quot; where they are most confident about generating an image. By developing a new way to find these high-confidence areas, the researchers discovered that diffusion models can produce images that are surprisingly cartoon-like or blurry, even when trained on datasets that don't contain such examples. This happens because these high-density regions represent the model's strongest learned patterns, which can sometimes deviate from the training data's explicit content.</p><p>This is interesting because it reveals an unexpected creative tendency within these AI systems, suggesting they can generate novel styles not directly present in their training data, which could lead to new artistic tools or a deeper understanding of how AI &quot;thinks.&quot;</p>
+    <p>This research explores a new way to build quantum computers that harness a principle called adiabatic quantum computing.</p><p>The core idea is to create highly efficient quantum circuits, which are like step-by-step instructions for a quantum computer. Instead of the usual method that can make these instructions very long and complex, this work uses a clever classical optimization technique. This technique allows them to design shorter, fixed-length circuits that achieve the same goal: preparing a system in its lowest energy state, a crucial step for many quantum computations. They achieve this by simultaneously optimizing for both the natural &quot;adiabatic&quot; evolution and a special &quot;counterdiabatic&quot; driving, which helps prevent errors. They demonstrate this on a specific type of quantum system called an Ising chain, showing their optimized circuits are much better than older methods.</p><p>This is interesting because it offers a path to building more practical and powerful quantum computers, potentially accelerating progress in fields like drug discovery and materials science, and even tackling complex optimization problems.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Generative AI models, like diffusion models, are trained to learn the underlying distribution of data, such as images. When these models generate new images, they typically produce samples that are &quot;typical&quot; or representative of the training data. However, there's a question about what happens if we push these models to generate images that are not just typical, but exceptionally &quot;likely&quot; according to the model's learned distribution. This research asks: what kind of images lie in these &quot;high-density&quot; regions of a diffusion model's learned probability landscape, and how do we find them?</p>
-<h3>What they did</h3><p>The core challenge is that standard diffusion models, especially those using stochastic differential equations (SDEs), don't easily tell you how likely a generated image is. To address this, the researchers first developed a way to track the &quot;log-likelihood&quot; (a measure of how probable an image is) as a diffusion model generates an image. They introduced &quot;augmented SDEs&quot; that allow the model to estimate the likelihood of a sample *during* the generation process, without adding significant computational cost.</p><p>Next, they tackled the problem of finding the *most likely* images. They developed a theoretical method to &quot;track the mode&quot; of the denoising distribution. The &quot;denoising distribution&quot; at a certain stage of generation describes all possible ways to refine a noisy image into a clearer one. Finding its &quot;mode&quot; means finding the most probable way to do this. While this theoretical method is computationally expensive, they proposed a practical &quot;high-density sampler&quot; that approximates this by solving a simplified equation (the &quot;High-Density ODE&quot; or HD-ODE). This sampler essentially steers the generation process towards regions of higher likelihood.</p>
-<h3>What they found</h3><p>The most striking finding is that the images residing in the highest-density regions of diffusion models are often *unrealistic*. Specifically, at high noise levels, these are often blank images. At moderate noise levels, they tend to be cartoon-like drawings, even when the training dataset contains no cartoons. At low noise levels, the high-density images appear blurry. For instance, on the FFHQ-256 dataset, they observed a 97% correlation between the model's likelihood estimates and the amount of information (or compression size) in the image, suggesting that simpler, less detailed images are assigned higher probabilities. Their high-density sampler consistently generated images with higher likelihoods than standard samplers. For example, when comparing their high-density samples to regular samples on CIFAR-10, they found that 0% of the regular samples had a higher likelihood than the high-density ones.</p>
-<h3>Why it matters</h3><p>This research reveals a surprising aspect of how diffusion models learn. While avoiding *low-likelihood* (outlier) samples is crucial for generating good quality images, this work shows that avoiding *high-likelihood* (unnatural) samples is also important. The fact that cartoon-like or blurry images are assigned the highest probabilities suggests that diffusion models might be learning a simplified representation of the data, or that their internal &quot;understanding&quot; of what constitutes a probable image differs from human perception of quality. This has implications for understanding the limitations of current diffusion models and could lead to new methods for generating higher-quality, more realistic images by actively steering away from these high-density, but unrealistic, regions. It also provides valuable tools for analyzing the internal workings and probability landscapes of these powerful generative models.</p>
+      <h3>Background</h3><p>Quantum computers promise to solve certain problems that are intractable for even the most powerful classical computers. One promising approach for quantum computation is called adiabatic quantum computing. The core idea is to start a quantum system in a simple, known state and then slowly change the system's governing rules (its Hamiltonian) until it reaches a final configuration that encodes the solution to a complex problem. The challenge is that this &quot;slow&quot; change needs to be slow enough to avoid unwanted transitions to higher energy states, which would corrupt the solution. This slowness can lead to very long computation times, making it impractical for current quantum hardware. This research aims to find ways to speed up this adiabatic process.</p>
+<h3>What they did</h3><p>The researchers propose a new method to make adiabatic quantum computing more efficient. Traditionally, simulating the continuous time evolution of a quantum system is broken down into many small, discrete steps, often using something called a Trotter product formula. This is like approximating a smooth curve with a series of short, straight line segments. Adding &quot;counterdiabatic driving&quot; helps to prevent unwanted transitions, but it makes each of these small steps more complex, requiring deeper quantum circuits.</p><p>Instead of this step-by-step approach, this work uses a technique called &quot;tensor network algorithms&quot; to optimize parameterized quantum circuits (PQCs). Think of a PQC as a pre-designed sequence of quantum operations with adjustable settings (parameters). The key innovation is to &quot;classically optimize&quot; these PQCs. This means using a classical computer to find the best settings for the PQC *before* running it on a quantum computer. They divide the entire adiabatic evolution into several &quot;chunks.&quot; For each chunk, they design and optimize a PQC of a fixed, relatively shallow depth. This optimized PQC is trained to perform both the desired adiabatic evolution and the counterdiabatic driving for that specific chunk of time. By stringing these optimized PQCs together, they create a more efficient overall quantum circuit. They also introduce a specific way to represent the &quot;adiabatic gauge potential&quot; (AGP), which is the mathematical tool for counterdiabatic driving, using variational matrix product operators (MPOs).</p>
+<h3>What they found</h3><p>The researchers tested their method on preparing the ground state (lowest energy state) of quantum Ising chains, which are models used in quantum physics and for optimization problems. They found that their classically optimized PQCs significantly outperformed traditional Trotter product formulas. Specifically, for one test case, their method achieved ground state fidelities (how close the prepared state is to the true ground state) up to five times better and energy accuracies up to three times better than Trotter circuits, even when both used the same number of two-qubit gates. They also showed that their variational MPO approach for representing the AGP was more effective than a previously used method called the nested commutator (NC) approach, requiring smaller &quot;bond dimensions&quot; (a measure of complexity in tensor networks).</p>
+<h3>Why it matters</h3><p>This research offers a practical way to make adiabatic quantum computing more feasible on current and near-term quantum hardware. By offloading the complex optimization to classical computers and designing &quot;shallow&quot; (less complex) quantum circuits, they reduce the demands on quantum processors. This could accelerate the development of quantum algorithms for a range of problems, including the challenging field of combinatorial optimization, where finding the best solution among many possibilities is crucial. While the current demonstrations are on 1D systems, the methods are expected to scale to more complex 2D systems and harder optimization problems where classical methods struggle. The main takeaway is that clever classical optimization can significantly enhance the performance of quantum algorithms, making them more practical for real-world applications.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.01293" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.01293" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2311.05544" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2311.05544" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-23 12:18 UTC</span>
+    <span>Generated 2026-10-24 11:44 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.01293",
-    title:     "Diffusion Models as Cartoonists: The Curious Case of High Density Regions",
-    date:      "Friday, October 23, 2026",
-    publishedDate: "2024-11-02",
-    absUrl:    "https://arxiv.org/abs/2411.01293",
+    id:        "2311.05544",
+    title:     "Towards adiabatic quantum computing using compressed quantum circuits",
+    date:      "Saturday, October 24, 2026",
+    publishedDate: "2023-11-09",
+    absUrl:    "https://arxiv.org/abs/2311.05544",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
