@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Towards adiabatic quantum computing using compressed quantum circuits — One Journal A Day by Abhijeet</title>
+<title>Piezo-Kerr effect in altermagnets and noncollinear antiferromagnets — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Saturday, October 24, 2026</div>
+    <div class="date">Sunday, October 25, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2311.05544</span>
+    <span class="arxiv-id">arXiv:2610.30929</span>
     <span></span>
-    <span>Submitted 2023-11-09</span>
+    <span>Submitted 2026-10-22</span>
   </div>
 
-  <h1 class="paper-title">Towards adiabatic quantum computing using compressed quantum circuits</h1>
-  <div class="authors">Conor Mc Keever, Michael Lubasch</div>
+  <h1 class="paper-title">Piezo-Kerr effect in altermagnets and noncollinear antiferromagnets</h1>
+  <div class="authors">Yuqi Liu, Qiu-Shi Huang, Xinfeng Chen, Yilin Han, Run-Wu Zhang, Zhi-Ming Yu et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores a new way to build quantum computers that harness a principle called adiabatic quantum computing.</p><p>The core idea is to create highly efficient quantum circuits, which are like step-by-step instructions for a quantum computer. Instead of the usual method that can make these instructions very long and complex, this work uses a clever classical optimization technique. This technique allows them to design shorter, fixed-length circuits that achieve the same goal: preparing a system in its lowest energy state, a crucial step for many quantum computations. They achieve this by simultaneously optimizing for both the natural &quot;adiabatic&quot; evolution and a special &quot;counterdiabatic&quot; driving, which helps prevent errors. They demonstrate this on a specific type of quantum system called an Ising chain, showing their optimized circuits are much better than older methods.</p><p>This is interesting because it offers a path to building more practical and powerful quantum computers, potentially accelerating progress in fields like drug discovery and materials science, and even tackling complex optimization problems.</p>
+    <p>This research explores how to use mechanical stress to control a specific optical effect in certain magnetic materials.</p><p>The core idea is that in some magnetic materials, like altermagnets and noncollinear antiferromagnets, a particular optical phenomenon called the magneto-optical Kerr effect (which describes how light's polarization rotates when reflected off a magnetic surface) is normally absent due to symmetry. However, by applying specific types of mechanical strain (deformation), this forbidden Kerr effect can be activated. This is because the strain can break the symmetry in a way that allows a linear coupling between the applied stress and the optical response. The researchers identified many material symmetries where this &quot;piezo-Kerr effect&quot; is possible and confirmed it with calculations on real materials.</p><p>This is interesting because it offers a new way to create and control optical signals using mechanical force in materials that are naturally &quot;compensated&quot; magnets, potentially leading to new types of sensors or optical switches.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Quantum computers promise to solve certain problems that are intractable for even the most powerful classical computers. One promising approach for quantum computation is called adiabatic quantum computing. The core idea is to start a quantum system in a simple, known state and then slowly change the system's governing rules (its Hamiltonian) until it reaches a final configuration that encodes the solution to a complex problem. The challenge is that this &quot;slow&quot; change needs to be slow enough to avoid unwanted transitions to higher energy states, which would corrupt the solution. This slowness can lead to very long computation times, making it impractical for current quantum hardware. This research aims to find ways to speed up this adiabatic process.</p>
-<h3>What they did</h3><p>The researchers propose a new method to make adiabatic quantum computing more efficient. Traditionally, simulating the continuous time evolution of a quantum system is broken down into many small, discrete steps, often using something called a Trotter product formula. This is like approximating a smooth curve with a series of short, straight line segments. Adding &quot;counterdiabatic driving&quot; helps to prevent unwanted transitions, but it makes each of these small steps more complex, requiring deeper quantum circuits.</p><p>Instead of this step-by-step approach, this work uses a technique called &quot;tensor network algorithms&quot; to optimize parameterized quantum circuits (PQCs). Think of a PQC as a pre-designed sequence of quantum operations with adjustable settings (parameters). The key innovation is to &quot;classically optimize&quot; these PQCs. This means using a classical computer to find the best settings for the PQC *before* running it on a quantum computer. They divide the entire adiabatic evolution into several &quot;chunks.&quot; For each chunk, they design and optimize a PQC of a fixed, relatively shallow depth. This optimized PQC is trained to perform both the desired adiabatic evolution and the counterdiabatic driving for that specific chunk of time. By stringing these optimized PQCs together, they create a more efficient overall quantum circuit. They also introduce a specific way to represent the &quot;adiabatic gauge potential&quot; (AGP), which is the mathematical tool for counterdiabatic driving, using variational matrix product operators (MPOs).</p>
-<h3>What they found</h3><p>The researchers tested their method on preparing the ground state (lowest energy state) of quantum Ising chains, which are models used in quantum physics and for optimization problems. They found that their classically optimized PQCs significantly outperformed traditional Trotter product formulas. Specifically, for one test case, their method achieved ground state fidelities (how close the prepared state is to the true ground state) up to five times better and energy accuracies up to three times better than Trotter circuits, even when both used the same number of two-qubit gates. They also showed that their variational MPO approach for representing the AGP was more effective than a previously used method called the nested commutator (NC) approach, requiring smaller &quot;bond dimensions&quot; (a measure of complexity in tensor networks).</p>
-<h3>Why it matters</h3><p>This research offers a practical way to make adiabatic quantum computing more feasible on current and near-term quantum hardware. By offloading the complex optimization to classical computers and designing &quot;shallow&quot; (less complex) quantum circuits, they reduce the demands on quantum processors. This could accelerate the development of quantum algorithms for a range of problems, including the challenging field of combinatorial optimization, where finding the best solution among many possibilities is crucial. While the current demonstrations are on 1D systems, the methods are expected to scale to more complex 2D systems and harder optimization problems where classical methods struggle. The main takeaway is that clever classical optimization can significantly enhance the performance of quantum algorithms, making them more practical for real-world applications.</p>
+      <h3>Background</h3><p>The magneto-optical Kerr effect (MOKE) is a powerful tool for non-contact detection of magnetism. It works by observing how the polarization of light rotates when it reflects off a magnetic material. Traditionally, MOKE has been studied in ferromagnets, where a net magnetic moment is present. However, there's growing interest in materials like antiferromagnets and altermagnets, which have complex magnetic structures but no overall net magnetic moment. In these &quot;compensated&quot; magnets, MOKE is expected to vanish due to symmetry. This vanishing effect, while a limitation for detection, presents an opportunity: if we can find a way to *activate* this symmetry-forbidden MOKE, we could potentially control it with great precision, perhaps even switching its sign. This is the problem the research addresses: how to design and achieve a switchable MOKE in these compensated magnetic materials.</p>
+<h3>What they did</h3><p>The core idea is to use mechanical strain – the deformation of a material under stress – to &quot;break&quot; the symmetry that normally forbids the Kerr effect. The researchers developed a theoretical framework based on a principle called &quot;representation matching.&quot; This principle essentially states that a physical interaction (like strain influencing MOKE) is allowed only if the &quot;symmetry properties&quot; of the interacting components are compatible. In this case, they looked for situations where a specific type of strain and a specific type of Kerr response share the same &quot;irreducible representation&quot; (a mathematical way to classify symmetry properties) of the material's magnetic point group (MPG – the symmetry elements of the material that are compatible with its magnetic order).</p><p>They systematically analyzed all 122 possible magnetic point groups. For each group, they determined if a particular strain could couple linearly to the Kerr effect, even if the Kerr effect was forbidden in the unstrained state. A linear coupling is crucial because it allows for a direct, proportional relationship between the strain and the resulting Kerr signal, which is key for predictable control. They identified 16 specific magnetic point groups where this &quot;piezo-Kerr effect&quot; is allowed. These groups are found in altermagnets and noncollinear antiferromagnets that have a symmetry-enforced vanishing net magnetization.</p><p>To validate their theory, they performed first-principles calculations (sophisticated computer simulations based on quantum mechanics) on four real materials: bulk MnTe₂, bulk CoF₂, and two-dimensional materials called Cr₂Se₂O and Cr₂Te₂O monolayers. These materials were chosen because their magnetic point groups belong to the 16 identified groups.</p>
+<h3>What they found</h3><p>The research found that in the 16 identified magnetic point groups, specific combinations of strain can indeed activate a Kerr response that is forbidden in the absence of strain. For the four materials they studied, their calculations confirmed this. In unstrained MnTe₂, CoF₂, Cr₂Se₂O, and Cr₂Te₂O, the Kerr rotation was predicted to be zero. However, when applying specific strains, they calculated that a significant Kerr rotation could be induced. For example, in MnTe₂, a shear strain of 0.5% resulted in a Kerr rotation of about 160 millidegrees, reaching up to 160 mdeg at 1.5% strain. In CoF₂, a compressive strain of 0.5% induced a Kerr rotation of about 260 millidegrees at 1.5% strain. For the monolayers, strains between 0.5% and 3% produced Kerr rotations ranging from tens to hundreds of millidegrees. Crucially, they found that reversing the direction of the &quot;matched&quot; strain also reversed the sign of the induced Kerr rotation, demonstrating the switchable nature of this effect.</p>
+<h3>Why it matters</h3><p>This work establishes a new phenomenon, the &quot;piezo-Kerr effect,&quot; and provides a general theoretical framework for understanding how mechanical strain can control the magneto-optical Kerr effect in materials that were previously thought to be unsuitable for such applications due to their vanishing net magnetization. The key takeaway is that by carefully selecting materials with specific magnetic symmetries and applying controlled strain, it's possible to generate a strong and, importantly, switchable Kerr signal from a zero background. This offers a promising route for developing novel magneto-optical devices, such as high-sensitivity magnetic sensors or advanced data storage technologies, where the ability to precisely control and switch magnetic signals is paramount. The predicted magnitudes of the Kerr rotation are large enough to be experimentally detectable with current technology, and the sign-switching capability directly addresses the need for binary control in electronic devices.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2311.05544" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2311.05544" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2610.30929" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2610.30929" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-24 11:44 UTC</span>
+    <span>Generated 2026-10-25 12:14 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2311.05544",
-    title:     "Towards adiabatic quantum computing using compressed quantum circuits",
-    date:      "Saturday, October 24, 2026",
-    publishedDate: "2023-11-09",
-    absUrl:    "https://arxiv.org/abs/2311.05544",
+    id:        "2610.30929",
+    title:     "Piezo-Kerr effect in altermagnets and noncollinear antiferromagnets",
+    date:      "Sunday, October 25, 2026",
+    publishedDate: "2026-10-22",
+    absUrl:    "https://arxiv.org/abs/2610.30929",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
