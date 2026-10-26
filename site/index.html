@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Piezo-Kerr effect in altermagnets and noncollinear antiferromagnets — One Journal A Day by Abhijeet</title>
+<title>Tutorial: Classifying Photonic Topology Using the Spectral Localizer and Numerical $K$-Theory — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Sunday, October 25, 2026</div>
+    <div class="date">Monday, October 26, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2610.30929</span>
+    <span class="arxiv-id">arXiv:2411.03515</span>
     <span></span>
-    <span>Submitted 2026-10-22</span>
+    <span>Submitted 2024-11-05</span>
   </div>
 
-  <h1 class="paper-title">Piezo-Kerr effect in altermagnets and noncollinear antiferromagnets</h1>
-  <div class="authors">Yuqi Liu, Qiu-Shi Huang, Xinfeng Chen, Yilin Han, Run-Wu Zhang, Zhi-Ming Yu et al.</div>
+  <h1 class="paper-title">Tutorial: Classifying Photonic Topology Using the Spectral Localizer and Numerical $K$-Theory</h1>
+  <div class="authors">Alexander Cerjan, Terry A. Loring</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how to use mechanical stress to control a specific optical effect in certain magnetic materials.</p><p>The core idea is that in some magnetic materials, like altermagnets and noncollinear antiferromagnets, a particular optical phenomenon called the magneto-optical Kerr effect (which describes how light's polarization rotates when reflected off a magnetic surface) is normally absent due to symmetry. However, by applying specific types of mechanical strain (deformation), this forbidden Kerr effect can be activated. This is because the strain can break the symmetry in a way that allows a linear coupling between the applied stress and the optical response. The researchers identified many material symmetries where this &quot;piezo-Kerr effect&quot; is possible and confirmed it with calculations on real materials.</p><p>This is interesting because it offers a new way to create and control optical signals using mechanical force in materials that are naturally &quot;compensated&quot; magnets, potentially leading to new types of sensors or optical switches.</p>
+    <p>This research tutorial explains a new mathematical tool for understanding the &quot;topology&quot; of light in complex systems.</p><p>Topology, in this context, describes fundamental properties of light waves that don't change even if the system is slightly deformed. The spectral localizer, a mathematical framework, helps identify these topological properties, especially in systems with nonlinearities (where light's behavior changes based on its intensity) or when light can escape into its surroundings (radiative environments). It reveals that topological protection, a form of robustness, can exist even without a clear &quot;gap&quot; in the light's allowed energies. This framework uses advanced mathematical concepts from $C^*$-algebras, offering a different perspective than traditional methods.</p><p>Understanding how light's fundamental properties are preserved in challenging environments could lead to more robust optical devices, like improved lasers or sensors.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,24 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>The magneto-optical Kerr effect (MOKE) is a powerful tool for non-contact detection of magnetism. It works by observing how the polarization of light rotates when it reflects off a magnetic material. Traditionally, MOKE has been studied in ferromagnets, where a net magnetic moment is present. However, there's growing interest in materials like antiferromagnets and altermagnets, which have complex magnetic structures but no overall net magnetic moment. In these &quot;compensated&quot; magnets, MOKE is expected to vanish due to symmetry. This vanishing effect, while a limitation for detection, presents an opportunity: if we can find a way to *activate* this symmetry-forbidden MOKE, we could potentially control it with great precision, perhaps even switching its sign. This is the problem the research addresses: how to design and achieve a switchable MOKE in these compensated magnetic materials.</p>
-<h3>What they did</h3><p>The core idea is to use mechanical strain – the deformation of a material under stress – to &quot;break&quot; the symmetry that normally forbids the Kerr effect. The researchers developed a theoretical framework based on a principle called &quot;representation matching.&quot; This principle essentially states that a physical interaction (like strain influencing MOKE) is allowed only if the &quot;symmetry properties&quot; of the interacting components are compatible. In this case, they looked for situations where a specific type of strain and a specific type of Kerr response share the same &quot;irreducible representation&quot; (a mathematical way to classify symmetry properties) of the material's magnetic point group (MPG – the symmetry elements of the material that are compatible with its magnetic order).</p><p>They systematically analyzed all 122 possible magnetic point groups. For each group, they determined if a particular strain could couple linearly to the Kerr effect, even if the Kerr effect was forbidden in the unstrained state. A linear coupling is crucial because it allows for a direct, proportional relationship between the strain and the resulting Kerr signal, which is key for predictable control. They identified 16 specific magnetic point groups where this &quot;piezo-Kerr effect&quot; is allowed. These groups are found in altermagnets and noncollinear antiferromagnets that have a symmetry-enforced vanishing net magnetization.</p><p>To validate their theory, they performed first-principles calculations (sophisticated computer simulations based on quantum mechanics) on four real materials: bulk MnTe₂, bulk CoF₂, and two-dimensional materials called Cr₂Se₂O and Cr₂Te₂O monolayers. These materials were chosen because their magnetic point groups belong to the 16 identified groups.</p>
-<h3>What they found</h3><p>The research found that in the 16 identified magnetic point groups, specific combinations of strain can indeed activate a Kerr response that is forbidden in the absence of strain. For the four materials they studied, their calculations confirmed this. In unstrained MnTe₂, CoF₂, Cr₂Se₂O, and Cr₂Te₂O, the Kerr rotation was predicted to be zero. However, when applying specific strains, they calculated that a significant Kerr rotation could be induced. For example, in MnTe₂, a shear strain of 0.5% resulted in a Kerr rotation of about 160 millidegrees, reaching up to 160 mdeg at 1.5% strain. In CoF₂, a compressive strain of 0.5% induced a Kerr rotation of about 260 millidegrees at 1.5% strain. For the monolayers, strains between 0.5% and 3% produced Kerr rotations ranging from tens to hundreds of millidegrees. Crucially, they found that reversing the direction of the &quot;matched&quot; strain also reversed the sign of the induced Kerr rotation, demonstrating the switchable nature of this effect.</p>
-<h3>Why it matters</h3><p>This work establishes a new phenomenon, the &quot;piezo-Kerr effect,&quot; and provides a general theoretical framework for understanding how mechanical strain can control the magneto-optical Kerr effect in materials that were previously thought to be unsuitable for such applications due to their vanishing net magnetization. The key takeaway is that by carefully selecting materials with specific magnetic symmetries and applying controlled strain, it's possible to generate a strong and, importantly, switchable Kerr signal from a zero background. This offers a promising route for developing novel magneto-optical devices, such as high-sensitivity magnetic sensors or advanced data storage technologies, where the ability to precisely control and switch magnetic signals is paramount. The predicted magnitudes of the Kerr rotation are large enough to be experimentally detectable with current technology, and the sign-switching capability directly addresses the need for binary control in electronic devices.</p>
+      <h3>Background</h3><p>Traditional methods for understanding &quot;topology&quot; in materials, like in condensed matter physics, rely on global properties of the material's electronic structure. These methods work well for large, perfect crystals, where you can analyze the entire material's behavior. However, the world of photonics (light) is different. Photonic systems can be very small, exhibit nonlinear behavior (where light intensity affects how it propagates), and interact with their surroundings through radiation (light escaping). These &quot;real-world&quot; complexities make the old topological tools less effective. For instance, if a photonic system is small, it doesn't have a clear &quot;bulk&quot; to analyze. If it's losing light, it doesn't have a clean &quot;energy gap&quot; that traditional theories require. This research is motivated by the need for a new way to understand and classify topological properties in these more complex and practical photonic systems.</p>
+<h3>What they did</h3><p>This paper introduces a new framework called the &quot;spectral localizer&quot; for classifying topology in photonic systems. Instead of looking at global properties, the spectral localizer probes the system locally, at specific positions and energies. It's built on advanced mathematical concepts, specifically $C^*$-algebras and numerical $K$-theory, which are different from the geometry and vector bundles used in traditional topological physics.</p><p>The core idea is to reframe the question of topology. Instead of asking &quot;what is the global topological invariant?&quot;, they ask: &quot;Can this system, at this specific location and energy, be smoothly deformed into an 'atomic limit' without closing an energy gap or breaking symmetries?&quot; An atomic limit is a simplified state where the system's components are completely separated and non-interacting, like individual atoms.</p><p>To do this, they construct a mathematical object called the spectral localizer, which combines the system's Hamiltonian (describing its energy and dynamics) and its position operators. For a 2D system, this looks like a matrix:
+$L(x,E)(X,Y,H) = \begin{pmatrix} H - E1 &amp; \kappa(X - x1) - i\kappa(Y - y1) \\ \kappa(X - x1) + i\kappa(Y - y1) &amp; -(H - E1) \end{pmatrix}$
+where $H$ is the Hamiltonian, $E$ is the energy of interest, $X$ and $Y$ are position operators, $(x,y)$ is the specific location being probed, $\kappa$ is a scaling factor, and $1$ is the identity matrix.</p><p>The &quot;local topological marker&quot; is then derived from the &quot;signature&quot; of this spectral localizer. The signature is essentially the number of positive eigenvalues minus the number of negative eigenvalues. If this signature is zero at a particular $(x,E)$, it means the system can be smoothly deformed into an atomic limit at that point, indicating a trivial topology. A non-zero signature implies non-trivial topology. This framework can be generalized to higher dimensions using Clifford representations. They also introduce a &quot;local measure of topological protection,&quot; which is the smallest absolute value of any eigenvalue of the spectral localizer. A larger value means the topology is more robust against perturbations.</p>
+<h3>What they found</h3><p>The spectral localizer framework successfully classifies various types of topology, including those traditionally classified by Chern numbers, crystalline topology, and higher-order topology. A key finding is that this framework provides &quot;integer-valued&quot; local markers, meaning the topological classification at a point is a definite integer. Crucially, it also provides a quantitative measure of topological protection, given by the minimum absolute eigenvalue of the spectral localizer, denoted as $\mu_C(x,E)$. This value acts as a &quot;local gap,&quot; indicating how robust the local topology is. For example, if $\mu_C(x,E)$ is large, the local topology is protected against perturbations up to that magnitude. The paper demonstrates this with an example of a photonic heterostructure, showing how the local Chern marker and local gap correctly identify the topological interface.</p>
+<h3>Why it matters</h3><p>This work offers a powerful new tool for understanding topology in photonic systems that were previously difficult to analyze. By shifting from global to local properties, the spectral localizer framework can handle systems with nonlinearities, radiative environments, and finite sizes – all crucial aspects of modern photonic devices. The ability to quantify local topological protection is particularly important for designing robust photonic devices, such as topological lasers or waveguides, that can withstand imperfections. While the underlying mathematics is complex, the framework provides concrete &quot;local markers&quot; and a &quot;local measure of protection&quot; that can be computed numerically. This opens up new avenues for both fundamental research into topological physics and the practical engineering of advanced photonic technologies. The framework's generality suggests it could also be applied to other fields dealing with complex systems.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2610.30929" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2610.30929" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.03515" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.03515" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-25 12:14 UTC</span>
+    <span>Generated 2026-10-26 13:45 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +465,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2610.30929",
-    title:     "Piezo-Kerr effect in altermagnets and noncollinear antiferromagnets",
-    date:      "Sunday, October 25, 2026",
-    publishedDate: "2026-10-22",
-    absUrl:    "https://arxiv.org/abs/2610.30929",
+    id:        "2411.03515",
+    title:     "Tutorial: Classifying Photonic Topology Using the Spectral Localizer and Numerical $K$-Theory",
+    date:      "Monday, October 26, 2026",
+    publishedDate: "2024-11-05",
+    absUrl:    "https://arxiv.org/abs/2411.03515",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
