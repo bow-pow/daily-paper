@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutorial: Classifying Photonic Topology Using the Spectral Localizer and Numerical $K$-Theory — One Journal A Day by Abhijeet</title>
+<title>Cosmic (super)strings with a time-varying tension — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Monday, October 26, 2026</div>
+    <div class="date">Tuesday, October 27, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.03515</span>
+    <span class="arxiv-id">arXiv:2411.04186</span>
     <span></span>
-    <span>Submitted 2024-11-05</span>
+    <span>Submitted 2024-11-06</span>
   </div>
 
-  <h1 class="paper-title">Tutorial: Classifying Photonic Topology Using the Spectral Localizer and Numerical $K$-Theory</h1>
-  <div class="authors">Alexander Cerjan, Terry A. Loring</div>
+  <h1 class="paper-title">Cosmic (super)strings with a time-varying tension</h1>
+  <div class="authors">Filippo Revello, Gonzalo Villa</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research tutorial explains a new mathematical tool for understanding the &quot;topology&quot; of light in complex systems.</p><p>Topology, in this context, describes fundamental properties of light waves that don't change even if the system is slightly deformed. The spectral localizer, a mathematical framework, helps identify these topological properties, especially in systems with nonlinearities (where light's behavior changes based on its intensity) or when light can escape into its surroundings (radiative environments). It reveals that topological protection, a form of robustness, can exist even without a clear &quot;gap&quot; in the light's allowed energies. This framework uses advanced mathematical concepts from $C^*$-algebras, offering a different perspective than traditional methods.</p><p>Understanding how light's fundamental properties are preserved in challenging environments could lead to more robust optical devices, like improved lasers or sensors.</p>
+    <p>This research explores how cosmic strings, hypothetical one-dimensional defects in spacetime, behave when their fundamental property, tension (a measure of their stiffness), changes over time.  Unlike simpler models where tension is fixed, this work considers how tension variations, arising from complex theories like String Theory, alter the dynamics of these strings.  The key finding is that a time-varying tension leads to surprising phenomena, including loops that grow larger instead of shrinking, a &quot;percolation&quot; effect where strings merge, and a long-string network that can even mimic the expansion of the universe.  This is interesting because these evolving strings could leave unique imprints on gravitational waves, offering a new way to probe the very early universe and fundamental physics.</p>
   </div>
 
   <details class="deep">
@@ -434,24 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Traditional methods for understanding &quot;topology&quot; in materials, like in condensed matter physics, rely on global properties of the material's electronic structure. These methods work well for large, perfect crystals, where you can analyze the entire material's behavior. However, the world of photonics (light) is different. Photonic systems can be very small, exhibit nonlinear behavior (where light intensity affects how it propagates), and interact with their surroundings through radiation (light escaping). These &quot;real-world&quot; complexities make the old topological tools less effective. For instance, if a photonic system is small, it doesn't have a clear &quot;bulk&quot; to analyze. If it's losing light, it doesn't have a clean &quot;energy gap&quot; that traditional theories require. This research is motivated by the need for a new way to understand and classify topological properties in these more complex and practical photonic systems.</p>
-<h3>What they did</h3><p>This paper introduces a new framework called the &quot;spectral localizer&quot; for classifying topology in photonic systems. Instead of looking at global properties, the spectral localizer probes the system locally, at specific positions and energies. It's built on advanced mathematical concepts, specifically $C^*$-algebras and numerical $K$-theory, which are different from the geometry and vector bundles used in traditional topological physics.</p><p>The core idea is to reframe the question of topology. Instead of asking &quot;what is the global topological invariant?&quot;, they ask: &quot;Can this system, at this specific location and energy, be smoothly deformed into an 'atomic limit' without closing an energy gap or breaking symmetries?&quot; An atomic limit is a simplified state where the system's components are completely separated and non-interacting, like individual atoms.</p><p>To do this, they construct a mathematical object called the spectral localizer, which combines the system's Hamiltonian (describing its energy and dynamics) and its position operators. For a 2D system, this looks like a matrix:
-$L(x,E)(X,Y,H) = \begin{pmatrix} H - E1 &amp; \kappa(X - x1) - i\kappa(Y - y1) \\ \kappa(X - x1) + i\kappa(Y - y1) &amp; -(H - E1) \end{pmatrix}$
-where $H$ is the Hamiltonian, $E$ is the energy of interest, $X$ and $Y$ are position operators, $(x,y)$ is the specific location being probed, $\kappa$ is a scaling factor, and $1$ is the identity matrix.</p><p>The &quot;local topological marker&quot; is then derived from the &quot;signature&quot; of this spectral localizer. The signature is essentially the number of positive eigenvalues minus the number of negative eigenvalues. If this signature is zero at a particular $(x,E)$, it means the system can be smoothly deformed into an atomic limit at that point, indicating a trivial topology. A non-zero signature implies non-trivial topology. This framework can be generalized to higher dimensions using Clifford representations. They also introduce a &quot;local measure of topological protection,&quot; which is the smallest absolute value of any eigenvalue of the spectral localizer. A larger value means the topology is more robust against perturbations.</p>
-<h3>What they found</h3><p>The spectral localizer framework successfully classifies various types of topology, including those traditionally classified by Chern numbers, crystalline topology, and higher-order topology. A key finding is that this framework provides &quot;integer-valued&quot; local markers, meaning the topological classification at a point is a definite integer. Crucially, it also provides a quantitative measure of topological protection, given by the minimum absolute eigenvalue of the spectral localizer, denoted as $\mu_C(x,E)$. This value acts as a &quot;local gap,&quot; indicating how robust the local topology is. For example, if $\mu_C(x,E)$ is large, the local topology is protected against perturbations up to that magnitude. The paper demonstrates this with an example of a photonic heterostructure, showing how the local Chern marker and local gap correctly identify the topological interface.</p>
-<h3>Why it matters</h3><p>This work offers a powerful new tool for understanding topology in photonic systems that were previously difficult to analyze. By shifting from global to local properties, the spectral localizer framework can handle systems with nonlinearities, radiative environments, and finite sizes – all crucial aspects of modern photonic devices. The ability to quantify local topological protection is particularly important for designing robust photonic devices, such as topological lasers or waveguides, that can withstand imperfections. While the underlying mathematics is complex, the framework provides concrete &quot;local markers&quot; and a &quot;local measure of protection&quot; that can be computed numerically. This opens up new avenues for both fundamental research into topological physics and the practical engineering of advanced photonic technologies. The framework's generality suggests it could also be applied to other fields dealing with complex systems.</p>
+      <h3>Background</h3><p>Cosmic strings are hypothetical, one-dimensional defects in spacetime that could have formed in the very early universe. They are fascinating because they offer a window into physics at extremely high energies, potentially connecting to theories like String Theory. While cosmologists have studied them for a long time, their existence is heavily constrained by observations. However, they remain important for understanding phenomena like dark matter and, crucially for this paper, for generating gravitational waves. Gravitational waves are ripples in spacetime caused by massive accelerating objects, and cosmic strings are predicted to produce a unique spectrum of these waves. This paper is motivated by a discrepancy: while simple models of cosmic strings assume their &quot;tension&quot; (a measure of their stiffness and energy per unit length) is constant, String Theory, a leading candidate for a unified theory of physics, suggests this tension might actually change over time. This time-varying tension could significantly alter how cosmic strings behave and the gravitational waves they produce, and this paper aims to explore those effects.</p>
+<h3>What they did</h3><p>The researchers investigated how a cosmic string network evolves when its tension, denoted by $\mu$, isn't constant but changes over time. They specifically considered scenarios where the tension decreases polynomially with time, $\mu \sim t^{-m}$, and where the universe's expansion is also described by a power-law, $a \sim t^{2/n}$. They extended a well-established model for cosmic string networks called the Velocity One Scale (VOS) model. This model describes the network's behavior using two key parameters: the average velocity of the strings ($v$) and a characteristic length scale ($L$) representing the average distance between strings. The VOS model, when the tension is constant, predicts that the string network reaches a &quot;scaling regime&quot; where its energy density is a fixed fraction of the universe's energy density. The paper modified the equations of motion for the strings to include the time-varying tension. They then analyzed these modified equations using mathematical techniques, including dynamical system analysis, to understand the long-term behavior of the string network and the evolution of closed loops of string. They also looked at the microscopic behavior of strings, like the way small perturbations evolve, to gain insight into a quantity called the &quot;momentum parameter,&quot; which influences the network's dynamics.</p>
+<h3>What they found</h3><p>The core finding is that a time-varying tension significantly enriches the phenomenology of cosmic string networks. Instead of a single predictable scaling regime, they found that the network can evolve towards one of two main &quot;attractor&quot; states: a standard scaling regime (similar to the constant tension case) or a &quot;radiation-like&quot; behavior, where the string network's energy density mimics that of radiation. The specific outcome depends on the parameters describing the universe's expansion ($n$) and the tension's time dependence ($m$), particularly on the combination $mn$. For instance, when $mn &gt; 4$, the momentum parameter can become negative, leading to novel behaviors. They also found that closed loops of string, which eventually decay to produce gravitational waves, can exhibit unusual dynamics. With a decreasing tension, these loops can actually grow in size temporarily, even while emitting gravitational waves, a phenomenon not seen with constant tension. The paper also highlights that the final state of the network is highly sensitive to its initial conditions.</p>
+<h3>Why it matters</h3><p>This research is important because it bridges the gap between theoretical predictions from String Theory and observable cosmic phenomena. By showing that a time-varying string tension can lead to diverse behaviors like growing loops and radiation-like energy density, it opens up new avenues for searching for cosmic strings. The unique gravitational wave signals produced by these time-varying tension strings could be detectable by future gravitational wave observatories. This work suggests that observations of gravitational waves might not only confirm the existence of cosmic strings but also provide evidence for the complex dynamics predicted by String Theory, such as evolving moduli fields. While the VOS model used is an approximation and hasn't been fully validated by numerical simulations for time-varying tension, the findings provide a strong theoretical basis for further investigation and experimental searches. The paper's conclusion is that the phenomenology of cosmic strings is much richer than previously thought, offering exciting possibilities for probing the very early universe.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.03515" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.03515" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.04186" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.04186" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-26 13:45 UTC</span>
+    <span>Generated 2026-10-27 12:52 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -465,11 +463,11 @@ where $H$ is the Hamiltonian, $E$ is the energy of interest, $X$ and $Y$ are pos
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.03515",
-    title:     "Tutorial: Classifying Photonic Topology Using the Spectral Localizer and Numerical $K$-Theory",
-    date:      "Monday, October 26, 2026",
-    publishedDate: "2024-11-05",
-    absUrl:    "https://arxiv.org/abs/2411.03515",
+    id:        "2411.04186",
+    title:     "Cosmic (super)strings with a time-varying tension",
+    date:      "Tuesday, October 27, 2026",
+    publishedDate: "2024-11-06",
+    absUrl:    "https://arxiv.org/abs/2411.04186",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
