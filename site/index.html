@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cosmic (super)strings with a time-varying tension — One Journal A Day by Abhijeet</title>
+<title>Gluing methods for quantitative stability of optimal transport maps — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Tuesday, October 27, 2026</div>
+    <div class="date">Wednesday, October 28, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.04186</span>
+    <span class="arxiv-id">arXiv:2411.04908</span>
     <span></span>
-    <span>Submitted 2024-11-06</span>
+    <span>Submitted 2024-11-07</span>
   </div>
 
-  <h1 class="paper-title">Cosmic (super)strings with a time-varying tension</h1>
-  <div class="authors">Filippo Revello, Gonzalo Villa</div>
+  <h1 class="paper-title">Gluing methods for quantitative stability of optimal transport maps</h1>
+  <div class="authors">Cyril Letrouit, Quentin Mérigot</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how cosmic strings, hypothetical one-dimensional defects in spacetime, behave when their fundamental property, tension (a measure of their stiffness), changes over time.  Unlike simpler models where tension is fixed, this work considers how tension variations, arising from complex theories like String Theory, alter the dynamics of these strings.  The key finding is that a time-varying tension leads to surprising phenomena, including loops that grow larger instead of shrinking, a &quot;percolation&quot; effect where strings merge, and a long-string network that can even mimic the expansion of the universe.  This is interesting because these evolving strings could leave unique imprints on gravitational waves, offering a new way to probe the very early universe and fundamental physics.</p>
+    <p>This research explores how stable optimal transport maps are when the target distribution changes slightly.</p><p>The core finding is that the optimal transport map, which tells you how to move mass from a reference distribution to a target distribution in the most efficient way (minimizing squared distances), doesn't change drastically when the target distribution is only slightly perturbed. Specifically, the map $T_\mu$ (which transports from a fixed density $\rho$ to a measure $\mu$) is &quot;bi-Hölder continuous,&quot; meaning small changes in $\mu$ lead to proportionally small changes in $T_\mu$. This stability is quantified by a new metric, $W_{2,\rho}$, which is shown to be equivalent to the standard $W_2$ Wasserstein distance. This equivalence validates the use of $W_{2,\rho}$ in practical applications.</p><p>This work is interesting because it guarantees that methods relying on optimal transport for comparing probability distributions will be robust to small errors or variations in the data, making these techniques more reliable in real-world applications like machine learning or image processing.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,26 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Cosmic strings are hypothetical, one-dimensional defects in spacetime that could have formed in the very early universe. They are fascinating because they offer a window into physics at extremely high energies, potentially connecting to theories like String Theory. While cosmologists have studied them for a long time, their existence is heavily constrained by observations. However, they remain important for understanding phenomena like dark matter and, crucially for this paper, for generating gravitational waves. Gravitational waves are ripples in spacetime caused by massive accelerating objects, and cosmic strings are predicted to produce a unique spectrum of these waves. This paper is motivated by a discrepancy: while simple models of cosmic strings assume their &quot;tension&quot; (a measure of their stiffness and energy per unit length) is constant, String Theory, a leading candidate for a unified theory of physics, suggests this tension might actually change over time. This time-varying tension could significantly alter how cosmic strings behave and the gravitational waves they produce, and this paper aims to explore those effects.</p>
-<h3>What they did</h3><p>The researchers investigated how a cosmic string network evolves when its tension, denoted by $\mu$, isn't constant but changes over time. They specifically considered scenarios where the tension decreases polynomially with time, $\mu \sim t^{-m}$, and where the universe's expansion is also described by a power-law, $a \sim t^{2/n}$. They extended a well-established model for cosmic string networks called the Velocity One Scale (VOS) model. This model describes the network's behavior using two key parameters: the average velocity of the strings ($v$) and a characteristic length scale ($L$) representing the average distance between strings. The VOS model, when the tension is constant, predicts that the string network reaches a &quot;scaling regime&quot; where its energy density is a fixed fraction of the universe's energy density. The paper modified the equations of motion for the strings to include the time-varying tension. They then analyzed these modified equations using mathematical techniques, including dynamical system analysis, to understand the long-term behavior of the string network and the evolution of closed loops of string. They also looked at the microscopic behavior of strings, like the way small perturbations evolve, to gain insight into a quantity called the &quot;momentum parameter,&quot; which influences the network's dynamics.</p>
-<h3>What they found</h3><p>The core finding is that a time-varying tension significantly enriches the phenomenology of cosmic string networks. Instead of a single predictable scaling regime, they found that the network can evolve towards one of two main &quot;attractor&quot; states: a standard scaling regime (similar to the constant tension case) or a &quot;radiation-like&quot; behavior, where the string network's energy density mimics that of radiation. The specific outcome depends on the parameters describing the universe's expansion ($n$) and the tension's time dependence ($m$), particularly on the combination $mn$. For instance, when $mn &gt; 4$, the momentum parameter can become negative, leading to novel behaviors. They also found that closed loops of string, which eventually decay to produce gravitational waves, can exhibit unusual dynamics. With a decreasing tension, these loops can actually grow in size temporarily, even while emitting gravitational waves, a phenomenon not seen with constant tension. The paper also highlights that the final state of the network is highly sensitive to its initial conditions.</p>
-<h3>Why it matters</h3><p>This research is important because it bridges the gap between theoretical predictions from String Theory and observable cosmic phenomena. By showing that a time-varying string tension can lead to diverse behaviors like growing loops and radiation-like energy density, it opens up new avenues for searching for cosmic strings. The unique gravitational wave signals produced by these time-varying tension strings could be detectable by future gravitational wave observatories. This work suggests that observations of gravitational waves might not only confirm the existence of cosmic strings but also provide evidence for the complex dynamics predicted by String Theory, such as evolving moduli fields. While the VOS model used is an approximation and hasn't been fully validated by numerical simulations for time-varying tension, the findings provide a strong theoretical basis for further investigation and experimental searches. The paper's conclusion is that the phenomenology of cosmic strings is much richer than previously thought, offering exciting possibilities for probing the very early universe.</p>
+      <h3>Background</h3><p>Imagine you have a blob of dough (represented by a probability distribution, let's call it $\rho$) and you want to reshape it into a different blob (another probability distribution, $\mu$). Optimal transport is a mathematical framework that finds the most efficient way to &quot;move&quot; the dough from its initial shape to the target shape, minimizing the total &quot;effort&quot; or &quot;cost&quot; involved in moving each tiny piece of dough. The &quot;effort&quot; is usually measured by how far a piece is moved, squared (quadratic cost).</p><p>A key outcome of this process is a &quot;map&quot; that tells you exactly where each point in the original dough should go to form the new shape. This map is called the optimal transport map. A crucial question for practical applications and theoretical understanding is: what happens to this map if the target blob $\mu$ is only slightly different from another target blob $\nu$? How much can the maps $T_\mu$ and $T_\nu$ differ? This is the problem of &quot;quantitative stability&quot; – how stable is the transport map when the target measure changes slightly. This paper investigates this question for a *fixed* initial dough shape $\rho$ and varying target shapes $\mu$.</p>
+<h3>What they did</h3><p>The researchers tackle the stability problem by focusing on a specific mathematical object called the &quot;Brenier potential.&quot; For a given source distribution $\rho$ and a target distribution $\mu$, the Brenier potential is a function (let's call it $\phi_\mu$) that, when you take its gradient (like finding the slope), gives you the optimal transport map $T_\mu$. The paper shows that if two target distributions $\mu$ and $\nu$ are close in a specific sense (measured by the 2-Wasserstein distance, $W_2(\mu, \nu)$), then their corresponding Brenier potentials $\phi_\mu$ and $\phi_\nu$ are also close, and importantly, their difference can be bounded in terms of the distance between $\mu$ and $\nu$.</p><p>The core of their method involves a clever technique called &quot;gluing.&quot; They first establish that stability holds in simpler settings, like when the source distribution $\rho$ is &quot;well-behaved&quot; (e.g., log-concave or supported on a convex domain). Then, they develop strategies to &quot;glue&quot; these local stability results together to prove stability for more complex and general source distributions $\rho$. This gluing process is inspired by methods used to prove related inequalities (like Poincaré inequalities) in geometric analysis. They use two main gluing strategies: one involving the &quot;Whitney decomposition&quot; of domains and another using &quot;spectral graph theory.&quot;</p>
+<h3>What they found</h3><p>The paper establishes quantitative stability bounds for the optimal transport map $T_\mu$ under various conditions for the fixed source density $\rho$. They prove that the map from target measures $\mu$ to transport maps $T_\mu$ is &quot;bi-Hölder continuous.&quot; This means that if two target measures $\mu$ and $\nu$ are close in the $W_1$ or $W_2$ Wasserstein distance, their corresponding transport maps $T_\mu$ and $T_\nu$ are also close in an $L^2(\rho)$ sense, with a specific power-law relationship.</p><p>Specifically, they show this property holds in several important cases:
+1.  For log-concave densities $\rho$ (a broad class of &quot;nice&quot; distributions) on $\mathbb{R}^d$, and perturbations of them.
+2.  For densities $\rho$ bounded away from zero and infinity on &quot;John domains&quot; (domains where you can move between points without getting too close to the boundary). This is a significant relaxation of previous requirements that needed convex domains. For such domains, they show the difference in potentials is bounded by $W_1(\mu, \nu)^{1/2}$ and the difference in maps by $W_1(\mu, \nu)^{1/6}$.
+3.  For densities $\rho$ on bounded domains that either decay or blow up polynomially near the boundary.
+4.  For generalized Cauchy distributions, where they prove sharp stability bounds for the potentials, showing a connection to $W_1(\mu, \nu)^{(1/2)(1 - 2/(\beta-d))}$ where $\beta$ is a parameter of the Cauchy distribution.</p><p>Crucially, they also provide examples of domains that are *not* John domains for which this stability property *fails*, demonstrating the sharpness of their conditions.</p>
+<h3>Why it matters</h3><p>This research significantly expands the range of probability distributions $\rho$ for which the stability of optimal transport maps is understood. This is vital because many real-world applications of optimal transport, such as in machine learning (e.g., image analysis, generative models) and statistics (e.g., defining multivariate quantiles), rely on the assumption that these transport maps are well-behaved and don't change drastically with small perturbations of the data.</p><p>The paper's findings mean that optimal transport can be reliably used with a much wider variety of &quot;source&quot; data distributions than previously thought. The relaxation of convexity requirements for the domain and the allowance for densities to degenerate at boundaries are particularly important for practical applications where data might not conform to idealized geometric shapes or density profiles. The explicit quantitative bounds provide a mathematical guarantee for the stability of numerical methods used to compute these maps, which is essential for their trustworthiness. The work also opens doors for further research into stability for more general cost functions and on curved spaces.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.04186" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.04186" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.04908" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.04908" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-27 12:52 UTC</span>
+    <span>Generated 2026-10-28 13:41 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +467,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.04186",
-    title:     "Cosmic (super)strings with a time-varying tension",
-    date:      "Tuesday, October 27, 2026",
-    publishedDate: "2024-11-06",
-    absUrl:    "https://arxiv.org/abs/2411.04186",
+    id:        "2411.04908",
+    title:     "Gluing methods for quantitative stability of optimal transport maps",
+    date:      "Wednesday, October 28, 2026",
+    publishedDate: "2024-11-07",
+    absUrl:    "https://arxiv.org/abs/2411.04908",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
