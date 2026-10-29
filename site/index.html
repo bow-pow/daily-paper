@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gluing methods for quantitative stability of optimal transport maps — One Journal A Day by Abhijeet</title>
+<title>What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Wednesday, October 28, 2026</div>
+    <div class="date">Thursday, October 29, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.04908</span>
+    <span class="arxiv-id">arXiv:2610.37631</span>
     <span></span>
-    <span>Submitted 2024-11-07</span>
+    <span>Submitted 2026-10-27</span>
   </div>
 
-  <h1 class="paper-title">Gluing methods for quantitative stability of optimal transport maps</h1>
-  <div class="authors">Cyril Letrouit, Quentin Mérigot</div>
+  <h1 class="paper-title">What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models</h1>
+  <div class="authors">Chang Su, Bin Wu, Emine Yilmaz, Yao Lu</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how stable optimal transport maps are when the target distribution changes slightly.</p><p>The core finding is that the optimal transport map, which tells you how to move mass from a reference distribution to a target distribution in the most efficient way (minimizing squared distances), doesn't change drastically when the target distribution is only slightly perturbed. Specifically, the map $T_\mu$ (which transports from a fixed density $\rho$ to a measure $\mu$) is &quot;bi-Hölder continuous,&quot; meaning small changes in $\mu$ lead to proportionally small changes in $T_\mu$. This stability is quantified by a new metric, $W_{2,\rho}$, which is shown to be equivalent to the standard $W_2$ Wasserstein distance. This equivalence validates the use of $W_{2,\rho}$ in practical applications.</p><p>This work is interesting because it guarantees that methods relying on optimal transport for comparing probability distributions will be robust to small errors or variations in the data, making these techniques more reliable in real-world applications like machine learning or image processing.</p>
+    <p>This research investigates how large language models learn different types of knowledge as they are trained on vast amounts of text data collected over several years.</p><p>The core idea is to track how the &quot;prevalence&quot; or commonness of specific pieces of information changes across different years of web data. They developed a &quot;temporal variability score&quot; (TVS) to measure this; a high TVS means a piece of knowledge appears inconsistently across years. They found that knowledge that is less consistent over time (high TVS) is actually learned *faster* later in the training process and ultimately leads to better performance on knowledge-heavy tasks.</p><p>This is interesting because it shows that language models don't just learn everything at once; they prioritize and learn different kinds of information at different stages, which could help us build better, more efficient AI.</p>
   </div>
 
   <details class="deep">
@@ -434,26 +434,23 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine you have a blob of dough (represented by a probability distribution, let's call it $\rho$) and you want to reshape it into a different blob (another probability distribution, $\mu$). Optimal transport is a mathematical framework that finds the most efficient way to &quot;move&quot; the dough from its initial shape to the target shape, minimizing the total &quot;effort&quot; or &quot;cost&quot; involved in moving each tiny piece of dough. The &quot;effort&quot; is usually measured by how far a piece is moved, squared (quadratic cost).</p><p>A key outcome of this process is a &quot;map&quot; that tells you exactly where each point in the original dough should go to form the new shape. This map is called the optimal transport map. A crucial question for practical applications and theoretical understanding is: what happens to this map if the target blob $\mu$ is only slightly different from another target blob $\nu$? How much can the maps $T_\mu$ and $T_\nu$ differ? This is the problem of &quot;quantitative stability&quot; – how stable is the transport map when the target measure changes slightly. This paper investigates this question for a *fixed* initial dough shape $\rho$ and varying target shapes $\mu$.</p>
-<h3>What they did</h3><p>The researchers tackle the stability problem by focusing on a specific mathematical object called the &quot;Brenier potential.&quot; For a given source distribution $\rho$ and a target distribution $\mu$, the Brenier potential is a function (let's call it $\phi_\mu$) that, when you take its gradient (like finding the slope), gives you the optimal transport map $T_\mu$. The paper shows that if two target distributions $\mu$ and $\nu$ are close in a specific sense (measured by the 2-Wasserstein distance, $W_2(\mu, \nu)$), then their corresponding Brenier potentials $\phi_\mu$ and $\phi_\nu$ are also close, and importantly, their difference can be bounded in terms of the distance between $\mu$ and $\nu$.</p><p>The core of their method involves a clever technique called &quot;gluing.&quot; They first establish that stability holds in simpler settings, like when the source distribution $\rho$ is &quot;well-behaved&quot; (e.g., log-concave or supported on a convex domain). Then, they develop strategies to &quot;glue&quot; these local stability results together to prove stability for more complex and general source distributions $\rho$. This gluing process is inspired by methods used to prove related inequalities (like Poincaré inequalities) in geometric analysis. They use two main gluing strategies: one involving the &quot;Whitney decomposition&quot; of domains and another using &quot;spectral graph theory.&quot;</p>
-<h3>What they found</h3><p>The paper establishes quantitative stability bounds for the optimal transport map $T_\mu$ under various conditions for the fixed source density $\rho$. They prove that the map from target measures $\mu$ to transport maps $T_\mu$ is &quot;bi-Hölder continuous.&quot; This means that if two target measures $\mu$ and $\nu$ are close in the $W_1$ or $W_2$ Wasserstein distance, their corresponding transport maps $T_\mu$ and $T_\nu$ are also close in an $L^2(\rho)$ sense, with a specific power-law relationship.</p><p>Specifically, they show this property holds in several important cases:
-1.  For log-concave densities $\rho$ (a broad class of &quot;nice&quot; distributions) on $\mathbb{R}^d$, and perturbations of them.
-2.  For densities $\rho$ bounded away from zero and infinity on &quot;John domains&quot; (domains where you can move between points without getting too close to the boundary). This is a significant relaxation of previous requirements that needed convex domains. For such domains, they show the difference in potentials is bounded by $W_1(\mu, \nu)^{1/2}$ and the difference in maps by $W_1(\mu, \nu)^{1/6}$.
-3.  For densities $\rho$ on bounded domains that either decay or blow up polynomially near the boundary.
-4.  For generalized Cauchy distributions, where they prove sharp stability bounds for the potentials, showing a connection to $W_1(\mu, \nu)^{(1/2)(1 - 2/(\beta-d))}$ where $\beta$ is a parameter of the Cauchy distribution.</p><p>Crucially, they also provide examples of domains that are *not* John domains for which this stability property *fails*, demonstrating the sharpness of their conditions.</p>
-<h3>Why it matters</h3><p>This research significantly expands the range of probability distributions $\rho$ for which the stability of optimal transport maps is understood. This is vital because many real-world applications of optimal transport, such as in machine learning (e.g., image analysis, generative models) and statistics (e.g., defining multivariate quantiles), rely on the assumption that these transport maps are well-behaved and don't change drastically with small perturbations of the data.</p><p>The paper's findings mean that optimal transport can be reliably used with a much wider variety of &quot;source&quot; data distributions than previously thought. The relaxation of convexity requirements for the domain and the allowance for densities to degenerate at boundaries are particularly important for practical applications where data might not conform to idealized geometric shapes or density profiles. The explicit quantitative bounds provide a mathematical guarantee for the stability of numerical methods used to compute these maps, which is essential for their trustworthiness. The work also opens doors for further research into stability for more general cost functions and on curved spaces.</p>
+      <p>Here's an explainer of the research paper &quot;What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models&quot;:</p>
+<h3>Background</h3><p>Large language models, like the ones powering many AI applications today, learn by reading vast amounts of text from the internet. This pretraining process helps them acquire knowledge and become proficient at various tasks. However, it's not entirely clear *how* they learn different types of knowledge as they progress through this massive training. Do they learn all facts equally well from the start, or do some facts take longer to grasp? This research aims to understand the learning trajectory of different kinds of knowledge during pretraining.</p>
+<h3>What they did</h3><p>The researchers tackled this question by using a clever technique involving &quot;point-in-time&quot; (PIT) language models. Imagine having several versions of a language model, each trained on a snapshot of the internet from a different year (e.g., 2017, 2018, ..., 2024). These PIT models share the same underlying structure and training methods, but their training data differs only in the year it was collected. This allows researchers to see how a model's &quot;understanding&quot; of a piece of information changes depending on when that information was prevalent on the web.</p><p>They developed a metric called the &quot;temporal variability score&quot; (TVS). For a specific fact or question-answer pair, TVS measures how much the PIT models disagree on how likely that item is. If a fact is consistently present and phrased similarly across many years, models trained on different yearly snapshots will likely assign it a similar likelihood. If a fact's prevalence or phrasing changes dramatically year to year, the models will show more variation in their likelihood assignments. A high TVS means the knowledge is &quot;temporally variable&quot; (its presence or form changes over time), while a low TVS means it's &quot;temporally stable.&quot;</p><p>They then applied this TVS metric to individual questions from various knowledge-based benchmarks (like those testing factual recall, reasoning, and common sense). They grouped these questions into low-TVS and high-TVS categories. Finally, they tracked how well different language models (from various open-source families) performed on these low- and high-TVS questions at different stages of their own pretraining.</p>
+<h3>What they found</h3><p>The study revealed a distinct pattern in how knowledge is learned. Early in the pretraining process, models performed similarly on both temporally stable (low-TVS) and temporally variable (high-TVS) knowledge items. However, as pretraining progressed, the models improved much faster on the temporally variable (high-TVS) items. By the end of the training, high-TVS items were answered correctly more often than low-TVS items in a significant majority of cases (34 out of 36 model-benchmark settings), with an average advantage of 7.3 points in chance-normalized accuracy. This effect was particularly strong on tasks that heavily rely on knowledge.</p><p>Furthermore, they found that the *answer* itself, not just the question's wording, plays a crucial role. When they isolated the variability of the correct answer compared to incorrect ones, this &quot;answer-specific TVS&quot; became an even stronger predictor of later learning gains.</p>
+<h3>Why it matters</h3><p>This research provides a valuable new tool, TVS, for understanding what and how language models learn during pretraining. It moves beyond simply looking at overall performance on benchmarks and offers a more granular view of knowledge acquisition. The findings suggest that while models might initially struggle with information that fluctuates in its online presence, they become particularly adept at learning and utilizing this type of knowledge later in their training. This has implications for how we design training data, evaluate models, and understand their capabilities. The limitations include the reliance on the quality of the PIT models and the fact that the study focused on multiple-choice benchmarks, which might not fully represent all types of knowledge acquisition. Nevertheless, TVS offers a promising way to diagnose learning dynamics that aggregate scores can miss.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.04908" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.04908" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2610.37631" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2610.37631" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-28 13:41 UTC</span>
+    <span>Generated 2026-10-29 13:56 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -467,11 +464,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.04908",
-    title:     "Gluing methods for quantitative stability of optimal transport maps",
-    date:      "Wednesday, October 28, 2026",
-    publishedDate: "2024-11-07",
-    absUrl:    "https://arxiv.org/abs/2411.04908",
+    id:        "2610.37631",
+    title:     "What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models",
+    date:      "Thursday, October 29, 2026",
+    publishedDate: "2026-10-27",
+    absUrl:    "https://arxiv.org/abs/2610.37631",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
