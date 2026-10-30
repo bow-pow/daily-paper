@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models — One Journal A Day by Abhijeet</title>
+<title>SEEKR: Selective Attention-Guided Knowledge Retention for Continual Learning of Large Language Models — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Thursday, October 29, 2026</div>
+    <div class="date">Friday, October 30, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2610.37631</span>
+    <span class="arxiv-id">arXiv:2411.06171</span>
     <span></span>
-    <span>Submitted 2026-10-27</span>
+    <span>Submitted 2024-11-09</span>
   </div>
 
-  <h1 class="paper-title">What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models</h1>
-  <div class="authors">Chang Su, Bin Wu, Emine Yilmaz, Yao Lu</div>
+  <h1 class="paper-title">SEEKR: Selective Attention-Guided Knowledge Retention for Continual Learning of Large Language Models</h1>
+  <div class="authors">Jinghan He, Haiyun Guo, Kuan Zhu, Zihan Zhao, Ming Tang, Jinqiao Wang</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research investigates how large language models learn different types of knowledge as they are trained on vast amounts of text data collected over several years.</p><p>The core idea is to track how the &quot;prevalence&quot; or commonness of specific pieces of information changes across different years of web data. They developed a &quot;temporal variability score&quot; (TVS) to measure this; a high TVS means a piece of knowledge appears inconsistently across years. They found that knowledge that is less consistent over time (high TVS) is actually learned *faster* later in the training process and ultimately leads to better performance on knowledge-heavy tasks.</p><p>This is interesting because it shows that language models don't just learn everything at once; they prioritize and learn different kinds of information at different stages, which could help us build better, more efficient AI.</p>
+    <p>This research introduces a smarter way for large language models (LLMs) to learn new things without forgetting what they already know.</p><p>The core idea is that not all parts of an LLM's internal &quot;thinking&quot; process, specifically its attention weights (which tell the model where to focus), are equally important for remembering past knowledge. They developed a method called SEEKR that selectively focuses on and preserves the most crucial attention heads during learning. This means the model can learn new information much more efficiently, requiring far fewer examples to avoid &quot;catastrophic forgetting,&quot; a common problem where models lose previously learned skills.</p><p>This is exciting because it suggests LLMs can become more adaptable and learn new information with less data and computational effort, making them more practical for real-world applications that constantly change.</p>
   </div>
 
   <details class="deep">
@@ -434,23 +434,26 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <p>Here's an explainer of the research paper &quot;What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models&quot;:</p>
-<h3>Background</h3><p>Large language models, like the ones powering many AI applications today, learn by reading vast amounts of text from the internet. This pretraining process helps them acquire knowledge and become proficient at various tasks. However, it's not entirely clear *how* they learn different types of knowledge as they progress through this massive training. Do they learn all facts equally well from the start, or do some facts take longer to grasp? This research aims to understand the learning trajectory of different kinds of knowledge during pretraining.</p>
-<h3>What they did</h3><p>The researchers tackled this question by using a clever technique involving &quot;point-in-time&quot; (PIT) language models. Imagine having several versions of a language model, each trained on a snapshot of the internet from a different year (e.g., 2017, 2018, ..., 2024). These PIT models share the same underlying structure and training methods, but their training data differs only in the year it was collected. This allows researchers to see how a model's &quot;understanding&quot; of a piece of information changes depending on when that information was prevalent on the web.</p><p>They developed a metric called the &quot;temporal variability score&quot; (TVS). For a specific fact or question-answer pair, TVS measures how much the PIT models disagree on how likely that item is. If a fact is consistently present and phrased similarly across many years, models trained on different yearly snapshots will likely assign it a similar likelihood. If a fact's prevalence or phrasing changes dramatically year to year, the models will show more variation in their likelihood assignments. A high TVS means the knowledge is &quot;temporally variable&quot; (its presence or form changes over time), while a low TVS means it's &quot;temporally stable.&quot;</p><p>They then applied this TVS metric to individual questions from various knowledge-based benchmarks (like those testing factual recall, reasoning, and common sense). They grouped these questions into low-TVS and high-TVS categories. Finally, they tracked how well different language models (from various open-source families) performed on these low- and high-TVS questions at different stages of their own pretraining.</p>
-<h3>What they found</h3><p>The study revealed a distinct pattern in how knowledge is learned. Early in the pretraining process, models performed similarly on both temporally stable (low-TVS) and temporally variable (high-TVS) knowledge items. However, as pretraining progressed, the models improved much faster on the temporally variable (high-TVS) items. By the end of the training, high-TVS items were answered correctly more often than low-TVS items in a significant majority of cases (34 out of 36 model-benchmark settings), with an average advantage of 7.3 points in chance-normalized accuracy. This effect was particularly strong on tasks that heavily rely on knowledge.</p><p>Furthermore, they found that the *answer* itself, not just the question's wording, plays a crucial role. When they isolated the variability of the correct answer compared to incorrect ones, this &quot;answer-specific TVS&quot; became an even stronger predictor of later learning gains.</p>
-<h3>Why it matters</h3><p>This research provides a valuable new tool, TVS, for understanding what and how language models learn during pretraining. It moves beyond simply looking at overall performance on benchmarks and offers a more granular view of knowledge acquisition. The findings suggest that while models might initially struggle with information that fluctuates in its online presence, they become particularly adept at learning and utilizing this type of knowledge later in their training. This has implications for how we design training data, evaluate models, and understand their capabilities. The limitations include the reliance on the quality of the PIT models and the fact that the study focused on multiple-choice benchmarks, which might not fully represent all types of knowledge acquisition. Nevertheless, TVS offers a promising way to diagnose learning dynamics that aggregate scores can miss.</p>
+      <h3>Background</h3><p>Large language models (LLMs) are incredibly powerful, but the real world is constantly changing, and new information and tasks emerge all the time. To be truly useful in the long run, LLMs need to be able to learn new things without forgetting what they already know. This ability is called &quot;continual learning.&quot; The main challenge here is &quot;catastrophic forgetting,&quot; where learning a new task severely degrades performance on previously learned tasks. A common strategy to combat this is &quot;data replay,&quot; where a small sample of data from old tasks is kept and used during training on new tasks. While effective, existing methods often require a lot of this &quot;replay data&quot; to work well, which can be costly and sometimes impractical.</p>
+<h3>What they did</h3><p>This research proposes a new method called SEEKR (SElective attEntion-guided Knowledge Retention) to make continual learning more efficient for LLMs, specifically by using less replay data. The core idea is that the internal workings of an LLM, particularly its &quot;attention weights,&quot; are crucial for retaining knowledge. Attention weights are like a mechanism that tells the model which parts of the input text are most important when processing information. SEEKR focuses on distilling (transferring knowledge) these attention weights from older tasks to the current learning process.</p><p>However, distilling all attention weights is computationally expensive. So, SEEKR introduces a clever way to select only the *most valuable* attention heads. It does this by measuring two things for each attention head:
+1.</p>
+<h3>Task Sensitivity</h3><p>How much does changing this attention head's weights affect the model's performance on a specific old task? If a small change causes a big drop in performance, that head is considered sensitive and important.
+2.</p>
+<h3>Forgettability</h3><p>How much do this attention head's weights change when the model learns a new task? If a head's weights change a lot, it suggests it's forgetting its previous knowledge, and thus, needs more attention during distillation.</p><p>By combining these two measures, SEEKR identifies the most critical attention heads. It then uses a &quot;hierarchical budget allocation&quot; to control how many layers and heads are distilled, and even which specific parts of the attention maps are focused on, allowing for flexible control over computational cost. This selective distillation of key attention heads allows the model to retain knowledge more effectively with less replay data.</p>
+<h3>What they found</h3><p>Experiments on two benchmark datasets for LLM continual learning showed that SEEKR significantly outperforms existing methods in terms of both performance and efficiency. Crucially, SEEKR achieved comparable or even better results than other methods while using only 1/10th of the replay data. In some cases, it reduced the replay data proportion to as little as 1% of what other methods used. For example, on the TRACE benchmark, SEEKR using 1% replay data achieved performance comparable to or better than other methods using 10% replay data. The method also demonstrated a strong ability to maintain the LLM's general capabilities, reducing the &quot;catastrophic forgetting&quot; of original knowledge.</p>
+<h3>Why it matters</h3><p>This work addresses a critical bottleneck in making LLMs truly adaptable and useful in dynamic environments. By significantly reducing the amount of replay data needed for effective continual learning, SEEKR makes this process more practical and less resource-intensive. This means LLMs can be updated with new information more frequently and efficiently, without the risk of them &quot;forgetting&quot; their existing knowledge. The key takeaway is that focusing on the internal mechanisms, specifically the attention weights, and intelligently selecting which ones to preserve, is a more efficient way to retain knowledge than simply replaying more data. While SEEKR is a replay-based method and might not be suitable for scenarios with strict data privacy concerns, its efficiency opens doors for more robust and continuously learning AI systems.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2610.37631" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2610.37631" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.06171" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.06171" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-29 13:56 UTC</span>
+    <span>Generated 2026-10-30 13:43 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -464,11 +467,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2610.37631",
-    title:     "What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models",
-    date:      "Thursday, October 29, 2026",
-    publishedDate: "2026-10-27",
-    absUrl:    "https://arxiv.org/abs/2610.37631",
+    id:        "2411.06171",
+    title:     "SEEKR: Selective Attention-Guided Knowledge Retention for Continual Learning of Large Language Models",
+    date:      "Friday, October 30, 2026",
+    publishedDate: "2024-11-09",
+    absUrl:    "https://arxiv.org/abs/2411.06171",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
