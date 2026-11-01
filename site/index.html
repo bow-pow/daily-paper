@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Observation of the non-Hermitian skin effect and Fermi skin on a digital quantum computer — One Journal A Day by Abhijeet</title>
+<title>Antiferroelectric order in nematic liquids: Flexoelectricity vs electrostatics — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Saturday, October 31, 2026</div>
+    <div class="date">Sunday, November 1, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2311.10143</span>
+    <span class="arxiv-id">arXiv:2411.06915</span>
     <span></span>
-    <span>Submitted 2023-11-16</span>
+    <span>Submitted 2024-11-11</span>
   </div>
 
-  <h1 class="paper-title">Observation of the non-Hermitian skin effect and Fermi skin on a digital quantum computer</h1>
-  <div class="authors">Ruizhe Shen, Tianqi Chen, Bo Yang, Ching Hua Lee</div>
+  <h1 class="paper-title">Antiferroelectric order in nematic liquids: Flexoelectricity vs electrostatics</h1>
+  <div class="authors">Peter Medle Rupnik, Ema Hanžel, Matija Lovšin, Natan Osterman, Calum J. Gibb, Richard J. Mandle et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research demonstrates a peculiar quantum phenomenon called the non-Hermitian skin effect (NHSE) for the first time on a programmable quantum computer. The NHSE causes particles to accumulate at the edges of a system, a behavior that is extremely sensitive and not localized to specific points. This accumulation is even more pronounced when considering multiple particles, leading to a &quot;Fermi skin&quot; effect, a characteristic of how identical particles behave. Observing these effects on a quantum computer opens the door to simulating complex quantum systems that are otherwise impossible to study, potentially leading to new discoveries in materials science and fundamental physics.</p>
+    <p>This research investigates how liquid crystals can exhibit an unusual &quot;antiferroelectric&quot; behavior, meaning their internal electric polarization alternates in direction, similar to how magnetic spins alternate in an antiferromagnet.</p><p>The key finding is that this antiferroelectric order arises primarily from a phenomenon called flexoelectricity, where the bending or &quot;splaying&quot; of the liquid crystal molecules creates an electric polarization. While electrostatic forces from added ions can influence this behavior, flexoelectricity is the dominant driver. Experiments using optical microscopy and a technique called second harmonic generation microscopy visualized the alternating polarization pattern and confirmed its antiferroelectric nature.</p><p>This work is interesting because it reveals a new way to control the electrical properties of soft materials, potentially leading to novel electronic devices or sensors that utilize these unique liquid crystal phases.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Scientists are exploring a new area of physics called &quot;non-Hermitian physics.&quot; This field deals with systems that aren't perfectly balanced, meaning they can either gain or lose energy or particles over time. A key phenomenon in this area is the &quot;non-Hermitian skin effect&quot; (NHSE). The NHSE is fascinating because it makes certain states in a system extremely sensitive and causes them to accumulate in unexpected ways, often at the edges of the system. While this effect has been seen in physical systems like special materials and cold atoms, its impact on complex, interacting systems of many particles (many-body dynamics) has been hard to study experimentally. This research aims to bridge that gap by investigating the NHSE and a related, elusive effect called the &quot;Fermi skin&quot; in a more controlled and programmable environment.</p>
-<h3>What they did</h3><p>To study these phenomena, the researchers turned to a digital quantum computer. The challenge is that quantum computers naturally perform &quot;unitary&quot; operations, which are perfectly reversible and conserve probability. Non-Hermitian physics, however, involves non-unitary processes. To overcome this, they developed a clever method using &quot;ancilla qubits&quot; – extra quantum bits that are temporarily used and then &quot;post-selected.&quot; This means they perform a larger, but still unitary, operation involving both the system's qubits and the ancilla qubits, and then only keep the results where the ancilla qubits end up in a specific state. This effectively simulates the desired non-unitary evolution. They applied this technique to two specific models: the Hatano-Nelson model and the non-Hermitian Su-Schrieffer-Heeger (SSH) model. To further combat the errors inherent in current quantum computers (known as &quot;noisy intermediate-scale quantum&quot; or NISQ devices), they also used &quot;variational quantum algorithms&quot; (VQAs) to create optimized, shallower quantum circuits and employed &quot;readout error mitigation&quot; to correct for measurement inaccuracies.</p>
-<h3>What they found</h3><p>The researchers successfully observed the non-Hermitian skin effect on the quantum computer. For a single particle, they saw that wave packets were amplified and accumulated at one boundary of the simulated lattice, as predicted by theory. This directional pumping was clearly demonstrated by tracking the &quot;center of mass&quot; of the particle's density, which consistently moved towards the boundary when the non-Hermitian effect was active (e.g., with a parameter γ = 0.5). Crucially, they also observed the &quot;Fermi skin&quot; effect in systems with multiple fermions. Unlike the single-particle case where all particles might pile up at one site, the Pauli exclusion principle (which prevents identical fermions from occupying the same quantum state) leads to a density profile that resembles a real-space &quot;Fermi surface.&quot; This profile shows a gradual decrease in density from the boundary inwards, akin to a Fermi-Dirac distribution. For example, with a half-filled system and a strong NHSE (γ/J = 0.8), the density profile showed a clear transition from high density near the boundary to low density further away, matching theoretical predictions. They also explored the effect of interactions, finding that repulsive interactions could lead to a &quot;bulk Fermi skin,&quot; where density accumulates in the center of the lattice rather than at the edge.</p>
-<h3>Why it matters</h3><p>This work represents a significant step forward in simulating complex quantum phenomena. It's the first time the non-Hermitian skin effect and the many-body Fermi skin have been observed on a programmable quantum computer. This opens up a new avenue for experimentally investigating non-Hermitian physics, especially in scenarios involving multiple interacting particles, which are notoriously difficult to study with classical simulations or other experimental setups. The methods developed here, particularly the ancilla-based approach for simulating non-unitary dynamics and the use of VQAs for error mitigation, are crucial for making current quantum computers useful for scientific discovery. While current NISQ devices are noisy, this research demonstrates that even with their limitations, they can provide valuable insights into fundamental physics. The programmability of quantum computers means this approach can be extended to explore even more exotic non-Hermitian phenomena in the future.</p>
+      <h3>Background</h3><p>Liquid crystals are fascinating materials that flow like liquids but have molecules arranged in a somewhat ordered way, like in solids. Recently, scientists discovered a special type of liquid crystal called a &quot;ferroelectric nematic&quot; phase. This phase is exciting because, like a magnet, it can be polarized by an electric field, meaning its internal charges can align. However, between the normal liquid crystal phase and this ferroelectric phase, there's often another intermediate phase. This intermediate phase shows an &quot;antiferroelectric&quot; response to electric fields – meaning its internal charges tend to align in opposite directions in neighboring regions. The exact structure of this antiferroelectric phase and what causes it to form has been a puzzle. Two main ideas have been proposed: one involving &quot;flexoelectricity&quot; (how electric polarization is linked to the bending or &quot;splaying&quot; of the liquid crystal molecules) and another involving &quot;electrostatics&quot; (the forces between electric charges). This research aims to settle this debate.</p>
+<h3>What they did</h3><p>To figure out whether flexoelectricity or electrostatics is the main driver of the antiferroelectric nematic phase, the researchers experimented with two known ferroelectric nematic liquid crystal materials, RM734 and FNLC-1571. They then added a small amount of an &quot;ionic liquid&quot; – a liquid made entirely of charged particles (ions) – to these materials. By carefully controlling the concentration of this ionic liquid, they could precisely tune the strength of the electrostatic forces within the liquid crystal. They used advanced microscopy techniques, including &quot;polarizing optical microscopy&quot; (POM) to visualize the structure and &quot;second harmonic generation&quot; (SHG) microscopy, which is sensitive to the non-centrosymmetric (non-mirror-symmetric) arrangements of molecules, to probe the polarization. They also employed SHG interferometry to confirm the antiferroelectric nature of the observed structures. Finally, they developed a theoretical model that incorporates both flexoelectric and electrostatic effects, including the influence of added ions, to compare with their experimental observations.</p>
+<h3>What they found</h3><p>The key finding is that flexoelectricity is the primary mechanism responsible for the emergence of the antiferroelectric nematic phase. Adding ionic liquid significantly expanded the temperature range over which this antiferroelectric phase is observed, with this range increasing with higher ion concentrations. For example, in RM734, adding 0.5 wt.% of ionic liquid increased the temperature range of the antiferroelectric phase from about 1 Kelvin to 15 Kelvin. The researchers observed a complex, two-dimensional modulated structure, which they call the &quot;splay nematic&quot; (Ns) phase, using microscopy. This structure exhibits a periodic pattern of splayed molecules, with the periodicity reaching up to 10 micrometers in thicker cells. SHG interferometry confirmed that neighboring regions within this structure have opposite polarizations, characteristic of an antiferroelectric state. Their theoretical model, which included the electrostatic contribution of ions, showed good agreement with the experimental results, accurately reproducing the observed phase diagram and how the periodicity of the structure changed with temperature.</p>
+<h3>Why it matters</h3><p>This research provides a crucial answer to a long-standing question in the field of soft matter physics: what drives the formation of antiferroelectric order in liquid crystals? By demonstrating that flexoelectricity is the dominant force, the study clarifies the fundamental physics behind these fascinating materials. Understanding this mechanism is vital for designing and controlling liquid crystal phases for various applications. For instance, ferroelectric and antiferroelectric liquid crystals have potential uses in advanced displays, optical switches, and even in generating quantum light. The ability to tune the antiferroelectric phase by adding ions opens up new possibilities for manipulating these materials and developing novel devices. While the study clarifies the primary mechanism, it also raises further questions about the precise dimensionality (1D vs. 2D) of the splay nematic phase in different materials and temperature ranges, and the intricate behavior of topological defects that arise within these modulated structures.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2311.10143" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2311.10143" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.06915" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.06915" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-10-31 13:13 UTC</span>
+    <span>Generated 2026-11-01 13:56 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2311.10143",
-    title:     "Observation of the non-Hermitian skin effect and Fermi skin on a digital quantum computer",
-    date:      "Saturday, October 31, 2026",
-    publishedDate: "2023-11-16",
-    absUrl:    "https://arxiv.org/abs/2311.10143",
+    id:        "2411.06915",
+    title:     "Antiferroelectric order in nematic liquids: Flexoelectricity vs electrostatics",
+    date:      "Sunday, November 1, 2026",
+    publishedDate: "2024-11-11",
+    absUrl:    "https://arxiv.org/abs/2411.06915",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
