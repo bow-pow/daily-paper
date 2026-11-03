@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercury (Hg): a relativistic $N$-body simulation for Horndeski gravity — One Journal A Day by Abhijeet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #f4efe6;
+    --paper-edge:   #e8e1d3;
+    --ink:          #1f1d1a;
+    --ink-soft:     #4a463f;
+    --ink-faded:    #7a7468;
+    --accent:       #8a3324;
+    --rule:         #c9c1b0;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-image:
+      radial-gradient(at 12% 8%,  rgba(138, 51, 36, 0.04), transparent 40%),
+      radial-gradient(at 88% 92%, rgba(31, 29, 26, 0.05), transparent 40%);
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+
+  /* --- Masthead --- */
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 18px;
+    margin-bottom: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .brand .dot {
+    color: var(--accent);
+    margin: 0 0.2em;
+  }
+  .byline {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-faded);
+    font-style: italic;
+    letter-spacing: 0.01em;
+    margin-top: 4px;
+  }
+  .byline a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faded);
+    font-style: normal;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .byline a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+
+  /* --- Meta strip --- */
+  .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faded);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .meta span { white-space: nowrap; }
+  .meta .arxiv-id { color: var(--accent); }
+
+  /* --- Title --- */
+  h1.paper-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(1.7rem, 4.5vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin: 0 0 18px;
+    color: var(--ink);
+  }
+  .authors {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+
+  /* --- Section labels --- */
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* --- Brief --- */
+  .brief {
+    font-size: 1.12rem;
+    line-height: 1.75;
+    margin-bottom: 44px;
+  }
+  .brief p { margin: 0 0 1em; }
+  .brief p:first-child::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 3.4em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.08em 0.08em 0 0;
+    color: var(--accent);
+  }
+
+  /* --- Deep dive --- */
+  details.deep {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 0;
+    margin: 0 0 36px;
+  }
+  details.deep summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    user-select: none;
+  }
+  details.deep summary::-webkit-details-marker { display: none; }
+  details.deep summary .label-text { display: flex; flex-direction: column; gap: 4px; }
+  details.deep summary .label-text .sub {
+    font-weight: 400;
+    color: var(--ink-faded);
+    font-size: 0.78rem;
+    font-style: italic;
+  }
+  details.deep summary .chev {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--accent);
+    transition: transform 0.25s ease;
+  }
+  details.deep[open] summary .chev { transform: rotate(45deg); }
+  details.deep .deep-body {
+    margin-top: 28px;
+    animation: fadein 0.4s ease;
+  }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  details.deep h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 28px 0 10px;
+  }
+  details.deep h3:first-child { margin-top: 4px; }
+  details.deep p {
+    margin: 0 0 0.95em;
+    font-size: 1.04rem;
+    line-height: 1.72;
+  }
+
+  /* --- Footer links --- */
+  .links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .links a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    padding: 9px 16px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.4);
+    transition: all 0.15s ease;
+  }
+  .links a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255,255,255,0.7);
+  }
+  .links a .arrow {
+    margin-left: 6px;
+    font-family: 'Fraunces', serif;
+  }
+
+  footer.colophon {
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faded);
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  footer.colophon a {
+    color: var(--ink-faded);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faded);
+  }
+  footer.colophon a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* --- Favorite + Listen controls --- */
+  .brief-section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .brief-section-head .section-label {
+    margin: 0;
+    flex: 1;
+  }
+  .brief-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  button.icon-btn {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    padding: 0;
+  }
+  button.icon-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255,255,255,0.5);
+  }
+  button.icon-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  button.fav-btn[aria-pressed="true"] {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(138, 51, 36, 0.08);
+  }
+  button.fav-btn[aria-pressed="true"] svg {
+    fill: var(--accent);
+  }
+  button.listen-btn[data-state="playing"] {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(138, 51, 36, 0.08);
+  }
+  /* Pulse the listen button when active */
+  button.listen-btn[data-state="playing"]::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    opacity: 0;
+    animation: pulse 1.6s ease-out infinite;
+  }
+  button.listen-btn { position: relative; }
+  @keyframes pulse {
+    0%   { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 0;   transform: scale(1.2); }
+  }
+  /* Highlight currently-spoken sentence */
+  .brief .speaking-now {
+    background: rgba(138, 51, 36, 0.12);
+    border-radius: 2px;
+    box-shadow: 0 0 0 2px rgba(138, 51, 36, 0.12);
+    transition: background 0.2s ease;
+  }
+  /* Toast for "Added to favorites" feedback */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 22px;
+    border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 520px) {
+    .page { padding: 36px 20px 72px; }
+    .brief { font-size: 1.04rem; }
+    .brief p:first-child::first-letter { font-size: 2.8em; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="brand-group">
+      <div class="brand">One Journal<span class="dot">·</span>A Day</div>
+      <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
+    </div>
+    <div class="date">Tuesday, November 3, 2026</div>
+  </header>
+
+  <div class="meta">
+    <span class="arxiv-id">arXiv:2611.03637</span>
+    <span></span>
+    <span>Submitted 2026-11-02</span>
+  </div>
+
+  <h1 class="paper-title">Mercury (Hg): a relativistic $N$-body simulation for Horndeski gravity</h1>
+  <div class="authors">Ahmad Nouri-Zonoz, Farbod Hassani, Julian Adamek, Emilio Bellini, Martin Kunz</div>
+
+  <div class="brief-section-head">
+    <div class="section-label">The Brief</div>
+    <div class="brief-actions">
+      <button class="icon-btn fav-btn" id="fav-btn" type="button"
+              aria-pressed="false" aria-label="Add to favorites" title="Favorite">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="12,3 14.8,9.3 21.6,10 16.4,14.6 18,21.4 12,17.8 6,21.4 7.6,14.6 2.4,10 9.2,9.3"/>
+        </svg>
+      </button>
+      <button class="icon-btn listen-btn" id="listen-btn" type="button"
+              data-state="idle" aria-label="Read aloud" title="Read aloud">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="6,4 20,12 6,20" fill="currentColor" stroke="none"/>
+        </svg>
+        <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true" style="display:none">
+          <rect x="6" y="6" width="12" height="12" fill="currentColor" stroke="none"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="brief" id="brief">
+    <p>This research introduces &quot;Mercury,&quot; a new computer simulation designed to study how gravity works in the universe under a specific, more complex theory called Horndeski gravity.</p><p>Instead of just simulating how matter clumps together under standard gravity, Mercury also tracks an extra &quot;scalar field&quot; that is part of Horndeski gravity. This field influences gravity itself, and its behavior is described by four functions ($α_{\rm K}, α_{\rm B}, α_{\rm M}, α_{\rm T}$) and a changing &quot;effective Planck mass&quot; ($M_*^2$). The simulation shows how the clumping of matter (nonlinear structure formation) affects this scalar field, which in turn alters gravity and how things like galaxies form. It can handle different versions of Horndeski gravity, including those where the scalar field interacts strongly with itself.</p><p>This work is interesting because it allows scientists to explore alternative theories of gravity beyond Einstein's well-tested but potentially incomplete model, which could lead to a deeper understanding of dark energy and the evolution of the universe.</p>
+  </div>
+
+  <details class="deep">
+    <summary>
+      <span class="label-text">
+        <span>Read the full-paper summary</span>
+        <span class="sub">A deeper section-by-section walkthrough</span>
+      </span>
+      <span class="chev">+</span>
+    </summary>
+    <div class="deep-body">
+      <h3>Background</h3><p>Cosmologists want to understand how the universe evolved from a nearly uniform state after the Big Bang to the complex web of galaxies and clusters we see today. This evolution is driven by gravity, but also influenced by mysterious components like dark energy, which is causing the universe's expansion to accelerate. Standard models of cosmology, like the Lambda-CDM model, describe this evolution using Einstein's theory of General Relativity and assume the universe is dominated by dark matter and dark energy. However, some theories propose that gravity itself might be modified, or that dark energy is not a simple constant but a dynamic field. To test these alternative theories, especially those involving a dynamic &quot;scalar field&quot; that interacts with gravity, scientists need sophisticated computer simulations that can track the universe's evolution on both large and small scales, accounting for all the complex interactions. This research tackles the challenge of building such a simulation tool for a specific class of modified gravity theories called Horndeski gravity.</p>
+<h3>What they did</h3><p>The researchers developed a new computer code named &quot;Mercury&quot; designed to simulate the universe's evolution within the framework of Horndeski gravity. This theory is a broad category of scalar-tensor theories, meaning it involves not only the gravitational field (described by the metric) but also an additional scalar field. Horndeski gravity is particularly interesting because it's the most general theory of this type that avoids certain theoretical instabilities while still allowing for modifications to gravity and dark energy.</p><p>Mercury builds upon existing simulation techniques, specifically a &quot;particle-mesh&quot; scheme, which represents matter as discrete particles and the gravitational field on a grid. The key innovation in Mercury is its ability to incorporate the dynamics of the extra scalar field and how it modifies Einstein's equations of gravity. They achieved this by expressing these modifications using four time-dependent functions (αK, αB, αM, αT) and an &quot;effective Planck mass&quot; (M*²). These parameters essentially quantify how the scalar field affects gravity and the expansion of the universe.</p><p>The code evolves the scalar field and its associated &quot;stress-energy tensor&quot; (which describes its energy, momentum, and pressure) alongside the matter and metric fields. This means that as structures like galaxies form (nonlinear structure formation), they influence the scalar field, which in turn feeds back and alters the gravitational potentials. Mercury can handle these theories in two ways: either by directly inputting phenomenological descriptions of the α-functions, or by starting with a specific mathematical &quot;Lagrangian&quot; (a fundamental description of the theory) and deriving the α-functions from it. They demonstrated this by simulating models like nKGB, Cubic Galileon, and Brans-Dicke gravity.</p>
+<h3>What they found</h3><p>The researchers validated Mercury by comparing its results with a well-established linear code called hi_class. In the linear regime (where the universe's evolution is relatively simple and predictable), Mercury accurately reproduced the predictions of hi_class. They also confirmed that Mercury correctly captures known limits of specific Horndeski models, such as k-essence and kinetic gravity braiding (KGB), in the nonlinear regime.</p><p>A key finding is how the &quot;running effective Planck mass&quot; (meaning M*² changes over time) in these &quot;luminal&quot; Horndeski models generates &quot;gravitational slip.&quot; This slip is a difference between how gravitational potentials evolve in different directions, caused by the scalar field's &quot;anisotropic stress&quot; (unequal pressure in different directions). This effect, along with modifications to how vector and tensor metric perturbations (like gravitational waves) are damped, is a distinct signature of these theories. Furthermore, the evolution of M*² alters the overall strength and scale-dependence of the &quot;effective dark-energy density contrast,&quot; leaving an imprint on its power spectrum, which is a statistical measure of how matter is distributed.</p>
+<h3>Why it matters</h3><p>Mercury represents a significant step towards simulating complex modified gravity theories on nonlinear scales. Current and future astronomical surveys are gathering vast amounts of data on the large-scale structure of the universe, which can be used to test cosmological models. To fully exploit this data, especially for theories beyond the standard Lambda-CDM model, simulations that can accurately capture the nonlinear evolution of gravity and dark energy are crucial.</p><p>This code provides a framework to explore how Horndeski gravity, with its dynamic scalar field, affects the formation of cosmic structures and the propagation of gravitational waves. The specific effects they identified, like gravitational slip and modified damping of perturbations, are potential observational signatures that future telescopes could look for. While Mercury is an intermediate step (it doesn't yet include all possible nonlinear self-interactions of the scalar field or &quot;screening effects&quot; that can make modified gravity behave like General Relativity in dense regions), it lays the groundwork for more comprehensive nonlinear simulations of these fascinating alternative gravity theories. This allows scientists to better constrain or even discover new physics governing the universe.</p>
+    </div>
+  </details>
+
+  <div class="links">
+    <a href="https://arxiv.org/abs/2611.03637" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2611.03637" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
+    <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
+  </div>
+
+  <footer class="colophon">
+    <span>Generated 2026-11-03 14:46 UTC</span>
+    <span>One paper a day · arXiv + Gemini</span>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ====== Paper metadata (injected from template) ======
+  const PAPER = {
+    id:        "2611.03637",
+    title:     "Mercury (Hg): a relativistic $N$-body simulation for Horndeski gravity",
+    date:      "Tuesday, November 3, 2026",
+    publishedDate: "2026-11-02",
+    absUrl:    "https://arxiv.org/abs/2611.03637",
+    audioUrl:  "2026-11-03.mp3",
+    pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
+  };
+
+  const FAV_KEY = 'dailyPaper.favorites.v1';
+
+  // ====== Toast helper ======
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1800);
+  }
+
+  // ====== Favorites ======
+  function loadFavs() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+    catch { return []; }
+  }
+  function saveFavs(list) {
+    localStorage.setItem(FAV_KEY, JSON.stringify(list));
+  }
+  function isFavorited(id) {
+    return loadFavs().some(f => f.id === id);
+  }
+  function toggleFavorite() {
+    const favs = loadFavs();
+    const idx = favs.findIndex(f => f.id === PAPER.id);
+    if (idx >= 0) {
+      favs.splice(idx, 1);
+      saveFavs(favs);
+      favBtn.setAttribute('aria-pressed', 'false');
+      toast('Removed from favorites');
+    } else {
+      favs.unshift({
+        id: PAPER.id,
+        title: PAPER.title,
+        date: PAPER.date,
+        publishedDate: PAPER.publishedDate,
+        absUrl: PAPER.absUrl,
+        pageUrl: PAPER.pageUrl,
+        savedAt: new Date().toISOString()
+      });
+      saveFavs(favs);
+      favBtn.setAttribute('aria-pressed', 'true');
+      toast('Added to favorites ★');
+    }
+  }
+  const favBtn = document.getElementById('fav-btn');
+  if (isFavorited(PAPER.id)) favBtn.setAttribute('aria-pressed', 'true');
+  favBtn.addEventListener('click', toggleFavorite);
+
+  // ====== Read-aloud ======
+  const listenBtn = document.getElementById('listen-btn');
+  const playIcon  = listenBtn.querySelector('.play-icon');
+  const stopIcon  = listenBtn.querySelector('.stop-icon');
+  const brief     = document.getElementById('brief');
+
+  function setPlayingUI(playing) {
+    listenBtn.setAttribute('data-state', playing ? 'playing' : 'idle');
+    listenBtn.setAttribute('aria-label', playing ? 'Stop reading' : 'Read aloud');
+    playIcon.style.display = playing ? 'none' : '';
+    stopIcon.style.display = playing ? '' : 'none';
+  }
+
+  // ====== MP3 playback (primary path: pre-rendered edge-tts audio) ======
+  if (PAPER.audioUrl) {
+    const audio = new Audio(PAPER.audioUrl);
+    audio.preload = 'metadata';
+    let mp3Working = true;
+
+    audio.addEventListener('play',  () => setPlayingUI(true));
+    audio.addEventListener('pause', () => setPlayingUI(false));
+    audio.addEventListener('ended', () => setPlayingUI(false));
+    audio.addEventListener('error', () => {
+      // 404 / decode error / etc. — fall back to browser TTS by failing closed.
+      mp3Working = false;
+      console.warn('MP3 audio unavailable, falling back to browser TTS');
+      setPlayingUI(false);
+      wireBrowserTTS();
+    });
+
+    listenBtn.addEventListener('click', () => {
+      if (!mp3Working) return;   // fallback path will have replaced this handler
+      if (audio.paused) {
+        audio.play().catch(err => {
+          console.warn('MP3 play failed:', err);
+          mp3Working = false;
+          wireBrowserTTS();
+        });
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+
+    // Stop on navigation away
+    window.addEventListener('beforeunload', () => audio.pause());
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && !audio.paused) audio.pause();
+    });
+
+    return;   // MP3 path is wired; skip browser TTS setup entirely
+  }
+
+  // ====== Browser TTS fallback ======
+  wireBrowserTTS();
+
+  function wireBrowserTTS() {
+    // Bail gracefully on unsupported browsers
+    if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+      listenBtn.disabled = true;
+      listenBtn.title = 'Speech not supported in this browser';
+      listenBtn.style.opacity = '0.4';
+      return;
+    }
+    setupBrowserTTS();
+  }
+
+  function setupBrowserTTS() {
+
+  // Pick the most natural-sounding English voice available
+  function pickVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return null;
+    // Prefer English voices, and rank by quality hints in the name
+    const en = voices.filter(v => /^en[-_]/i.test(v.lang) || v.lang === 'en');
+    const ranked = en.sort((a, b) => score(b) - score(a));
+    return ranked[0] || voices[0];
+
+    function score(v) {
+      const n = v.name.toLowerCase();
+      let s = 0;
+      // High-quality neural voices on various platforms
+      if (n.includes('natural') || n.includes('neural') || n.includes('premium')) s += 40;
+      if (n.includes('enhanced') || n.includes('online')) s += 20;
+      // Known good voice names
+      if (/(samantha|ava|allison|joanna|kate|serena|tessa|moira|fiona|nicky)/.test(n)) s += 30;
+      if (/(google|microsoft)/.test(n)) s += 10;
+      // Penalize low-quality fallbacks
+      if (n.includes('compact') || n.includes('eloquence')) s -= 20;
+      if (v.localService === false) s += 5;
+      // Prefer en-US/en-GB over rarer English variants
+      if (v.lang === 'en-US' || v.lang === 'en-GB') s += 5;
+      return s;
+    }
+  }
+
+  // Some browsers populate voices asynchronously
+  let cachedVoice = null;
+  function ensureVoice(cb) {
+    cachedVoice = pickVoice();
+    if (cachedVoice) return cb();
+    speechSynthesis.onvoiceschanged = () => {
+      cachedVoice = pickVoice();
+      cb();
+    };
+  }
+
+  // Split brief into sentence-sized chunks while keeping references to the
+  // original DOM nodes so we can highlight the current sentence.
+  function buildSentenceQueue() {
+    const queue = [];
+    brief.querySelectorAll('p').forEach(p => {
+      const text = p.textContent.trim();
+      if (!text) return;
+      // Sentence split: keep the terminator, avoid splitting common abbreviations
+      const parts = text.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || [text];
+      // Wrap each sentence in its own span inside the paragraph so we can
+      // highlight one at a time without disturbing layout.
+      p.innerHTML = '';
+      parts.forEach((s, i) => {
+        const span = document.createElement('span');
+        span.className = 'sentence';
+        span.textContent = s;
+        p.appendChild(span);
+        if (i < parts.length - 1) p.appendChild(document.createTextNode(' '));
+        queue.push({ text: s.trim(), node: span });
+      });
+    });
+    return queue;
+  }
+
+  let queue = null;          // Built lazily on first play
+  let currentIndex = 0;
+  let isPlaying = false;
+  let currentUtter = null;
+
+  function setTTSPlaying(playing) {
+    isPlaying = playing;
+    setPlayingUI(playing);
+  }
+
+  function clearHighlight() {
+    brief.querySelectorAll('.speaking-now').forEach(el => el.classList.remove('speaking-now'));
+  }
+
+  function speakNext() {
+    if (!isPlaying || currentIndex >= queue.length) {
+      stopReading();
+      return;
+    }
+    const item = queue[currentIndex];
+    clearHighlight();
+    item.node.classList.add('speaking-now');
+    item.node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const u = new SpeechSynthesisUtterance(item.text);
+    if (cachedVoice) u.voice = cachedVoice;
+    u.lang = (cachedVoice && cachedVoice.lang) || 'en-US';
+    u.rate = 0.95;   // very slightly slower than default — easier to follow
+    u.pitch = 1.0;
+    u.volume = 1.0;
+    u.onend = () => {
+      currentIndex++;
+      speakNext();
+    };
+    u.onerror = (e) => {
+      // Common case: user navigated away or hit stop. Just clean up.
+      stopReading();
+    };
+    currentUtter = u;
+    window.speechSynthesis.speak(u);
+  }
+
+  function startReading() {
+    if (!queue) queue = buildSentenceQueue();
+    if (!queue.length) { toast('Nothing to read'); return; }
+    currentIndex = 0;
+    setTTSPlaying(true);
+    ensureVoice(() => {
+      // Some browsers (Chrome) cut off after ~15s; nudge with pause/resume.
+      window.speechSynthesis.cancel();
+      speakNext();
+      keepAlive();
+    });
+  }
+
+  function stopReading() {
+    setTTSPlaying(false);
+    window.speechSynthesis.cancel();
+    clearHighlight();
+    currentUtter = null;
+    if (keepAliveTimer) { clearInterval(keepAliveTimer); keepAliveTimer = null; }
+  }
+
+  // Chrome workaround: speechSynthesis can pause silently after ~15 seconds.
+  // Periodically pause + resume to keep it talking.
+  let keepAliveTimer = null;
+  function keepAlive() {
+    keepAliveTimer = setInterval(() => {
+      if (!isPlaying) return;
+      if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+      }
+    }, 10000);
+  }
+
+  listenBtn.addEventListener('click', () => {
+    if (isPlaying) stopReading();
+    else startReading();
+  });
+
+  // Stop reading if user navigates away
+  window.addEventListener('beforeunload', stopReading);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && isPlaying) stopReading();
+  });
+
+  } // end setupBrowserTTS
+
+})();
+</script>
+</body>
+</html>
