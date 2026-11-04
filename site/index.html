@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mercury (Hg): a relativistic $N$-body simulation for Horndeski gravity — One Journal A Day by Abhijeet</title>
+<title>A physical basis for cosmological correlators from cuts — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Tuesday, November 3, 2026</div>
+    <div class="date">Wednesday, November 4, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2611.03637</span>
+    <span class="arxiv-id">arXiv:2411.09695</span>
     <span></span>
-    <span>Submitted 2026-11-02</span>
+    <span>Submitted 2024-11-14</span>
   </div>
 
-  <h1 class="paper-title">Mercury (Hg): a relativistic $N$-body simulation for Horndeski gravity</h1>
-  <div class="authors">Ahmad Nouri-Zonoz, Farbod Hassani, Julian Adamek, Emilio Bellini, Martin Kunz</div>
+  <h1 class="paper-title">A physical basis for cosmological correlators from cuts</h1>
+  <div class="authors">Shounak De, Andrzej Pokraka</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces &quot;Mercury,&quot; a new computer simulation designed to study how gravity works in the universe under a specific, more complex theory called Horndeski gravity.</p><p>Instead of just simulating how matter clumps together under standard gravity, Mercury also tracks an extra &quot;scalar field&quot; that is part of Horndeski gravity. This field influences gravity itself, and its behavior is described by four functions ($α_{\rm K}, α_{\rm B}, α_{\rm M}, α_{\rm T}$) and a changing &quot;effective Planck mass&quot; ($M_*^2$). The simulation shows how the clumping of matter (nonlinear structure formation) affects this scalar field, which in turn alters gravity and how things like galaxies form. It can handle different versions of Horndeski gravity, including those where the scalar field interacts strongly with itself.</p><p>This work is interesting because it allows scientists to explore alternative theories of gravity beyond Einstein's well-tested but potentially incomplete model, which could lead to a deeper understanding of dark energy and the evolution of the universe.</p>
+    <p>This research explores how to simplify complex calculations describing the early universe by connecting them to simpler, &quot;flat space&quot; scenarios.</p><p>The core idea is that the intricate mathematical structures representing the early universe's wavefunction can be understood by looking at their &quot;cuts&quot; and &quot;residues.&quot; These are like peeling back layers of a mathematical onion to reveal simpler components. By organizing these cuts in a specific way, the paper shows how to identify the essential parts of these calculations that correspond to physical reality, effectively reducing the number of mathematical pieces needed. This organization is achieved by leveraging a concept called &quot;dual cohomology,&quot; which naturally groups these essential parts.</p><p>This work is interesting because it offers a more efficient way to understand the fundamental building blocks of the universe's evolution, potentially leading to clearer predictions about its origins and structure.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Cosmologists want to understand how the universe evolved from a nearly uniform state after the Big Bang to the complex web of galaxies and clusters we see today. This evolution is driven by gravity, but also influenced by mysterious components like dark energy, which is causing the universe's expansion to accelerate. Standard models of cosmology, like the Lambda-CDM model, describe this evolution using Einstein's theory of General Relativity and assume the universe is dominated by dark matter and dark energy. However, some theories propose that gravity itself might be modified, or that dark energy is not a simple constant but a dynamic field. To test these alternative theories, especially those involving a dynamic &quot;scalar field&quot; that interacts with gravity, scientists need sophisticated computer simulations that can track the universe's evolution on both large and small scales, accounting for all the complex interactions. This research tackles the challenge of building such a simulation tool for a specific class of modified gravity theories called Horndeski gravity.</p>
-<h3>What they did</h3><p>The researchers developed a new computer code named &quot;Mercury&quot; designed to simulate the universe's evolution within the framework of Horndeski gravity. This theory is a broad category of scalar-tensor theories, meaning it involves not only the gravitational field (described by the metric) but also an additional scalar field. Horndeski gravity is particularly interesting because it's the most general theory of this type that avoids certain theoretical instabilities while still allowing for modifications to gravity and dark energy.</p><p>Mercury builds upon existing simulation techniques, specifically a &quot;particle-mesh&quot; scheme, which represents matter as discrete particles and the gravitational field on a grid. The key innovation in Mercury is its ability to incorporate the dynamics of the extra scalar field and how it modifies Einstein's equations of gravity. They achieved this by expressing these modifications using four time-dependent functions (αK, αB, αM, αT) and an &quot;effective Planck mass&quot; (M*²). These parameters essentially quantify how the scalar field affects gravity and the expansion of the universe.</p><p>The code evolves the scalar field and its associated &quot;stress-energy tensor&quot; (which describes its energy, momentum, and pressure) alongside the matter and metric fields. This means that as structures like galaxies form (nonlinear structure formation), they influence the scalar field, which in turn feeds back and alters the gravitational potentials. Mercury can handle these theories in two ways: either by directly inputting phenomenological descriptions of the α-functions, or by starting with a specific mathematical &quot;Lagrangian&quot; (a fundamental description of the theory) and deriving the α-functions from it. They demonstrated this by simulating models like nKGB, Cubic Galileon, and Brans-Dicke gravity.</p>
-<h3>What they found</h3><p>The researchers validated Mercury by comparing its results with a well-established linear code called hi_class. In the linear regime (where the universe's evolution is relatively simple and predictable), Mercury accurately reproduced the predictions of hi_class. They also confirmed that Mercury correctly captures known limits of specific Horndeski models, such as k-essence and kinetic gravity braiding (KGB), in the nonlinear regime.</p><p>A key finding is how the &quot;running effective Planck mass&quot; (meaning M*² changes over time) in these &quot;luminal&quot; Horndeski models generates &quot;gravitational slip.&quot; This slip is a difference between how gravitational potentials evolve in different directions, caused by the scalar field's &quot;anisotropic stress&quot; (unequal pressure in different directions). This effect, along with modifications to how vector and tensor metric perturbations (like gravitational waves) are damped, is a distinct signature of these theories. Furthermore, the evolution of M*² alters the overall strength and scale-dependence of the &quot;effective dark-energy density contrast,&quot; leaving an imprint on its power spectrum, which is a statistical measure of how matter is distributed.</p>
-<h3>Why it matters</h3><p>Mercury represents a significant step towards simulating complex modified gravity theories on nonlinear scales. Current and future astronomical surveys are gathering vast amounts of data on the large-scale structure of the universe, which can be used to test cosmological models. To fully exploit this data, especially for theories beyond the standard Lambda-CDM model, simulations that can accurately capture the nonlinear evolution of gravity and dark energy are crucial.</p><p>This code provides a framework to explore how Horndeski gravity, with its dynamic scalar field, affects the formation of cosmic structures and the propagation of gravitational waves. The specific effects they identified, like gravitational slip and modified damping of perturbations, are potential observational signatures that future telescopes could look for. While Mercury is an intermediate step (it doesn't yet include all possible nonlinear self-interactions of the scalar field or &quot;screening effects&quot; that can make modified gravity behave like General Relativity in dense regions), it lays the groundwork for more comprehensive nonlinear simulations of these fascinating alternative gravity theories. This allows scientists to better constrain or even discover new physics governing the universe.</p>
+      <h3>Background</h3><p>Cosmology aims to understand the universe's evolution and structure. A key tool in theoretical cosmology is the &quot;wavefunction of the universe,&quot; which, in simplified models, can be calculated using techniques similar to those in quantum field theory, specifically through what are called &quot;correlators.&quot; These correlators, when calculated in a specific type of expanding universe (Friedmann–Robertson–Walker, or FRW), are complex mathematical objects. While progress has been made in understanding their structure and finding ways to calculate them, a significant challenge has been identifying which parts of these calculations are &quot;physical&quot; – meaning they directly correspond to observable phenomena – and which are mathematical artifacts that can be discarded. This paper tackles the problem of systematically identifying this physical subspace of cosmological correlators.</p>
+<h3>What they did</h3><p>The research builds upon a mathematical framework involving &quot;twisted integrals&quot; and &quot;hyperplane arrangements.&quot; Imagine these integrals as complex functions defined over a space with specific &quot;singularities&quot; or points where the function behaves unusually. These singularities are described by &quot;hyperplane arrangements,&quot; which are essentially collections of flat surfaces (hyperplanes) within a higher-dimensional space. The &quot;twisted&quot; aspect comes from a special function called a &quot;twist&quot; that modifies these integrals.</p><p>The core of the problem is that these twisted integrals satisfy differential equations, and the set of all possible integrals can be very large. The paper's key insight is that the &quot;dual cohomology&quot; (a related mathematical structure) is naturally organized by &quot;cuts.&quot; A cut, in this context, is like slicing through the space of possible solutions along specific boundaries defined by the hyperplane arrangement. The authors show that this cut structure is ideal for understanding the &quot;cut/residue structure&quot; of the integrals.</p><p>They develop a systematic way to organize &quot;compatible sequential residues.&quot; A residue is a way to measure the behavior of a function near a singularity. By looking at sequences of these residues, they can identify which integrals belong to the &quot;physical subspace.&quot; For tree-level correlators (the simplest type of calculation), this physical subspace is formed by integrals whose structure, when broken down by these cuts, corresponds to simpler calculations in &quot;flat space&quot; (a universe without expansion). They use &quot;intersection theory&quot; (a branch of mathematics dealing with how geometric objects intersect) to prove their method and then develop simple &quot;graphical rules&quot; for visualizing and enumerating these physical cuts, avoiding complex calculations.</p>
+<h3>What they found</h3><p>The paper demonstrates that the dual cohomology naturally organizes itself around cuts, revealing a clear separation of differential forms into physical, unphysical, and degenerate categories. For tree-level FRW wavefunction coefficients, the physical subspace is precisely populated by those integrals whose structure, after applying cuts, factorizes into only flat-space amplitudes. They developed graphical rules, called &quot;cut tubings,&quot; that allow for the enumeration of these physical cuts and the associated differential forms without explicit calculation. For the simplest case of a 3-site chain correlator, they found that the full set of 37 possible cuts could be categorized, and the physical subspace was identified. This approach is shown to generalize to any number of sites and loops, including complex loop-level graphs like the 2-loop 2-site sunset graph.</p>
+<h3>Why it matters</h3><p>This work provides a crucial step towards a more complete and systematic understanding of cosmological correlators. By developing graphical rules and a clear method for identifying the &quot;physical subspace,&quot; it significantly simplifies the process of calculating and interpreting these important quantities in theoretical cosmology. This is vital for connecting theoretical models of the early universe to potential observational data. The ability to avoid complex calculations through graphical rules makes these advanced theoretical tools more accessible and applicable. While the paper focuses on simplified models, the underlying mathematical framework and the developed techniques are expected to be applicable to more realistic cosmological scenarios, paving the way for deeper insights into the universe's origins and evolution.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2611.03637" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2611.03637" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.09695" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.09695" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-03 14:46 UTC</span>
+    <span>Generated 2026-11-04 14:58 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2611.03637",
-    title:     "Mercury (Hg): a relativistic $N$-body simulation for Horndeski gravity",
-    date:      "Tuesday, November 3, 2026",
-    publishedDate: "2026-11-02",
-    absUrl:    "https://arxiv.org/abs/2611.03637",
+    id:        "2411.09695",
+    title:     "A physical basis for cosmological correlators from cuts",
+    date:      "Wednesday, November 4, 2026",
+    publishedDate: "2024-11-14",
+    absUrl:    "https://arxiv.org/abs/2411.09695",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
