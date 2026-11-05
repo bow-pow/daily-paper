@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A physical basis for cosmological correlators from cuts — One Journal A Day by Abhijeet</title>
+<title>ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Wednesday, November 4, 2026</div>
+    <div class="date">Thursday, November 5, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.09695</span>
+    <span class="arxiv-id">arXiv:2511.07685</span>
     <span></span>
-    <span>Submitted 2024-11-14</span>
+    <span>Submitted 2025-11-10</span>
   </div>
 
-  <h1 class="paper-title">A physical basis for cosmological correlators from cuts</h1>
-  <div class="authors">Shounak De, Andrzej Pokraka</div>
+  <h1 class="paper-title">ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents</h1>
+  <div class="authors">Manasi Sharma, Chen Bo Calvin Zhang, Chaithanya Bandi, Clinton Wang, Ankit Aich, Huy Nghiem et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how to simplify complex calculations describing the early universe by connecting them to simpler, &quot;flat space&quot; scenarios.</p><p>The core idea is that the intricate mathematical structures representing the early universe's wavefunction can be understood by looking at their &quot;cuts&quot; and &quot;residues.&quot; These are like peeling back layers of a mathematical onion to reveal simpler components. By organizing these cuts in a specific way, the paper shows how to identify the essential parts of these calculations that correspond to physical reality, effectively reducing the number of mathematical pieces needed. This organization is achieved by leveraging a concept called &quot;dual cohomology,&quot; which naturally groups these essential parts.</p><p>This work is interesting because it offers a more efficient way to understand the fundamental building blocks of the universe's evolution, potentially leading to clearer predictions about its origins and structure.</p>
+    <p>This research introduces a new way to test how well AI systems can do &quot;deep research&quot; – answering complex questions by finding and combining information from many sources.</p><p>The core idea is creating a standardized test called ResearchRubrics, which includes over 2,800 hours of human work to develop realistic questions and detailed scoring guides (rubrics). These rubrics assess if the AI's answers are factually correct, logically sound, and clearly written, even when dealing with dynamic information. A key finding is that even advanced AI systems struggle, scoring below 68% on average, often missing subtle context or failing to properly connect retrieved information.</p><p>This matters because it shows how far AI still has to go before it can reliably act as a trustworthy research assistant for everyday tasks, from writing reports to understanding complex topics.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,29 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Cosmology aims to understand the universe's evolution and structure. A key tool in theoretical cosmology is the &quot;wavefunction of the universe,&quot; which, in simplified models, can be calculated using techniques similar to those in quantum field theory, specifically through what are called &quot;correlators.&quot; These correlators, when calculated in a specific type of expanding universe (Friedmann–Robertson–Walker, or FRW), are complex mathematical objects. While progress has been made in understanding their structure and finding ways to calculate them, a significant challenge has been identifying which parts of these calculations are &quot;physical&quot; – meaning they directly correspond to observable phenomena – and which are mathematical artifacts that can be discarded. This paper tackles the problem of systematically identifying this physical subspace of cosmological correlators.</p>
-<h3>What they did</h3><p>The research builds upon a mathematical framework involving &quot;twisted integrals&quot; and &quot;hyperplane arrangements.&quot; Imagine these integrals as complex functions defined over a space with specific &quot;singularities&quot; or points where the function behaves unusually. These singularities are described by &quot;hyperplane arrangements,&quot; which are essentially collections of flat surfaces (hyperplanes) within a higher-dimensional space. The &quot;twisted&quot; aspect comes from a special function called a &quot;twist&quot; that modifies these integrals.</p><p>The core of the problem is that these twisted integrals satisfy differential equations, and the set of all possible integrals can be very large. The paper's key insight is that the &quot;dual cohomology&quot; (a related mathematical structure) is naturally organized by &quot;cuts.&quot; A cut, in this context, is like slicing through the space of possible solutions along specific boundaries defined by the hyperplane arrangement. The authors show that this cut structure is ideal for understanding the &quot;cut/residue structure&quot; of the integrals.</p><p>They develop a systematic way to organize &quot;compatible sequential residues.&quot; A residue is a way to measure the behavior of a function near a singularity. By looking at sequences of these residues, they can identify which integrals belong to the &quot;physical subspace.&quot; For tree-level correlators (the simplest type of calculation), this physical subspace is formed by integrals whose structure, when broken down by these cuts, corresponds to simpler calculations in &quot;flat space&quot; (a universe without expansion). They use &quot;intersection theory&quot; (a branch of mathematics dealing with how geometric objects intersect) to prove their method and then develop simple &quot;graphical rules&quot; for visualizing and enumerating these physical cuts, avoiding complex calculations.</p>
-<h3>What they found</h3><p>The paper demonstrates that the dual cohomology naturally organizes itself around cuts, revealing a clear separation of differential forms into physical, unphysical, and degenerate categories. For tree-level FRW wavefunction coefficients, the physical subspace is precisely populated by those integrals whose structure, after applying cuts, factorizes into only flat-space amplitudes. They developed graphical rules, called &quot;cut tubings,&quot; that allow for the enumeration of these physical cuts and the associated differential forms without explicit calculation. For the simplest case of a 3-site chain correlator, they found that the full set of 37 possible cuts could be categorized, and the physical subspace was identified. This approach is shown to generalize to any number of sites and loops, including complex loop-level graphs like the 2-loop 2-site sunset graph.</p>
-<h3>Why it matters</h3><p>This work provides a crucial step towards a more complete and systematic understanding of cosmological correlators. By developing graphical rules and a clear method for identifying the &quot;physical subspace,&quot; it significantly simplifies the process of calculating and interpreting these important quantities in theoretical cosmology. This is vital for connecting theoretical models of the early universe to potential observational data. The ability to avoid complex calculations through graphical rules makes these advanced theoretical tools more accessible and applicable. While the paper focuses on simplified models, the underlying mathematical framework and the developed techniques are expected to be applicable to more realistic cosmological scenarios, paving the way for deeper insights into the universe's origins and evolution.</p>
+      <h3>Background</h3><p>Imagine you ask a super-smart AI assistant to research a complex topic for you, like &quot;What are the long-term societal impacts of social media?&quot; This isn't a simple question with a single right answer you can find in a quick search. It requires the AI to dig through many sources, understand different perspectives, connect ideas, and then explain it all in a detailed, well-supported report. These kinds of advanced AI assistants are called &quot;Deep Research&quot; (DR) agents.</p><p>The problem is, how do we know if these DR agents are actually doing a good job? Evaluating them is really hard. Their answers are long, can be phrased in many different ways, and might draw on information that's constantly changing online. Existing ways to test AI, which often look for short, factual answers, just don't cut it for this kind of deep, nuanced research. We need a better way to measure if these agents can truly understand, synthesize, and present complex information reliably.</p>
+<h3>What they did</h3><p>To solve this evaluation problem, the researchers created &quot;ResearchRubrics.&quot; Think of it as a comprehensive testing ground for DR agents. They spent over 2,800 hours creating a set of realistic research questions (called &quot;prompts&quot;) that cover a wide variety of topics, from business to history to everyday consumer questions. For each prompt, they didn't just ask for an answer; they developed very detailed &quot;rubrics.&quot; These rubrics are like grading checklists, written by human experts, that specify exactly what a good answer should include. They look at things like:</p><p>*</p>
+<h3>Factual Grounding</h3><p>Is the information accurate and supported by evidence?
+*</p>
+<h3>Reasoning Soundness</h3><p>Does the AI's thinking process make sense, connecting ideas logically?
+*</p>
+<h3>Clarity</h3><p>Is the answer easy to understand and well-organized?</p><p>Crucially, these rubrics are not generated by other AIs, which could lead to biased or circular evaluations. They are written and reviewed by humans to ensure they capture the subtle requirements of good research.</p><p>They also developed a way to categorize the complexity of these research questions along three axes: how many different topics are involved (conceptual breadth), how many steps of reasoning are needed (logical nesting depth), and how open-ended or underspecified the question is (exploration level). This helps them understand where AIs struggle most.</p><p>Finally, they created methods for both humans and other AIs (called &quot;LLM-as-a-judge&quot;) to score the DR agents' responses against these detailed rubrics. They even explored different scoring methods, like giving full credit, partial credit, or no credit for each rubric item (ternary grading vs. binary grading).</p>
+<h3>What they found</h3><p>The results were eye-opening. Even the top-performing DR agents, like Google's Gemini DR and OpenAI's DR, only managed to comply with the rubrics about 67-68% of the time. When using a stricter &quot;binary&quot; grading (meaning only fully met or not met), this dropped to around 60-61%. This shows that current advanced AI research assistants still have significant room for improvement.</p><p>The biggest areas where these agents faltered were</p>
+<h3>implicit reasoning</h3><p>(understanding what's implied but not explicitly stated) and</p>
+<h3>synthesis of information</h3><p>(combining information from multiple sources into a coherent whole). They were much better at tasks that involved explicit instructions or clear communication.</p><p>Performance also decreased significantly as the complexity of the task increased. Agents struggled more with questions requiring many steps of reasoning (deep logical nesting) and those that were highly open-ended. Interestingly, they performed better on some &quot;consulting&quot; type questions than on highly technical ones, which goes against what one might intuitively expect.</p>
+<h3>Why it matters</h3><p>This work is important because it provides the first standardized, expert-driven benchmark for evaluating the complex capabilities of Deep Research agents. Before ResearchRubrics, it was hard to get a clear, objective picture of how well these agents could actually perform real-world research tasks.</p><p>The findings highlight that while current DR agents are impressive, they are not yet reliable for tasks requiring deep understanding and nuanced reasoning. The fact that even leading systems miss implicit context and struggle with synthesizing information means they can't be fully trusted to provide comprehensive and accurate research without human oversight. This is crucial for anyone considering using these tools for important work.</p><p>The researchers suggest that simply tweaking prompts (prompt engineering) might not be enough to fix these issues. The systematic failures point towards fundamental limitations in the underlying architecture of these AI models. This implies that significant architectural innovation is needed to create truly capable and trustworthy AI research assistants. For a non-specialist, this means that while AI is getting better at research, it's still a tool that needs careful supervision and validation, especially for complex or critical tasks. The release of ResearchRubrics itself is a significant contribution, as it allows other researchers to build upon this work and accelerate progress in developing more reliable AI research partners.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.09695" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.09695" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2511.07685" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2511.07685" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-04 14:58 UTC</span>
+    <span>Generated 2026-11-05 15:03 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +470,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.09695",
-    title:     "A physical basis for cosmological correlators from cuts",
-    date:      "Wednesday, November 4, 2026",
-    publishedDate: "2024-11-14",
-    absUrl:    "https://arxiv.org/abs/2411.09695",
+    id:        "2511.07685",
+    title:     "ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents",
+    date:      "Thursday, November 5, 2026",
+    publishedDate: "2025-11-10",
+    absUrl:    "https://arxiv.org/abs/2511.07685",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
