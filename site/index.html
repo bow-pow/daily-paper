@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents — One Journal A Day by Abhijeet</title>
+<title>USB Gym: A Gymnasium Testbed for Closed-Loop Ultrasound View Matching — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Thursday, November 5, 2026</div>
+    <div class="date">Friday, November 6, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2511.07685</span>
+    <span class="arxiv-id">arXiv:2611.08352</span>
     <span></span>
-    <span>Submitted 2025-11-10</span>
+    <span>Submitted 2026-11-05</span>
   </div>
 
-  <h1 class="paper-title">ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents</h1>
-  <div class="authors">Manasi Sharma, Chen Bo Calvin Zhang, Chaithanya Bandi, Clinton Wang, Ankit Aich, Huy Nghiem et al.</div>
+  <h1 class="paper-title">USB Gym: A Gymnasium Testbed for Closed-Loop Ultrasound View Matching</h1>
+  <div class="authors">Thanapong Intharah, Zhichao Gao, Yiliang Liu, Hao Dong</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces a new way to test how well AI systems can do &quot;deep research&quot; – answering complex questions by finding and combining information from many sources.</p><p>The core idea is creating a standardized test called ResearchRubrics, which includes over 2,800 hours of human work to develop realistic questions and detailed scoring guides (rubrics). These rubrics assess if the AI's answers are factually correct, logically sound, and clearly written, even when dealing with dynamic information. A key finding is that even advanced AI systems struggle, scoring below 68% on average, often missing subtle context or failing to properly connect retrieved information.</p><p>This matters because it shows how far AI still has to go before it can reliably act as a trustworthy research assistant for everyday tasks, from writing reports to understanding complex topics.</p>
+    <p>This research introduces a new system called USB Gym to help robots or computers guide an ultrasound probe to a specific target view within a patient's body.</p><p>The core idea is to test how well existing computer vision and control methods, when combined, can achieve this ultrasound guidance. They found that simply putting together 20 published techniques didn't get the probe very close to the desired position, suggesting the problem is harder than previously thought. They built a simulator that generates ultrasound images from patient scans and allows different &quot;parts&quot; of the guidance system to be swapped out and tested.</p><p>This is interesting because better ultrasound guidance could lead to more accurate and less invasive medical procedures, potentially improving patient outcomes and reducing the need for more complex surgeries.</p>
   </div>
 
   <details class="deep">
@@ -434,29 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine you ask a super-smart AI assistant to research a complex topic for you, like &quot;What are the long-term societal impacts of social media?&quot; This isn't a simple question with a single right answer you can find in a quick search. It requires the AI to dig through many sources, understand different perspectives, connect ideas, and then explain it all in a detailed, well-supported report. These kinds of advanced AI assistants are called &quot;Deep Research&quot; (DR) agents.</p><p>The problem is, how do we know if these DR agents are actually doing a good job? Evaluating them is really hard. Their answers are long, can be phrased in many different ways, and might draw on information that's constantly changing online. Existing ways to test AI, which often look for short, factual answers, just don't cut it for this kind of deep, nuanced research. We need a better way to measure if these agents can truly understand, synthesize, and present complex information reliably.</p>
-<h3>What they did</h3><p>To solve this evaluation problem, the researchers created &quot;ResearchRubrics.&quot; Think of it as a comprehensive testing ground for DR agents. They spent over 2,800 hours creating a set of realistic research questions (called &quot;prompts&quot;) that cover a wide variety of topics, from business to history to everyday consumer questions. For each prompt, they didn't just ask for an answer; they developed very detailed &quot;rubrics.&quot; These rubrics are like grading checklists, written by human experts, that specify exactly what a good answer should include. They look at things like:</p><p>*</p>
-<h3>Factual Grounding</h3><p>Is the information accurate and supported by evidence?
-*</p>
-<h3>Reasoning Soundness</h3><p>Does the AI's thinking process make sense, connecting ideas logically?
-*</p>
-<h3>Clarity</h3><p>Is the answer easy to understand and well-organized?</p><p>Crucially, these rubrics are not generated by other AIs, which could lead to biased or circular evaluations. They are written and reviewed by humans to ensure they capture the subtle requirements of good research.</p><p>They also developed a way to categorize the complexity of these research questions along three axes: how many different topics are involved (conceptual breadth), how many steps of reasoning are needed (logical nesting depth), and how open-ended or underspecified the question is (exploration level). This helps them understand where AIs struggle most.</p><p>Finally, they created methods for both humans and other AIs (called &quot;LLM-as-a-judge&quot;) to score the DR agents' responses against these detailed rubrics. They even explored different scoring methods, like giving full credit, partial credit, or no credit for each rubric item (ternary grading vs. binary grading).</p>
-<h3>What they found</h3><p>The results were eye-opening. Even the top-performing DR agents, like Google's Gemini DR and OpenAI's DR, only managed to comply with the rubrics about 67-68% of the time. When using a stricter &quot;binary&quot; grading (meaning only fully met or not met), this dropped to around 60-61%. This shows that current advanced AI research assistants still have significant room for improvement.</p><p>The biggest areas where these agents faltered were</p>
-<h3>implicit reasoning</h3><p>(understanding what's implied but not explicitly stated) and</p>
-<h3>synthesis of information</h3><p>(combining information from multiple sources into a coherent whole). They were much better at tasks that involved explicit instructions or clear communication.</p><p>Performance also decreased significantly as the complexity of the task increased. Agents struggled more with questions requiring many steps of reasoning (deep logical nesting) and those that were highly open-ended. Interestingly, they performed better on some &quot;consulting&quot; type questions than on highly technical ones, which goes against what one might intuitively expect.</p>
-<h3>Why it matters</h3><p>This work is important because it provides the first standardized, expert-driven benchmark for evaluating the complex capabilities of Deep Research agents. Before ResearchRubrics, it was hard to get a clear, objective picture of how well these agents could actually perform real-world research tasks.</p><p>The findings highlight that while current DR agents are impressive, they are not yet reliable for tasks requiring deep understanding and nuanced reasoning. The fact that even leading systems miss implicit context and struggle with synthesizing information means they can't be fully trusted to provide comprehensive and accurate research without human oversight. This is crucial for anyone considering using these tools for important work.</p><p>The researchers suggest that simply tweaking prompts (prompt engineering) might not be enough to fix these issues. The systematic failures point towards fundamental limitations in the underlying architecture of these AI models. This implies that significant architectural innovation is needed to create truly capable and trustworthy AI research assistants. For a non-specialist, this means that while AI is getting better at research, it's still a tool that needs careful supervision and validation, especially for complex or critical tasks. The release of ResearchRubrics itself is a significant contribution, as it allows other researchers to build upon this work and accelerate progress in developing more reliable AI research partners.</p>
+      <h3>Background</h3><p>Imagine you're a doctor trying to get a clear ultrasound image of a patient's internal organs. You have to move the ultrasound probe (the wand you hold) around until the image on the screen looks exactly like a reference image you're aiming for. This process, called ultrasound guidance for view matching, is crucial for many medical procedures. However, current methods for building these guidance systems often evaluate their individual components (like how to interpret the image or how to move the probe) in isolation, using different simulators. This makes it hard to know if combining these best-known methods into a single, real-world guidance system would actually work well enough. The core question is: can we combine existing, well-regarded techniques for ultrasound guidance to create a system that reliably achieves the target view, or is this task still a significant challenge?</p>
+<h3>What they did</h3><p>To answer this, a new testbed called USB Gym was created. Think of it as a standardized playground for testing ultrasound guidance systems. It uses realistic patient CT (computed tomography) scans to simulate ultrasound images. The key innovation is its flexible design: the guidance system, called a &quot;guide,&quot; has three interchangeable parts, or &quot;slots.&quot; These slots are for: 1) an &quot;organ segmenter&quot; (which identifies and outlines organs in the ultrasound image), 2) a &quot;controller&quot; (which decides how to move the probe based on the image), and 3) a &quot;reward&quot; function (which tells the system how well it's doing).</p><p>Researchers took 20 published methods for these three parts and plugged them into USB Gym. They ran these methods on a set of test cases (60 &quot;episodes&quot; across six patients) that the methods hadn't seen during their own development. They compared each published method against a &quot;reference component&quot; already in that slot. If a published method was detectably better, it replaced the reference. They also created a &quot;pose oracle,&quot; which, using perfect knowledge of the probe's position only available in simulation, provided a best-case scenario for how close the probe *could* get. Finally, they combined the best-performing components found this way to create a &quot;benchmark baseline&quot; and tested it on a new set of 20 CT scans.</p>
+<h3>What they found</h3><p>The results were sobering. The probe started, on average, 16.0 mm away from the target view. The ideal &quot;pose oracle&quot; could bring it to an impressive 1.5 mm. However, the best combination of existing published methods, acting as the benchmark baseline, only managed to get the probe to 13.7 mm away from the target. This means the combined system achieved only about 16% of the progress the perfect oracle could make. Out of all the tested components, only one type of &quot;reward&quot; function, based on image similarity (SSIM), showed a slight but detectable improvement when combined with the researchers' own system. Crucially, plugging in existing published methods, even when combined, did not bring the probe close to the target view.</p>
+<h3>Why it matters</h3><p>This research highlights that while individual components for ultrasound guidance have been developed and evaluated, combining them into a functional, high-performing system is a much harder problem than it initially appears. The current state of the art, when put together, falls far short of what's possible even in simulation. This suggests that the task of reliably guiding an ultrasound probe to a specific view is still &quot;under-explored.&quot; The USB Gym testbed itself is a valuable contribution, as it provides a standardized platform for future research to build upon and test new methods more rigorously. However, the paper explicitly states that no guide was tested on actual hardware, and the results are from simulation only, meaning clinical usability is not yet demonstrated. The takeaway is that while progress has been made in individual pieces of the puzzle, a robust, automated ultrasound guidance system remains a significant research challenge.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2511.07685" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2511.07685" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2611.08352" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2611.08352" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-05 15:03 UTC</span>
+    <span>Generated 2026-11-06 14:43 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -470,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2511.07685",
-    title:     "ResearchRubrics: A Benchmark of Prompts and Rubrics For Evaluating Deep Research Agents",
-    date:      "Thursday, November 5, 2026",
-    publishedDate: "2025-11-10",
-    absUrl:    "https://arxiv.org/abs/2511.07685",
+    id:        "2611.08352",
+    title:     "USB Gym: A Gymnasium Testbed for Closed-Loop Ultrasound View Matching",
+    date:      "Friday, November 6, 2026",
+    publishedDate: "2026-11-05",
+    absUrl:    "https://arxiv.org/abs/2611.08352",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
