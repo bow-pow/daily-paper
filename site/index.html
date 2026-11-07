@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>USB Gym: A Gymnasium Testbed for Closed-Loop Ultrasound View Matching — One Journal A Day by Abhijeet</title>
+<title>The Evolution of Quantum Secure Direct Communication: On the Road to the Qinternet — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Friday, November 6, 2026</div>
+    <div class="date">Saturday, November 7, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2611.08352</span>
+    <span class="arxiv-id">arXiv:2311.13974</span>
     <span></span>
-    <span>Submitted 2026-11-05</span>
+    <span>Submitted 2023-11-23</span>
   </div>
 
-  <h1 class="paper-title">USB Gym: A Gymnasium Testbed for Closed-Loop Ultrasound View Matching</h1>
-  <div class="authors">Thanapong Intharah, Zhichao Gao, Yiliang Liu, Hao Dong</div>
+  <h1 class="paper-title">The Evolution of Quantum Secure Direct Communication: On the Road to the Qinternet</h1>
+  <div class="authors">Dong Pan, Gui-Lu Long, Liuguo Yin, Yu-Bo Sheng, Dong Ruan, Soon Xin Ng et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces a new system called USB Gym to help robots or computers guide an ultrasound probe to a specific target view within a patient's body.</p><p>The core idea is to test how well existing computer vision and control methods, when combined, can achieve this ultrasound guidance. They found that simply putting together 20 published techniques didn't get the probe very close to the desired position, suggesting the problem is harder than previously thought. They built a simulator that generates ultrasound images from patient scans and allows different &quot;parts&quot; of the guidance system to be swapped out and tested.</p><p>This is interesting because better ultrasound guidance could lead to more accurate and less invasive medical procedures, potentially improving patient outcomes and reducing the need for more complex surgeries.</p>
+    <p>This research explores a new way to send secret messages directly and securely using quantum mechanics, aiming to build a quantum internet.</p><p>The core idea is Quantum Secure Direct Communication (QSDC), which uses the strange rules of quantum physics to ensure that any attempt to eavesdrop on a message will be immediately detected, making it provably secure. Unlike simply sharing a secret key (like in Quantum Key Distribution or QKD), QSDC transmits the actual secret message itself through a quantum channel, offering a more complete security solution against future threats, especially from powerful quantum computers.</p><p>This matters because it offers a glimpse into a future where our most sensitive digital communications are fundamentally protected from even the most advanced computing power.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine you're a doctor trying to get a clear ultrasound image of a patient's internal organs. You have to move the ultrasound probe (the wand you hold) around until the image on the screen looks exactly like a reference image you're aiming for. This process, called ultrasound guidance for view matching, is crucial for many medical procedures. However, current methods for building these guidance systems often evaluate their individual components (like how to interpret the image or how to move the probe) in isolation, using different simulators. This makes it hard to know if combining these best-known methods into a single, real-world guidance system would actually work well enough. The core question is: can we combine existing, well-regarded techniques for ultrasound guidance to create a system that reliably achieves the target view, or is this task still a significant challenge?</p>
-<h3>What they did</h3><p>To answer this, a new testbed called USB Gym was created. Think of it as a standardized playground for testing ultrasound guidance systems. It uses realistic patient CT (computed tomography) scans to simulate ultrasound images. The key innovation is its flexible design: the guidance system, called a &quot;guide,&quot; has three interchangeable parts, or &quot;slots.&quot; These slots are for: 1) an &quot;organ segmenter&quot; (which identifies and outlines organs in the ultrasound image), 2) a &quot;controller&quot; (which decides how to move the probe based on the image), and 3) a &quot;reward&quot; function (which tells the system how well it's doing).</p><p>Researchers took 20 published methods for these three parts and plugged them into USB Gym. They ran these methods on a set of test cases (60 &quot;episodes&quot; across six patients) that the methods hadn't seen during their own development. They compared each published method against a &quot;reference component&quot; already in that slot. If a published method was detectably better, it replaced the reference. They also created a &quot;pose oracle,&quot; which, using perfect knowledge of the probe's position only available in simulation, provided a best-case scenario for how close the probe *could* get. Finally, they combined the best-performing components found this way to create a &quot;benchmark baseline&quot; and tested it on a new set of 20 CT scans.</p>
-<h3>What they found</h3><p>The results were sobering. The probe started, on average, 16.0 mm away from the target view. The ideal &quot;pose oracle&quot; could bring it to an impressive 1.5 mm. However, the best combination of existing published methods, acting as the benchmark baseline, only managed to get the probe to 13.7 mm away from the target. This means the combined system achieved only about 16% of the progress the perfect oracle could make. Out of all the tested components, only one type of &quot;reward&quot; function, based on image similarity (SSIM), showed a slight but detectable improvement when combined with the researchers' own system. Crucially, plugging in existing published methods, even when combined, did not bring the probe close to the target view.</p>
-<h3>Why it matters</h3><p>This research highlights that while individual components for ultrasound guidance have been developed and evaluated, combining them into a functional, high-performing system is a much harder problem than it initially appears. The current state of the art, when put together, falls far short of what's possible even in simulation. This suggests that the task of reliably guiding an ultrasound probe to a specific view is still &quot;under-explored.&quot; The USB Gym testbed itself is a valuable contribution, as it provides a standardized platform for future research to build upon and test new methods more rigorously. However, the paper explicitly states that no guide was tested on actual hardware, and the results are from simulation only, meaning clinical usability is not yet demonstrated. The takeaway is that while progress has been made in individual pieces of the puzzle, a robust, automated ultrasound guidance system remains a significant research challenge.</p>
+      <h3>Background</h3><p>In our increasingly digital world, keeping information secret is paramount. Traditional methods of securing communication, like encryption, rely on mathematical puzzles that are currently too hard for even the most powerful classical computers to solve quickly. However, the rise of quantum computers threatens this security. These new machines, leveraging the strange rules of quantum mechanics, can solve certain problems exponentially faster than classical computers. This means that encryption methods currently considered secure could become vulnerable to attack by future quantum computers. This research explores a new approach to secure communication that doesn't rely on these vulnerable mathematical puzzles, but instead uses the fundamental laws of physics themselves to guarantee security.</p>
+<h3>What they did</h3><p>This paper is a survey, meaning it reviews and explains the current state of research in a specific area. The focus is on Quantum Secure Direct Communication (QSDC). Unlike Quantum Key Distribution (QKD), which uses quantum mechanics to create a secret key that is then used for classical encryption, QSDC aims to send secret messages *directly* over a quantum channel. The paper explains the theoretical underpinnings of QSDC, which involve concepts like qubits (the quantum equivalent of bits, which can be in multiple states at once), and quantum entanglement (a phenomenon where particles become linked, sharing the same fate no matter how far apart they are). It details how information can be encoded into these quantum states, transmitted, and then decoded by the intended recipient. The paper also discusses various QSDC protocols that have been developed, distinguishing them from related concepts like QKD and Deterministic Secure Quantum Communication (DSQC). It covers both point-to-point communication and the challenges of building QSDC networks.</p>
+<h3>What they found</h3><p>The paper highlights that QSDC has evolved significantly over the past two decades, moving from theoretical concepts to experimental demonstrations. It emphasizes that a key advantage of QSDC is its ability to transmit information directly through a quantum channel without needing to pre-share a secret key. This means that even if an eavesdropper intercepts the communication, they would only obtain random, meaningless information, not the actual secret message. This is a fundamental difference from QKD, where the primary goal is to establish a secure key, and the actual message is then sent classically. The research also points to recent breakthroughs, such as &quot;quantum-memory-free&quot; QSDC protocols, which overcome a major hurdle for long-distance communication and make QSDC potentially applicable for inter-city distances. The paper also discusses the development of QSDC networks, moving beyond simple point-to-point links.</p>
+<h3>Why it matters</h3><p>The core takeaway is that QSDC offers a fundamentally different and potentially more robust way to achieve secure communication in the face of advancing quantum computing capabilities. While QKD provides a secure key, QSDC provides a secure *message* directly. This research is crucial for understanding the path towards a &quot;Qinternet&quot; – a future quantum internet where secure communication is guaranteed by the laws of physics. The paper clarifies that QSDC is not just a variation of QKD but a distinct and complete secure communication scheme. It identifies open challenges and future research directions, suggesting that hybrid approaches combining QSDC with existing classical secure communication networks could be key to building the next generation of secure communication systems. For a non-specialist, this means that while current encryption methods are under threat, new quantum-based technologies are being developed to ensure our digital privacy and security in the future.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2611.08352" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2611.08352" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2311.13974" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2311.13974" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-06 14:43 UTC</span>
+    <span>Generated 2026-11-07 13:40 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2611.08352",
-    title:     "USB Gym: A Gymnasium Testbed for Closed-Loop Ultrasound View Matching",
-    date:      "Friday, November 6, 2026",
-    publishedDate: "2026-11-05",
-    absUrl:    "https://arxiv.org/abs/2611.08352",
+    id:        "2311.13974",
+    title:     "The Evolution of Quantum Secure Direct Communication: On the Road to the Qinternet",
+    date:      "Saturday, November 7, 2026",
+    publishedDate: "2023-11-23",
+    absUrl:    "https://arxiv.org/abs/2311.13974",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
