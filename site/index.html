@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bounds on the bubble wall velocity — One Journal A Day by Abhijeet</title>
+<title>On anomalous diffusion in the Kraichnan model and correlated-in-time variants — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Tuesday, November 10, 2026</div>
+    <div class="date">Wednesday, November 11, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.13641</span>
+    <span class="arxiv-id">arXiv:2311.12147</span>
     <span></span>
-    <span>Submitted 2024-11-20</span>
+    <span>Submitted 2023-11-20</span>
   </div>
 
-  <h1 class="paper-title">Bounds on the bubble wall velocity</h1>
-  <div class="authors">Wen-Yuan Ai, Benoit Laurent, Jorinde van de Vis</div>
+  <h1 class="paper-title">On anomalous diffusion in the Kraichnan model and correlated-in-time variants</h1>
+  <div class="authors">Keefer Rowan</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research provides a way to estimate the speed of expanding &quot;bubbles&quot; during a rapid change in the universe's fundamental state, without needing all the complex details of particle interactions.</p><p>The core idea is to establish limits for this speed by considering two extreme scenarios: one where particles are perfectly in sync with their surroundings (local thermal equilibrium) and another where they travel freely (ballistic limit). Crucially, these limits are found to be independent of the precise, and often uncertain, calculations of how particles collide. By accounting for how the temperature and movement of particles change near the bubble wall, the ballistic limit is shown to also include a &quot;drag&quot; effect, making it a more realistic lower bound.</p><p>This work is interesting because understanding these rapid cosmic transitions is key to explaining phenomena like the origin of matter and the structure of the universe, and this method offers a more robust way to model them.</p>
+    <p>This research investigates how a passive substance, like a dye in turbulent water, spreads out in a specific, idealized model of turbulence.</p><p>The core finding is that in a simplified model where the turbulent flow is random and instantaneous in time (called &quot;white-in-time&quot;), a dye will spread out unusually quickly, faster than normal diffusion, a phenomenon termed &quot;anomalous diffusion.&quot; This happens even if the dye has some resistance to spreading (diffusivity) and regardless of the initial dye pattern. The paper also shows that if the turbulence has memory (correlated-in-time), this anomalous spreading might disappear, and surprisingly, anomalous diffusion is linked to the fact that the paths of fluid particles in such flows can be unpredictable and not uniquely defined.</p><p>This work is interesting because it sheds light on the fundamental ways things spread in chaotic systems, which has implications for understanding phenomena ranging from pollutant dispersal in the atmosphere to the mixing of chemicals.</p>
   </div>
 
   <details class="deep">
@@ -434,24 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine the very early universe, a time of rapid change and transformation. Many theories suggest that at this time, the universe underwent &quot;phase transitions,&quot; similar to how water freezes into ice or boils into steam. These cosmic phase transitions are thought to have involved the creation of expanding &quot;bubbles&quot; of a new vacuum state within the old. The speed at which the walls of these bubbles expand is crucial for many important cosmic phenomena, such as the generation of gravitational waves or the creation of matter. However, calculating this bubble wall velocity is incredibly difficult. It requires solving complex equations that describe both the fundamental field driving the transition and the behavior of particles in the surrounding plasma. A major hurdle is that our understanding of how these particles interact (their &quot;collision terms&quot;) is often imprecise, leading to significant uncertainties in the calculated velocity. This research aims to overcome this by finding reliable upper and lower bounds for the bubble wall velocity, independent of these uncertain collision details.</p>
-<h3>What they did</h3><p>The core idea is to simplify the problem by considering two extreme scenarios for the behavior of particles in the plasma as the bubble wall passes through:</p><p>1.</p>
-<h3>Local Thermal Equilibrium (LTE)</h3><p>This scenario assumes that particles interact so frequently and strongly that they instantaneously &quot;relax&quot; to their equilibrium state as the wall passes. Think of it like a very dense crowd that quickly adjusts its arrangement. In this LTE approximation, the researchers found that the bubble wall velocity is pushed to its *upper* limit. This is because strong interactions lead to more &quot;friction&quot; from the plasma, slowing the wall down.</p><p>2.</p>
-<h3>Ballistic Approximation</h3><p>This is the opposite extreme, where particles interact very weakly or not at all. They travel in straight lines, or &quot;ballistically,&quot; without much scattering. This is like a sparse crowd where individuals mostly move independently. Crucially, the researchers here improved upon previous work by accounting for how the temperature and velocity of the plasma *change* across the bubble wall. This &quot;inhomogeneous plasma&quot; effect, previously only considered in LTE, was found to also be present in the ballistic case, creating a form of &quot;hydrodynamic obstruction.&quot; This improved ballistic approximation was found to provide the *lower* bound on the bubble wall velocity.</p><p>By calculating the wall velocity in these two limiting cases, the researchers established a range within which the true velocity must lie, regardless of the precise, uncertain details of particle collisions. They used a &quot;model-independent&quot; approach, meaning their findings are generally applicable to various phase transition scenarios, and then tested their methods on a specific model.</p>
-<h3>What they found</h3><p>The key finding is that the LTE approximation provides an *upper bound* on the bubble wall velocity, while the improved ballistic approximation provides a *lower bound*. This is a significant result because it constrains the possible speeds without needing to know the exact particle collision rates. For example, in one of their model comparisons, the ballistic velocity ($v_b w$) and LTE velocity ($v_{LTE} w$) could differ by as much as 0.3, meaning the true velocity could be anywhere in this range. In some specific scenarios, like when the phase transition is very strong or when particles become very massive, the ballistic and LTE velocities become very close, suggesting that the exact collision details have less impact on the wall speed in those cases. For instance, they found that when the mass difference between particles inside and outside the bubble is large, the wall velocity is minimized. They also observed that detonation solutions (a faster type of phase transition) are generally not stable in LTE but can exist in the ballistic approximation, though they often require fine-tuning of parameters.</p>
-<h3>Why it matters</h3><p>This research provides a powerful tool for physicists studying the early universe and beyond-Standard Model physics. Before, estimating bubble wall velocities was plagued by uncertainties in particle collision rates. Now, researchers can use these upper and lower bounds to quickly assess the range of possible velocities for a given theoretical model. This is invaluable for initial explorations of new theories, helping to determine if they could produce observable phenomena like gravitational waves or explain cosmic puzzles like the matter-antimatter asymmetry. If the bounds are very close, it suggests that the precise details of particle interactions are less critical, simplifying further analysis. If the bounds are far apart, it highlights regions where more detailed, computationally intensive calculations are necessary to pinpoint the true velocity. Ultimately, this work offers a more robust and less uncertain way to understand a fundamental aspect of cosmic phase transitions.</p>
+      <h3>Background</h3><p>Imagine trying to understand how heat spreads through a turbulent fluid. Turbulence is incredibly complex, with swirling eddies and unpredictable motion. A key phenomenon observed in turbulent fluids is &quot;anomalous dissipation,&quot; where energy seems to disappear faster than expected, even when viscosity (which causes dissipation) is very low. This is a fundamental puzzle in physics. To simplify, researchers study a related problem: how a passive substance, like a dye or temperature, spreads within a turbulent flow. This is called &quot;scalar turbulence.&quot; In this simpler setting, scientists look for &quot;anomalous diffusion,&quot; which is like anomalous dissipation but for the spreading of the passive substance. Specifically, they want to know if the substance still spreads out quickly even when the fluid's &quot;viscosity&quot; (which normally smooths things out) is almost zero. Finding rigorous mathematical examples of this anomalous diffusion has been very challenging, especially for flows that are &quot;rough&quot; or chaotic.</p>
+<h3>What they did</h3><p>This research uses a mathematical model called the Kraichnan model to study anomalous diffusion. In this model, the turbulent flow is represented by a special type of random mathematical object called a &quot;stochastic partial differential equation&quot; (SPDE). This flow is &quot;white-in-time,&quot; meaning its behavior at any given moment is independent of its past. This is a simplification, as real-world flows have some memory. The researchers developed a new, concise mathematical proof using techniques from the theory of partial differential equations (PDEs) to show that this Kraichnan model exhibits anomalous diffusion. They specifically analyzed how a passive scalar (like temperature) spreads when advected by this random flow. Furthermore, they explored what happens when the &quot;white-in-time&quot; assumption is relaxed, and the flow has some memory (is &quot;correlated-in-time&quot;). They constructed examples of such correlated-in-time flows and showed that, surprisingly, they *don't* exhibit anomalous diffusion, even though their idealized &quot;white-in-time&quot; limits *do*. A key part of their argument involves proving that if anomalous diffusion occurs, the underlying flow must have non-unique trajectories (meaning different paths can be followed by particles in the flow, even if they start very close together).</p>
+<h3>What they found</h3><p>The main result is a rigorous proof that the Kraichnan model, under certain conditions on its parameters (specifically, when the flow is &quot;rough&quot; enough, meaning its spatial regularity parameter $\alpha$ is less than 1), exhibits anomalous diffusion. This means the expected squared $L^2$ norm (a measure of the overall &quot;energy&quot; or spread of the passive scalar) decays exponentially over time, with a rate that is independent of the diffusivity $\kappa$ (which represents viscosity) and the small-scale cutoff $\eta$ of the flow. The decay rate is given by $e^{-t/C}$ for some constant $C$, and the prefactor depends on $\alpha$, $\kappa$, and $\eta$ in a specific way: $\exp\left( - C \frac{1-\alpha}{\log \kappa / \log \eta + 1} \right)$. Crucially, anomalous diffusion is observed in the limit where both the small-scale cutoff $\eta$ and diffusivity $\kappa$ go to zero. The paper also demonstrates that introducing time correlations into the flow can destroy anomalous diffusion. They provide examples of correlated-in-time models that, for any fixed time correlation, do not show anomalous diffusion, even though their formal white-in-time limits do. Finally, they prove that anomalous diffusion implies non-uniqueness of the trajectories of the advecting flow.</p>
+<h3>Why it matters</h3><p>This work provides a rigorous mathematical foundation for understanding anomalous diffusion in a simplified model of turbulence. The PDE-based proof is accessible to a broader scientific audience, including those in fluid dynamics. The finding that the &quot;white-in-time&quot; property is essential for anomalous diffusion in this model is significant. It suggests that the instantaneous, uncorrelated nature of the random forcing is key to generating the rapid spreading, and that realistic flows with some temporal memory might behave differently. The construction of correlated-in-time models that *lack* anomalous diffusion highlights the delicate balance of properties required for this phenomenon. The proof that anomalous diffusion implies non-unique flow trajectories is a powerful theoretical link, connecting the spreading of passive scalars to the fundamental nature of the fluid's motion. For a non-specialist, this research contributes to the ongoing effort to mathematically explain complex phenomena observed in turbulent systems, moving beyond heuristic arguments to rigorous proofs. It underscores that even simplified models can reveal deep insights into the behavior of chaotic systems.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.13641" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.13641" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2311.12147" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2311.12147" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-10 15:19 UTC</span>
+    <span>Generated 2026-11-11 14:50 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -465,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.13641",
-    title:     "Bounds on the bubble wall velocity",
-    date:      "Tuesday, November 10, 2026",
-    publishedDate: "2024-11-20",
-    absUrl:    "https://arxiv.org/abs/2411.13641",
+    id:        "2311.12147",
+    title:     "On anomalous diffusion in the Kraichnan model and correlated-in-time variants",
+    date:      "Wednesday, November 11, 2026",
+    publishedDate: "2023-11-20",
+    absUrl:    "https://arxiv.org/abs/2311.12147",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
