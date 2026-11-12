@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>On anomalous diffusion in the Kraichnan model and correlated-in-time variants — One Journal A Day by Abhijeet</title>
+<title>OminiControl: Minimal and Universal Control for Diffusion Transformer — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Wednesday, November 11, 2026</div>
+    <div class="date">Thursday, November 12, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2311.12147</span>
+    <span class="arxiv-id">arXiv:2411.15098</span>
     <span></span>
-    <span>Submitted 2023-11-20</span>
+    <span>Submitted 2024-11-22</span>
   </div>
 
-  <h1 class="paper-title">On anomalous diffusion in the Kraichnan model and correlated-in-time variants</h1>
-  <div class="authors">Keefer Rowan</div>
+  <h1 class="paper-title">OminiControl: Minimal and Universal Control for Diffusion Transformer</h1>
+  <div class="authors">Zhenxiong Tan, Songhua Liu, Xingyi Yang, Qiaochu Xue, Xinchao Wang</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research investigates how a passive substance, like a dye in turbulent water, spreads out in a specific, idealized model of turbulence.</p><p>The core finding is that in a simplified model where the turbulent flow is random and instantaneous in time (called &quot;white-in-time&quot;), a dye will spread out unusually quickly, faster than normal diffusion, a phenomenon termed &quot;anomalous diffusion.&quot; This happens even if the dye has some resistance to spreading (diffusivity) and regardless of the initial dye pattern. The paper also shows that if the turbulence has memory (correlated-in-time), this anomalous spreading might disappear, and surprisingly, anomalous diffusion is linked to the fact that the paths of fluid particles in such flows can be unpredictable and not uniquely defined.</p><p>This work is interesting because it sheds light on the fundamental ways things spread in chaotic systems, which has implications for understanding phenomena ranging from pollutant dispersal in the atmosphere to the mixing of chemicals.</p>
+    <p>This research introduces OminiControl, a more efficient and versatile way to guide image generation using Diffusion Transformers (DiTs).</p><p>Instead of adding complex new parts to the DiT, OminiControl cleverly uses the existing structure of the model. It achieves this by treating all input information, whether it's the image you want to generate from or specific instructions, as a single stream of &quot;tokens&quot; that the DiT's transformer blocks can process together. This allows for flexible interactions and minimal extra computational cost. A novel dynamic position encoding further helps it adapt to different types of control, like matching a style or generating a specific subject.</p><p>This is interesting because it suggests we can have much more control over AI-generated images without making the underlying AI models incredibly complicated and resource-intensive, paving the way for more accessible and powerful creative tools.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,25 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine trying to understand how heat spreads through a turbulent fluid. Turbulence is incredibly complex, with swirling eddies and unpredictable motion. A key phenomenon observed in turbulent fluids is &quot;anomalous dissipation,&quot; where energy seems to disappear faster than expected, even when viscosity (which causes dissipation) is very low. This is a fundamental puzzle in physics. To simplify, researchers study a related problem: how a passive substance, like a dye or temperature, spreads within a turbulent flow. This is called &quot;scalar turbulence.&quot; In this simpler setting, scientists look for &quot;anomalous diffusion,&quot; which is like anomalous dissipation but for the spreading of the passive substance. Specifically, they want to know if the substance still spreads out quickly even when the fluid's &quot;viscosity&quot; (which normally smooths things out) is almost zero. Finding rigorous mathematical examples of this anomalous diffusion has been very challenging, especially for flows that are &quot;rough&quot; or chaotic.</p>
-<h3>What they did</h3><p>This research uses a mathematical model called the Kraichnan model to study anomalous diffusion. In this model, the turbulent flow is represented by a special type of random mathematical object called a &quot;stochastic partial differential equation&quot; (SPDE). This flow is &quot;white-in-time,&quot; meaning its behavior at any given moment is independent of its past. This is a simplification, as real-world flows have some memory. The researchers developed a new, concise mathematical proof using techniques from the theory of partial differential equations (PDEs) to show that this Kraichnan model exhibits anomalous diffusion. They specifically analyzed how a passive scalar (like temperature) spreads when advected by this random flow. Furthermore, they explored what happens when the &quot;white-in-time&quot; assumption is relaxed, and the flow has some memory (is &quot;correlated-in-time&quot;). They constructed examples of such correlated-in-time flows and showed that, surprisingly, they *don't* exhibit anomalous diffusion, even though their idealized &quot;white-in-time&quot; limits *do*. A key part of their argument involves proving that if anomalous diffusion occurs, the underlying flow must have non-unique trajectories (meaning different paths can be followed by particles in the flow, even if they start very close together).</p>
-<h3>What they found</h3><p>The main result is a rigorous proof that the Kraichnan model, under certain conditions on its parameters (specifically, when the flow is &quot;rough&quot; enough, meaning its spatial regularity parameter $\alpha$ is less than 1), exhibits anomalous diffusion. This means the expected squared $L^2$ norm (a measure of the overall &quot;energy&quot; or spread of the passive scalar) decays exponentially over time, with a rate that is independent of the diffusivity $\kappa$ (which represents viscosity) and the small-scale cutoff $\eta$ of the flow. The decay rate is given by $e^{-t/C}$ for some constant $C$, and the prefactor depends on $\alpha$, $\kappa$, and $\eta$ in a specific way: $\exp\left( - C \frac{1-\alpha}{\log \kappa / \log \eta + 1} \right)$. Crucially, anomalous diffusion is observed in the limit where both the small-scale cutoff $\eta$ and diffusivity $\kappa$ go to zero. The paper also demonstrates that introducing time correlations into the flow can destroy anomalous diffusion. They provide examples of correlated-in-time models that, for any fixed time correlation, do not show anomalous diffusion, even though their formal white-in-time limits do. Finally, they prove that anomalous diffusion implies non-uniqueness of the trajectories of the advecting flow.</p>
-<h3>Why it matters</h3><p>This work provides a rigorous mathematical foundation for understanding anomalous diffusion in a simplified model of turbulence. The PDE-based proof is accessible to a broader scientific audience, including those in fluid dynamics. The finding that the &quot;white-in-time&quot; property is essential for anomalous diffusion in this model is significant. It suggests that the instantaneous, uncorrelated nature of the random forcing is key to generating the rapid spreading, and that realistic flows with some temporal memory might behave differently. The construction of correlated-in-time models that *lack* anomalous diffusion highlights the delicate balance of properties required for this phenomenon. The proof that anomalous diffusion implies non-unique flow trajectories is a powerful theoretical link, connecting the spreading of passive scalars to the fundamental nature of the fluid's motion. For a non-specialist, this research contributes to the ongoing effort to mathematically explain complex phenomena observed in turbulent systems, moving beyond heuristic arguments to rigorous proofs. It underscores that even simplified models can reveal deep insights into the behavior of chaotic systems.</p>
+      <h3>Background</h3><p>Generating images with AI is amazing, but telling the AI *exactly* what you want can be tricky. Current methods often rely on just text, which is great for general ideas but bad for specific visual details. For example, if you want to generate an image of a specific person doing something, or ensure an object appears in a particular spot with a certain style, text alone isn't enough. To get better control, researchers have tried adding visual information (like a reference image or a sketch) to guide the AI. However, existing approaches either require adding a lot of new &quot;brainpower&quot; (parameters) to the AI model, or they only work well for one specific type of control (like making sure the generated image matches a sketch, but not for changing the style of a specific object). This makes them less versatile and harder to use in practice.</p>
+<h3>What they did</h3><p>This research introduces &quot;OminiControl,&quot; a new way to give AI image generators more precise visual control without making them overly complicated or specialized. The core idea is to work with a type of AI model called a Diffusion Transformer (DiT), which is known for its high-quality image generation.</p><p>OminiControl has three main innovations:</p><p>1.</p>
+<h3>Minimal Architecture</h3><p>Instead of adding entirely new parts to the AI, OminiControl cleverly reuses existing components within the DiT. It uses the DiT's own &quot;eyes&quot; (its VAE encoder) to understand the visual instructions and then processes these instructions alongside the image data through the DiT's existing &quot;thinking&quot; layers (transformer blocks). This means it only needs a tiny fraction (0.1%) of new parameters compared to the whole model, making it very efficient.</p><p>2.</p>
+<h3>Unified Sequence Processing</h3><p>Imagine the AI processes information as a series of &quot;tokens&quot; – like words in a sentence. Previously, visual instructions were often added separately. OminiControl treats everything – the image being generated and the visual instructions – as a single, unified sequence of tokens. This allows the AI's attention mechanism (which decides what information is most important) to freely mix and match information from the image and the instructions. This flexibility is key to handling different types of control, whether they are spatially aligned (like matching a sketch) or spatially unaligned (like changing the style of a specific object).</p><p>3.</p>
+<h3>Dynamic Position Encoding</h3><p>AI models need to know where information is located. For spatially aligned tasks, instructions should have the same &quot;location&quot; as the image parts they relate to. For unaligned tasks, they shouldn't. OminiControl uses a smart system that dynamically assigns position information to the instruction tokens, adapting whether they should be treated as spatially aligned or unaligned based on the task.</p><p>To address a specific challenge in controlling specific subjects (like generating multiple images of the same person), they also created a large dataset called &quot;Subjects200K.&quot; This dataset contains over 200,000 pairs of images showing the same subject in different contexts, synthesized using AI itself.</p>
+<h3>What they found</h3><p>OminiControl proved to be highly effective. Across various control tasks, it not only matched but often surpassed specialized methods. For example, in depth-to-image generation, it achieved a significantly higher F1-Score (0.38) compared to existing methods. For deblurring tasks, it reduced the Mean Squared Error (MSE) by 77% and improved the FID score from 30.38 to 11.49. In subject-driven generation, OminiControl achieved an impressive 75.8% modification accuracy on average, significantly outperforming baselines like IP-Adapter (FLUX) which scored 57.7%. Even more remarkably, it achieved 82.3% identity preservation, a substantial improvement over IP-Adapter (SD 1.5)'s 29.4%. The method also demonstrated excellent parameter efficiency, requiring only about 0.1% additional parameters for a large 12B parameter model.</p>
+<h3>Why it matters</h3><p>This work demonstrates that achieving highly versatile and precise image control doesn't require overly complex or specialized AI architectures. OminiControl's minimal and unified approach makes advanced image generation more accessible and practical. By requiring fewer additional parameters, it can be integrated into existing powerful models like DiTs without a massive computational cost. The creation of the Subjects200K dataset also provides a valuable resource for future research in subject-driven generation. While the unified token approach might slightly increase computational load during generation, the overall gains in flexibility and performance are significant. This research opens doors for more efficient and adaptable AI image generation systems that can be easily guided by visual information.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2311.12147" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2311.12147" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.15098" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.15098" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-11 14:50 UTC</span>
+    <span>Generated 2026-11-12 15:41 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +466,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2311.12147",
-    title:     "On anomalous diffusion in the Kraichnan model and correlated-in-time variants",
-    date:      "Wednesday, November 11, 2026",
-    publishedDate: "2023-11-20",
-    absUrl:    "https://arxiv.org/abs/2311.12147",
+    id:        "2411.15098",
+    title:     "OminiControl: Minimal and Universal Control for Diffusion Transformer",
+    date:      "Thursday, November 12, 2026",
+    publishedDate: "2024-11-22",
+    absUrl:    "https://arxiv.org/abs/2411.15098",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
