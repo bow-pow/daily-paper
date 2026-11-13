@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OminiControl: Minimal and Universal Control for Diffusion Transformer — One Journal A Day by Abhijeet</title>
+<title>$π^{*}_{0.6}$: a VLA That Learns From Experience — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Thursday, November 12, 2026</div>
+    <div class="date">Friday, November 13, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.15098</span>
+    <span class="arxiv-id">arXiv:2511.14759</span>
     <span></span>
-    <span>Submitted 2024-11-22</span>
+    <span>Submitted 2025-11-18</span>
   </div>
 
-  <h1 class="paper-title">OminiControl: Minimal and Universal Control for Diffusion Transformer</h1>
-  <div class="authors">Zhenxiong Tan, Songhua Liu, Xingyi Yang, Qiaochu Xue, Xinchao Wang</div>
+  <h1 class="paper-title">$π^{*}_{0.6}$: a VLA That Learns From Experience</h1>
+  <div class="authors">Physical Intelligence, Ali Amin, Raichelle Aniceto, Ashwin Balakrishna, Kevin Black, Ken Conley et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces OminiControl, a more efficient and versatile way to guide image generation using Diffusion Transformers (DiTs).</p><p>Instead of adding complex new parts to the DiT, OminiControl cleverly uses the existing structure of the model. It achieves this by treating all input information, whether it's the image you want to generate from or specific instructions, as a single stream of &quot;tokens&quot; that the DiT's transformer blocks can process together. This allows for flexible interactions and minimal extra computational cost. A novel dynamic position encoding further helps it adapt to different types of control, like matching a style or generating a specific subject.</p><p>This is interesting because it suggests we can have much more control over AI-generated images without making the underlying AI models incredibly complicated and resource-intensive, paving the way for more accessible and powerful creative tools.</p>
+    <p>This research explores how robots that can see, understand language, and take actions can get better at their jobs by learning from real-world experiences.</p><p>The core idea is a new method called RECAP, which uses reinforcement learning (RL) to train these robots. RL is like teaching a robot by rewarding it for good actions and penalizing it for bad ones. RECAP cleverly combines different types of data – like examples of how to do a task, data collected while the robot is trying on its own, and even human corrections when the robot makes a mistake. They start with a general-purpose robot brain, $π^{*}_{0.6}$, and then fine-tune it using RECAP to become really good at specific jobs.</p><p>This is interesting because it shows robots can learn complex real-world tasks like folding laundry or making coffee, not just in a lab, but in actual homes. This progress could lead to more capable and helpful robots in our daily lives.</p>
   </div>
 
   <details class="deep">
@@ -434,25 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Generating images with AI is amazing, but telling the AI *exactly* what you want can be tricky. Current methods often rely on just text, which is great for general ideas but bad for specific visual details. For example, if you want to generate an image of a specific person doing something, or ensure an object appears in a particular spot with a certain style, text alone isn't enough. To get better control, researchers have tried adding visual information (like a reference image or a sketch) to guide the AI. However, existing approaches either require adding a lot of new &quot;brainpower&quot; (parameters) to the AI model, or they only work well for one specific type of control (like making sure the generated image matches a sketch, but not for changing the style of a specific object). This makes them less versatile and harder to use in practice.</p>
-<h3>What they did</h3><p>This research introduces &quot;OminiControl,&quot; a new way to give AI image generators more precise visual control without making them overly complicated or specialized. The core idea is to work with a type of AI model called a Diffusion Transformer (DiT), which is known for its high-quality image generation.</p><p>OminiControl has three main innovations:</p><p>1.</p>
-<h3>Minimal Architecture</h3><p>Instead of adding entirely new parts to the AI, OminiControl cleverly reuses existing components within the DiT. It uses the DiT's own &quot;eyes&quot; (its VAE encoder) to understand the visual instructions and then processes these instructions alongside the image data through the DiT's existing &quot;thinking&quot; layers (transformer blocks). This means it only needs a tiny fraction (0.1%) of new parameters compared to the whole model, making it very efficient.</p><p>2.</p>
-<h3>Unified Sequence Processing</h3><p>Imagine the AI processes information as a series of &quot;tokens&quot; – like words in a sentence. Previously, visual instructions were often added separately. OminiControl treats everything – the image being generated and the visual instructions – as a single, unified sequence of tokens. This allows the AI's attention mechanism (which decides what information is most important) to freely mix and match information from the image and the instructions. This flexibility is key to handling different types of control, whether they are spatially aligned (like matching a sketch) or spatially unaligned (like changing the style of a specific object).</p><p>3.</p>
-<h3>Dynamic Position Encoding</h3><p>AI models need to know where information is located. For spatially aligned tasks, instructions should have the same &quot;location&quot; as the image parts they relate to. For unaligned tasks, they shouldn't. OminiControl uses a smart system that dynamically assigns position information to the instruction tokens, adapting whether they should be treated as spatially aligned or unaligned based on the task.</p><p>To address a specific challenge in controlling specific subjects (like generating multiple images of the same person), they also created a large dataset called &quot;Subjects200K.&quot; This dataset contains over 200,000 pairs of images showing the same subject in different contexts, synthesized using AI itself.</p>
-<h3>What they found</h3><p>OminiControl proved to be highly effective. Across various control tasks, it not only matched but often surpassed specialized methods. For example, in depth-to-image generation, it achieved a significantly higher F1-Score (0.38) compared to existing methods. For deblurring tasks, it reduced the Mean Squared Error (MSE) by 77% and improved the FID score from 30.38 to 11.49. In subject-driven generation, OminiControl achieved an impressive 75.8% modification accuracy on average, significantly outperforming baselines like IP-Adapter (FLUX) which scored 57.7%. Even more remarkably, it achieved 82.3% identity preservation, a substantial improvement over IP-Adapter (SD 1.5)'s 29.4%. The method also demonstrated excellent parameter efficiency, requiring only about 0.1% additional parameters for a large 12B parameter model.</p>
-<h3>Why it matters</h3><p>This work demonstrates that achieving highly versatile and precise image control doesn't require overly complex or specialized AI architectures. OminiControl's minimal and unified approach makes advanced image generation more accessible and practical. By requiring fewer additional parameters, it can be integrated into existing powerful models like DiTs without a massive computational cost. The creation of the Subjects200K dataset also provides a valuable resource for future research in subject-driven generation. While the unified token approach might slightly increase computational load during generation, the overall gains in flexibility and performance are significant. This research opens doors for more efficient and adaptable AI image generation systems that can be easily guided by visual information.</p>
+      <h3>Background</h3><p>Robots are getting smarter, able to understand and respond to human language commands. However, just like humans, these &quot;vision-language-action&quot; (VLA) models need practice to become truly skilled at tasks. Simply showing them how to do something once isn't enough for mastery. The challenge is figuring out how to let these robots learn from their own real-world experiences, make mistakes, and improve over time, especially for complex, multi-step tasks.</p>
+<h3>What they did</h3><p>This research introduces a method called RECAP (Reinforcement Learning with Experience and Corrections via Advantage-conditioned Policies) designed to help VLA models learn from real-world practice. RECAP works by first training a generalist VLA model, called $π^{*}_{0.6}$, using a technique called &quot;offline reinforcement learning&quot; (RL). Offline RL means learning from a fixed dataset of past experiences without further interaction. This initial $π^{*}_{0.6}$ model is then fine-tuned for specific tasks.</p><p>The core of RECAP involves a continuous learning loop. The robot performs tasks, and its successes and failures are recorded. A &quot;value function&quot; is trained to estimate how good a particular action is in a given situation, essentially predicting the likelihood of success or the time to completion. This value function then helps train the VLA policy itself. The policy is &quot;advantage-conditioned,&quot; meaning it's trained to favor actions that the value function predicts will lead to better outcomes (higher &quot;advantage&quot;). This process incorporates various types of data: initial demonstrations, data collected from the robot's own autonomous attempts, and even expert human corrections provided when the robot makes a mistake. These corrections are crucial for guiding the robot away from critical errors.</p>
+<h3>What they found</h3><p>When trained with RECAP, the $π^{*}_{0.6}$ model demonstrated impressive capabilities in real-world tasks. It could reliably fold laundry in homes, assemble boxes for packaging, and even make espresso drinks using a professional machine. On challenging tasks, RECAP more than doubled the task completion rate per hour (throughput) and roughly halved the failure rate. For instance, on diverse laundry folding and espresso making, throughput increased by over 100%, and failure rates were cut in half. The final models achieved success rates above 90% for most tasks, making them practical for real-world applications. The research also showed that RECAP could effectively remove specific undesirable behaviors, like folding a shirt incorrectly, with relatively little additional training data.</p>
+<h3>Why it matters</h3><p>This work represents a significant step towards creating robots that can truly learn and improve from their experiences in the real world, much like humans do. By combining initial training with ongoing learning from autonomous actions and human guidance, RECAP allows robots to move beyond simply mimicking demonstrations to achieving robust and efficient performance. The ability to learn from mistakes and adapt to new situations is crucial for robots to become useful assistants in homes, factories, and other complex environments. While the system still relies on human input for feedback and corrections, it lays a foundation for more autonomous and capable robotic systems in the future. The key takeaway is that by allowing robots to learn from their own practice and mistakes, guided by intelligent feedback mechanisms, their performance can be dramatically improved.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.15098" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.15098" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2511.14759" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2511.14759" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-12 15:41 UTC</span>
+    <span>Generated 2026-11-13 15:00 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -466,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.15098",
-    title:     "OminiControl: Minimal and Universal Control for Diffusion Transformer",
-    date:      "Thursday, November 12, 2026",
-    publishedDate: "2024-11-22",
-    absUrl:    "https://arxiv.org/abs/2411.15098",
+    id:        "2511.14759",
+    title:     "$π^{*}_{0.6}$: a VLA That Learns From Experience",
+    date:      "Friday, November 13, 2026",
+    publishedDate: "2025-11-18",
+    absUrl:    "https://arxiv.org/abs/2511.14759",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
