@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>$π^{*}_{0.6}$: a VLA That Learns From Experience — One Journal A Day by Abhijeet</title>
+<title>Mixed state tomography reduces to pure state tomography — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Friday, November 13, 2026</div>
+    <div class="date">Saturday, November 14, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2511.14759</span>
+    <span class="arxiv-id">arXiv:2511.15806</span>
     <span></span>
-    <span>Submitted 2025-11-18</span>
+    <span>Submitted 2025-11-19</span>
   </div>
 
-  <h1 class="paper-title">$π^{*}_{0.6}$: a VLA That Learns From Experience</h1>
-  <div class="authors">Physical Intelligence, Ali Amin, Raichelle Aniceto, Ashwin Balakrishna, Kevin Black, Ken Conley et al.</div>
+  <h1 class="paper-title">Mixed state tomography reduces to pure state tomography</h1>
+  <div class="authors">Angelos Pelecanos, Jack Spilecki, Ewin Tang, John Wright</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how robots that can see, understand language, and take actions can get better at their jobs by learning from real-world experiences.</p><p>The core idea is a new method called RECAP, which uses reinforcement learning (RL) to train these robots. RL is like teaching a robot by rewarding it for good actions and penalizing it for bad ones. RECAP cleverly combines different types of data – like examples of how to do a task, data collected while the robot is trying on its own, and even human corrections when the robot makes a mistake. They start with a general-purpose robot brain, $π^{*}_{0.6}$, and then fine-tune it using RECAP to become really good at specific jobs.</p><p>This is interesting because it shows robots can learn complex real-world tasks like folding laundry or making coffee, not just in a lab, but in actual homes. This progress could lead to more capable and helpful robots in our daily lives.</p>
+    <p>This research demonstrates a surprising simplification in how we can understand and reconstruct quantum states.</p><p>The core idea is that estimating a complex, &quot;mixed&quot; quantum state (a probabilistic combination of simpler states) is not inherently harder than estimating a simple, &quot;pure&quot; quantum state. This is achieved by a clever trick: taking many copies of the unknown mixed state and transforming them into a single &quot;purification,&quot; which is a pure state. Then, standard, simpler techniques for pure state tomography can be applied to this purification to accurately reconstruct the original mixed state. This new method is remarkably efficient, requiring the fewest possible measurements for any given accuracy and dimension.</p><p>This finding is interesting because it simplifies a fundamental problem in quantum information science, making it easier to develop practical quantum devices and understand quantum phenomena.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,29 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Robots are getting smarter, able to understand and respond to human language commands. However, just like humans, these &quot;vision-language-action&quot; (VLA) models need practice to become truly skilled at tasks. Simply showing them how to do something once isn't enough for mastery. The challenge is figuring out how to let these robots learn from their own real-world experiences, make mistakes, and improve over time, especially for complex, multi-step tasks.</p>
-<h3>What they did</h3><p>This research introduces a method called RECAP (Reinforcement Learning with Experience and Corrections via Advantage-conditioned Policies) designed to help VLA models learn from real-world practice. RECAP works by first training a generalist VLA model, called $π^{*}_{0.6}$, using a technique called &quot;offline reinforcement learning&quot; (RL). Offline RL means learning from a fixed dataset of past experiences without further interaction. This initial $π^{*}_{0.6}$ model is then fine-tuned for specific tasks.</p><p>The core of RECAP involves a continuous learning loop. The robot performs tasks, and its successes and failures are recorded. A &quot;value function&quot; is trained to estimate how good a particular action is in a given situation, essentially predicting the likelihood of success or the time to completion. This value function then helps train the VLA policy itself. The policy is &quot;advantage-conditioned,&quot; meaning it's trained to favor actions that the value function predicts will lead to better outcomes (higher &quot;advantage&quot;). This process incorporates various types of data: initial demonstrations, data collected from the robot's own autonomous attempts, and even expert human corrections provided when the robot makes a mistake. These corrections are crucial for guiding the robot away from critical errors.</p>
-<h3>What they found</h3><p>When trained with RECAP, the $π^{*}_{0.6}$ model demonstrated impressive capabilities in real-world tasks. It could reliably fold laundry in homes, assemble boxes for packaging, and even make espresso drinks using a professional machine. On challenging tasks, RECAP more than doubled the task completion rate per hour (throughput) and roughly halved the failure rate. For instance, on diverse laundry folding and espresso making, throughput increased by over 100%, and failure rates were cut in half. The final models achieved success rates above 90% for most tasks, making them practical for real-world applications. The research also showed that RECAP could effectively remove specific undesirable behaviors, like folding a shirt incorrectly, with relatively little additional training data.</p>
-<h3>Why it matters</h3><p>This work represents a significant step towards creating robots that can truly learn and improve from their experiences in the real world, much like humans do. By combining initial training with ongoing learning from autonomous actions and human guidance, RECAP allows robots to move beyond simply mimicking demonstrations to achieving robust and efficient performance. The ability to learn from mistakes and adapt to new situations is crucial for robots to become useful assistants in homes, factories, and other complex environments. While the system still relies on human input for feedback and corrections, it lays a foundation for more autonomous and capable robotic systems in the future. The key takeaway is that by allowing robots to learn from their own practice and mistakes, guided by intelligent feedback mechanisms, their performance can be dramatically improved.</p>
+      <h3>Background</h3><p>Imagine you have a quantum system, like a tiny particle. You want to know its exact state. This is called &quot;quantum state tomography.&quot; For a long time, scientists thought that figuring out the state of a &quot;pure&quot; quantum system (one that's in a single, well-defined state) was much easier than figuring out the state of a &quot;mixed&quot; system (one that's a combination of multiple possible states, or is uncertain). This belief was based on the complex math needed for mixed states, which seemed fundamentally harder than the math for pure states. This paper challenges that long-held assumption.</p>
+<h3>What they did</h3><p>The core idea of this research is a clever strategy to turn the seemingly harder problem of mixed state tomography into the easier problem of pure state tomography. Here's the breakdown:</p><p>First, you need multiple copies of the unknown mixed state, let's call it $\rho$. The more copies you have, the better your chances of accurately figuring out its state. The paper uses a recent breakthrough called the &quot;acorn trick&quot; (developed by Tang, Wright, and Zhandry) which allows for a process called &quot;purification.&quot;</p><p>Think of purification like this: if you have many copies of a mixed state, you can use a special quantum operation (a &quot;channel&quot; in quantum lingo) to transform these copies into something called a &quot;purification&quot; of the original state. A purification, denoted as $|\rho\rangle$, is essentially a pure state that, when you &quot;trace out&quot; (ignore) a part of it, gives you back the original mixed state $\rho$. The key is that this purification process can be done consistently across all your copies.</p><p>Once you have these purified copies, the strategy is to then apply a known, efficient algorithm for pure state tomography to these purified states. This algorithm will give you an estimate of the purified state, $|\rho\rangle$.</p><p>Finally, you take this estimate of the purified state and convert it back into an estimate of the original mixed state $\rho$. This is done by performing a &quot;partial trace&quot; on the estimated purified state, which is like ignoring the extra part that was added during purification.</p>
+<h3>What they found</h3><p>This new approach leads to a significant breakthrough: the first quantum tomography algorithm that is &quot;sample-optimal&quot; in all its parameters. This means it uses the minimum number of copies of the quantum state required to achieve a desired level of accuracy.</p><p>Specifically, for a mixed state $\rho$ with rank $r$ (which relates to how &quot;mixed&quot; it is) in a $d$-dimensional space, the algorithm uses $n = O((rd + \log(1/\delta))/\varepsilon)$ copies. Here, $\varepsilon$ represents the desired accuracy (smaller is better), and $\delta$ represents the probability of failure (smaller is better). This is the most efficient scaling possible in terms of $r$, $d$, $\varepsilon$, and $\delta$.</p><p>Furthermore, this algorithm is &quot;gate-efficient,&quot; meaning it can be implemented using a reasonable number of basic quantum operations (gates). This is a crucial practical consideration for building quantum computers. The paper also shows that this method recovers essentially all previously known results in mixed state tomography, including applications to areas like quantum metrology (using quantum systems for precise measurements) and classical shadows (a way to efficiently store information about quantum states).</p><p>The research also clarifies the role of entanglement in tomography. It suggests that entanglement is primarily useful for the purification step itself, enabling consistent purification across multiple copies. After purification, the subsequent pure state tomography can often be done without entanglement between the copies.</p>
+<h3>Why it matters</h3><p>This work fundamentally changes our understanding of quantum state tomography. It demonstrates that the perceived difficulty of mixed state tomography was an illusion, and that it can be elegantly reduced to the simpler problem of pure state tomography. This simplification has several important implications:</p><p>*</p>
+<h3>Conceptual Clarity</h3><p>The proofs and algorithms become much simpler and more intuitive, bridging a gap in conceptual difficulty that previously existed.
+*</p>
+<h3>Practical Efficiency</h3><p>The resulting algorithms are sample-optimal and gate-efficient, meaning they require fewer quantum resources (copies of the state) and fewer operations to achieve high accuracy. This is crucial for developing practical quantum technologies.
+*</p>
+<h3>Unified Framework</h3><p>By showing that mixed state tomography can be reduced to pure state tomography, the paper provides a unified framework for understanding various quantum tomography tasks, including those with limited entanglement and quantum metrology.
+*</p>
+<h3>New Directions</h3><p>The research opens up new avenues for exploring the purification channel and its applications, potentially leading to further advancements in quantum information science.</p><p>In essence, this paper makes quantum state tomography significantly more accessible and efficient, paving the way for more robust and practical quantum sensing and information processing.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2511.14759" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2511.14759" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2511.15806" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2511.15806" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-13 15:00 UTC</span>
+    <span>Generated 2026-11-14 13:53 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +470,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2511.14759",
-    title:     "$π^{*}_{0.6}$: a VLA That Learns From Experience",
-    date:      "Friday, November 13, 2026",
-    publishedDate: "2025-11-18",
-    absUrl:    "https://arxiv.org/abs/2511.14759",
+    id:        "2511.15806",
+    title:     "Mixed state tomography reduces to pure state tomography",
+    date:      "Saturday, November 14, 2026",
+    publishedDate: "2025-11-19",
+    absUrl:    "https://arxiv.org/abs/2511.15806",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
