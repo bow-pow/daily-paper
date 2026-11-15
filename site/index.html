@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mixed state tomography reduces to pure state tomography — One Journal A Day by Abhijeet</title>
+<title>Three-Wave Mixing Quantum-Limited Kinetic Inductance Parametric Amplifier operating at 6 Tesla and near 1 Kelvin — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Saturday, November 14, 2026</div>
+    <div class="date">Sunday, November 15, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2511.15806</span>
+    <span class="arxiv-id">arXiv:2312.00748</span>
     <span></span>
-    <span>Submitted 2025-11-19</span>
+    <span>Submitted 2023-12-01</span>
   </div>
 
-  <h1 class="paper-title">Mixed state tomography reduces to pure state tomography</h1>
-  <div class="authors">Angelos Pelecanos, Jack Spilecki, Ewin Tang, John Wright</div>
+  <h1 class="paper-title">Three-Wave Mixing Quantum-Limited Kinetic Inductance Parametric Amplifier operating at 6 Tesla and near 1 Kelvin</h1>
+  <div class="authors">Simone Frasca, Camille Roy, Guillaume Beaulieu, Pasquale Scarlino</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research demonstrates a surprising simplification in how we can understand and reconstruct quantum states.</p><p>The core idea is that estimating a complex, &quot;mixed&quot; quantum state (a probabilistic combination of simpler states) is not inherently harder than estimating a simple, &quot;pure&quot; quantum state. This is achieved by a clever trick: taking many copies of the unknown mixed state and transforming them into a single &quot;purification,&quot; which is a pure state. Then, standard, simpler techniques for pure state tomography can be applied to this purification to accurately reconstruct the original mixed state. This new method is remarkably efficient, requiring the fewest possible measurements for any given accuracy and dimension.</p><p>This finding is interesting because it simplifies a fundamental problem in quantum information science, making it easier to develop practical quantum devices and understand quantum phenomena.</p>
+    <p>This research presents a new type of amplifier for detecting extremely faint signals, crucial for quantum technologies.  Instead of relying on traditional superconducting devices called Josephson junctions, this amplifier uses the inherent properties of a special superconducting material, niobium nitride (NbN), to achieve its amplification. This &quot;kinetic inductance&quot; allows the amplifier to work effectively even in very strong magnetic fields and at relatively high temperatures (close to absolute zero, but not as cold as previously required).  This breakthrough could be important for building more robust and versatile quantum computers and for conducting sensitive experiments at the cutting edge of physics.</p>
   </div>
 
   <details class="deep">
@@ -434,29 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine you have a quantum system, like a tiny particle. You want to know its exact state. This is called &quot;quantum state tomography.&quot; For a long time, scientists thought that figuring out the state of a &quot;pure&quot; quantum system (one that's in a single, well-defined state) was much easier than figuring out the state of a &quot;mixed&quot; system (one that's a combination of multiple possible states, or is uncertain). This belief was based on the complex math needed for mixed states, which seemed fundamentally harder than the math for pure states. This paper challenges that long-held assumption.</p>
-<h3>What they did</h3><p>The core idea of this research is a clever strategy to turn the seemingly harder problem of mixed state tomography into the easier problem of pure state tomography. Here's the breakdown:</p><p>First, you need multiple copies of the unknown mixed state, let's call it $\rho$. The more copies you have, the better your chances of accurately figuring out its state. The paper uses a recent breakthrough called the &quot;acorn trick&quot; (developed by Tang, Wright, and Zhandry) which allows for a process called &quot;purification.&quot;</p><p>Think of purification like this: if you have many copies of a mixed state, you can use a special quantum operation (a &quot;channel&quot; in quantum lingo) to transform these copies into something called a &quot;purification&quot; of the original state. A purification, denoted as $|\rho\rangle$, is essentially a pure state that, when you &quot;trace out&quot; (ignore) a part of it, gives you back the original mixed state $\rho$. The key is that this purification process can be done consistently across all your copies.</p><p>Once you have these purified copies, the strategy is to then apply a known, efficient algorithm for pure state tomography to these purified states. This algorithm will give you an estimate of the purified state, $|\rho\rangle$.</p><p>Finally, you take this estimate of the purified state and convert it back into an estimate of the original mixed state $\rho$. This is done by performing a &quot;partial trace&quot; on the estimated purified state, which is like ignoring the extra part that was added during purification.</p>
-<h3>What they found</h3><p>This new approach leads to a significant breakthrough: the first quantum tomography algorithm that is &quot;sample-optimal&quot; in all its parameters. This means it uses the minimum number of copies of the quantum state required to achieve a desired level of accuracy.</p><p>Specifically, for a mixed state $\rho$ with rank $r$ (which relates to how &quot;mixed&quot; it is) in a $d$-dimensional space, the algorithm uses $n = O((rd + \log(1/\delta))/\varepsilon)$ copies. Here, $\varepsilon$ represents the desired accuracy (smaller is better), and $\delta$ represents the probability of failure (smaller is better). This is the most efficient scaling possible in terms of $r$, $d$, $\varepsilon$, and $\delta$.</p><p>Furthermore, this algorithm is &quot;gate-efficient,&quot; meaning it can be implemented using a reasonable number of basic quantum operations (gates). This is a crucial practical consideration for building quantum computers. The paper also shows that this method recovers essentially all previously known results in mixed state tomography, including applications to areas like quantum metrology (using quantum systems for precise measurements) and classical shadows (a way to efficiently store information about quantum states).</p><p>The research also clarifies the role of entanglement in tomography. It suggests that entanglement is primarily useful for the purification step itself, enabling consistent purification across multiple copies. After purification, the subsequent pure state tomography can often be done without entanglement between the copies.</p>
-<h3>Why it matters</h3><p>This work fundamentally changes our understanding of quantum state tomography. It demonstrates that the perceived difficulty of mixed state tomography was an illusion, and that it can be elegantly reduced to the simpler problem of pure state tomography. This simplification has several important implications:</p><p>*</p>
-<h3>Conceptual Clarity</h3><p>The proofs and algorithms become much simpler and more intuitive, bridging a gap in conceptual difficulty that previously existed.
-*</p>
-<h3>Practical Efficiency</h3><p>The resulting algorithms are sample-optimal and gate-efficient, meaning they require fewer quantum resources (copies of the state) and fewer operations to achieve high accuracy. This is crucial for developing practical quantum technologies.
-*</p>
-<h3>Unified Framework</h3><p>By showing that mixed state tomography can be reduced to pure state tomography, the paper provides a unified framework for understanding various quantum tomography tasks, including those with limited entanglement and quantum metrology.
-*</p>
-<h3>New Directions</h3><p>The research opens up new avenues for exploring the purification channel and its applications, potentially leading to further advancements in quantum information science.</p><p>In essence, this paper makes quantum state tomography significantly more accessible and efficient, paving the way for more robust and practical quantum sensing and information processing.</p>
+      <h3>Background</h3><p>In the realm of quantum technology, such as building quantum computers or highly sensitive sensors, we often need to detect incredibly faint signals. These signals can be like whispers in a noisy room – so quiet that they get lost. To hear them, we need special amplifiers that can boost these weak signals without adding much of their own noise. Traditionally, these amplifiers have relied on tiny electronic components called Josephson junctions. However, these junctions are very sensitive to magnetic fields, which limits their use in experiments that require strong magnetic fields, like those involving certain types of quantum bits (qubits). This research addresses the need for a robust amplifier that works well even in strong magnetic fields and at relatively high temperatures, while still achieving the ultimate sensitivity allowed by quantum mechanics.</p>
+<h3>What they did</h3><p>This work introduces a new type of amplifier called a Kinetic Inductance Parametric Amplifier (KIPA). Instead of using Josephson junctions, this KIPA uses a special thin film made of niobium nitride (NbN), a superconductor. Superconductors have unique electrical properties, and in NbN films, a property called &quot;kinetic inductance&quot; can be engineered to create the necessary nonlinearity for amplification. This nonlinearity is what allows the amplifier to boost signals. The researchers designed their KIPA as a resonant structure, meaning it's like a tiny, carefully tuned electrical circuit that enhances specific frequencies. They used a technique called &quot;three-wave mixing&quot; (3WM), which is an efficient way to transfer energy from a strong &quot;pump&quot; signal to the weak &quot;signal&quot; being amplified. A key aspect of their design is the use of stepped-impedance filters, which help isolate the amplifying element and make it more resilient to external magnetic fields. They then characterized this KIPA by measuring its performance under various conditions, including different magnetic field strengths (up to 6 Tesla) and temperatures (down to 850 millikelvin, which is very cold but not absolute zero). They also tested its ability to generate &quot;squeezed vacuum states,&quot; a type of non-classical light that can further improve measurement sensitivity.</p>
+<h3>What they found</h3><p>The researchers demonstrated that their NbN KIPA achieves &quot;quantum-limited amplification,&quot; meaning it adds almost the minimum amount of noise possible according to the laws of quantum physics. They achieved a gain of over 20 decibels (dB), which is a significant amplification, with a gain-bandwidth product of 20 megahertz (MHz). This means it can amplify signals over a 20 MHz range of frequencies with that level of gain. Crucially, this performance was maintained even when subjected to a strong magnetic field of 6 Tesla and at a temperature of 850 millikelvin. This is a significant improvement over traditional Josephson junction amplifiers, which would typically fail under such conditions. The KIPA also showed a much larger dynamic range, meaning it can handle stronger input signals before distorting, with a saturation power of approximately -65 dBm, which is about a thousand times higher than typical Josephson amplifiers. Furthermore, they showed that the KIPA can generate squeezed vacuum states, confirming its quantum-limited noise performance. The device also demonstrated a useful frequency tunability of about 400 MHz.</p>
+<h3>Why it matters</h3><p>This KIPA represents a significant step forward for quantum technologies. Its ability to operate with high sensitivity in strong magnetic fields and at relatively higher temperatures opens up new possibilities for integrating quantum amplifiers directly with quantum devices that require these conditions. For example, many types of qubits, especially those based on spin properties, rely on strong magnetic fields. This KIPA could be placed directly on the same chip as these qubits, reducing signal loss and improving measurement speed and accuracy. Its robustness makes it a more practical and versatile tool for a wider range of quantum experiments and applications, from fundamental physics research to building more advanced quantum computers and sensors. The research demonstrates that high-kinetic inductance films are a viable and promising alternative to Josephson junctions for creating high-performance quantum amplifiers.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2511.15806" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2511.15806" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2312.00748" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2312.00748" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-14 13:53 UTC</span>
+    <span>Generated 2026-11-15 14:26 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -470,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2511.15806",
-    title:     "Mixed state tomography reduces to pure state tomography",
-    date:      "Saturday, November 14, 2026",
-    publishedDate: "2025-11-19",
-    absUrl:    "https://arxiv.org/abs/2511.15806",
+    id:        "2312.00748",
+    title:     "Three-Wave Mixing Quantum-Limited Kinetic Inductance Parametric Amplifier operating at 6 Tesla and near 1 Kelvin",
+    date:      "Sunday, November 15, 2026",
+    publishedDate: "2023-12-01",
+    absUrl:    "https://arxiv.org/abs/2312.00748",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
