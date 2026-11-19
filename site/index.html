@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A direct approach to soft and hard edge universality for random normal matrices — One Journal A Day by Abhijeet</title>
+<title>Scaling Transformers for Low-Bitrate High-Quality Speech Coding — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Wednesday, November 18, 2026</div>
+    <div class="date">Thursday, November 19, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2511.18628</span>
+    <span class="arxiv-id">arXiv:2411.19842</span>
     <span></span>
-    <span>Submitted 2025-11-23</span>
+    <span>Submitted 2024-11-29</span>
   </div>
 
-  <h1 class="paper-title">A direct approach to soft and hard edge universality for random normal matrices</h1>
-  <div class="authors">Joakim Cronvall, Aron Wennman</div>
+  <h1 class="paper-title">Scaling Transformers for Low-Bitrate High-Quality Speech Coding</h1>
+  <div class="authors">Julian D Parker, Anton Smirnov, Jordi Pons, CJ Carr, Zack Zukowski, Zach Evans et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research provides a new, straightforward way to understand how the positions of eigenvalues (think of them as special numbers) in certain random systems behave, especially near the edges of their distribution.</p><p>The core idea is to directly analyze the &quot;kernels,&quot; which are mathematical tools describing the relationships between these eigenvalues, without relying on a standard, more complicated method involving orthogonal polynomials. This direct method allows for proving &quot;universality&quot; – meaning the behavior is the same regardless of specific details – for eigenvalues near both &quot;hard edges&quot; (where the density of eigenvalues drops abruptly) and &quot;soft edges&quot; (where the density smoothly changes), even in complex scenarios with multiple components or where these edges align perfectly. Key to this is using spectral embeddings and constructing special weighted polynomials.</p><p>This work is interesting because it simplifies understanding fundamental patterns in random systems, which appear in diverse fields from quantum mechanics to statistical physics, potentially leading to clearer insights into complex phenomena.</p>
+    <p>This research explores how to make speech sound good even when it's compressed to incredibly small file sizes using AI.</p><p>The core idea is that by using a very large, powerful AI model called a Transformer, which is typically used for text, and a special way of compressing information called Finite Scalar Quantization (FSQ), they can represent speech with very few bits. This means speech can be transmitted or stored using much less data than before, while still sounding clear and natural. Traditional methods relied on simpler AI models with built-in assumptions about speech, but this work demonstrates the power of a larger, more flexible approach.</p><p>This matters because it could lead to much more efficient ways to communicate online, making high-quality voice calls and audio streaming possible even on slow internet connections or with limited storage.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine a system of many tiny particles, like electrons, confined by some external force. These particles repel each other, but the external force tries to pull them together. In the real world, these particles might arrange themselves in a specific pattern. A key question in physics and mathematics is whether this pattern, especially near the edges of where the particles are allowed to be, is universal. That is, does it look the same regardless of the exact shape of the external force, or whether there are specific regions the particles are forbidden from entering? This research tackles this question for a specific type of particle system related to random matrices, which are arrays of numbers chosen randomly. The focus is on understanding the behavior of these particles at the &quot;edges&quot; of their distribution, distinguishing between &quot;soft edges&quot; where the density of particles gradually decreases, and &quot;hard edges&quot; where particles are strictly forbidden from certain areas.</p>
-<h3>What they did</h3><p>This paper introduces a new, &quot;direct&quot; way to study the universal behavior of these particle systems. Traditionally, understanding these patterns involved complex tools like orthogonal polynomials. This new approach bypasses those tools. Instead, it uses concepts from functional analysis, specifically properties of Hilbert spaces (mathematical spaces where functions can be treated like vectors) and spectral embeddings (ways to represent these spaces within other, simpler spaces). They construct special &quot;weighted polynomials&quot; that are designed to &quot;peak&quot; or become very large near a specific boundary point. By analyzing how these polynomials behave in scaled-down regions, they can understand the universal patterns. The approach is unified, meaning it can handle different types of edges (soft, hard, and a combination) and even complex shapes of allowed regions, without needing separate, complicated methods for each case.</p>
-<h3>What they found</h3><p>The research presents three main results. First, they prove universality at &quot;hard edges&quot; (where particles are forbidden from a region) without any symmetry assumptions on the external force or the forbidden region. This means the universal pattern at these edges is the same regardless of specific details. Second, they extend universality to &quot;soft edges&quot; (where particle density gradually fades) for more complex scenarios, specifically for particle distributions with multiple disconnected components and when a hard edge perfectly aligns with the boundary of the allowed region. The universal patterns at these edges are described by specific mathematical &quot;kernels&quot; (functions that describe the relationships between particle positions). For hard edges, this kernel is denoted by B(ζ, η), and for soft edges, it's the Faddeeva kernel H(ζ, η). They also identify a new kernel, HL(ζ, η), for the combined soft/hard edge scenario.</p>
-<h3>Why it matters</h3><p>This work provides a significant advancement in understanding the behavior of random systems, particularly at their boundaries. By developing a unified and direct approach, the paper simplifies the study of universality for random normal matrices and related physical models. The ability to handle hard edges without symmetry assumptions and to address more complex droplet shapes (regions where particles can exist) fills important gaps in existing theory. This has implications for fields ranging from quantum mechanics and statistical physics to pure mathematics, offering a more robust framework for analyzing complex random phenomena. The direct method avoids the difficulties associated with traditional techniques in these challenging regimes, paving the way for further research into the universal properties of random systems.</p>
+      <h3>Background</h3><p>Imagine you're sending a voice message or storing audio. The more you compress it, the smaller the file size, but the worse it sounds. For a long time, researchers focused on making audio compression algorithms (called codecs) that were very efficient and didn't use much computer power, while still sounding decent. However, with the rise of powerful AI models that can *generate* speech or audio, the priorities have shifted. Now, the goal is to compress audio *as much as possible* – to make files incredibly small – while still maintaining the highest possible audio quality. This is crucial for making AI speech generation and understanding more efficient and faster.</p>
+<h3>What they did</h3><p>This research tackles the problem of creating a speech codec that can achieve extremely low compression rates without sacrificing quality. Traditionally, neural audio codecs (NACs) have used simpler architectures with strong built-in assumptions about data, like convolutional or recurrent networks. These are good for efficiency but don't scale well to very large models. This work proposes using a Transformer architecture, which is known for its ability to scale to billions of parameters (like those in large language models), for speech coding. They call their model the Transformer Audio AutoEncoder (TAAE).</p><p>Instead of the common Residual Vector Quantization (RVQ) method for compressing information into discrete codes (tokens), they use a more flexible approach called Finite Scalar Quantization (FSQ). FSQ works by projecting the audio's representation into a lower-dimensional space and then quantizing each dimension independently at regular intervals. This method is more efficient and avoids some issues with codebook usage that can plague RVQ. They also developed a way to modify the FSQ bottleneck *after* training, allowing for further flexibility in how the compressed data is represented, including a hierarchical &quot;residual&quot; decomposition that mimics RVQ but with better control. The TAAE model is trained using a combination of reconstruction losses (making the output sound like the input) and adversarial losses (where a &quot;discriminator&quot; tries to tell the difference between real and generated audio, pushing the generator to create more realistic output). They also incorporated a perceptual loss based on a pre-trained speech model (WavLM) to improve intelligibility.</p>
+<h3>What they found</h3><p>The TAAE model, when scaled to approximately 950 million parameters, achieved state-of-the-art results in speech coding at extremely low bitrates of 400 and 700 bits-per-second (bps). This is significantly lower than most existing codecs. In objective tests, TAAE outperformed established baselines like DAC, Encodec, SpeechTokenizer, SemantiCodec, and Mimi across various metrics measuring audio quality and fidelity. Subjective tests (MUSHRA) also showed TAAE's superiority, with listeners finding its reconstructions very close to the original high-quality audio. The research also demonstrated that the TAAE architecture scales well with model size, with larger models yielding better results. Furthermore, a causal version of the model, suitable for real-time streaming, showed only a minor drop in performance while still outperforming a strong streaming baseline. The model also generalized well to different languages, even though it was trained only on English.</p>
+<h3>Why it matters</h3><p>This research shows that by leveraging the scalability of Transformer architectures and a flexible quantization method (FSQ), it's possible to achieve unprecedented levels of speech compression while maintaining high quality. This is a significant step forward for applications that rely on efficient speech processing, such as real-time communication, voice assistants, and especially for generative AI models that create speech. By making speech data much smaller, these AI models can process and generate speech faster and with less computational cost. The ability to achieve such low bitrates opens up new possibilities for deploying advanced speech AI in resource-constrained environments. While the model is large, the research indicates that efficient implementations make it competitive in inference speed. A limitation noted is the training data being primarily English audiobooks at 16 kHz, suggesting that training on more diverse and higher-sampling-rate data could further improve performance.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2511.18628" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2511.18628" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2411.19842" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2411.19842" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-18 16:04 UTC</span>
+    <span>Generated 2026-11-19 16:11 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2511.18628",
-    title:     "A direct approach to soft and hard edge universality for random normal matrices",
-    date:      "Wednesday, November 18, 2026",
-    publishedDate: "2025-11-23",
-    absUrl:    "https://arxiv.org/abs/2511.18628",
+    id:        "2411.19842",
+    title:     "Scaling Transformers for Low-Bitrate High-Quality Speech Coding",
+    date:      "Thursday, November 19, 2026",
+    publishedDate: "2024-11-29",
+    absUrl:    "https://arxiv.org/abs/2411.19842",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
