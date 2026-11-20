@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scaling Transformers for Low-Bitrate High-Quality Speech Coding — One Journal A Day by Abhijeet</title>
+<title>The Well: a Large-Scale Collection of Diverse Physics Simulations for Machine Learning — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Thursday, November 19, 2026</div>
+    <div class="date">Friday, November 20, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2411.19842</span>
+    <span class="arxiv-id">arXiv:2412.00568</span>
     <span></span>
-    <span>Submitted 2024-11-29</span>
+    <span>Submitted 2024-11-30</span>
   </div>
 
-  <h1 class="paper-title">Scaling Transformers for Low-Bitrate High-Quality Speech Coding</h1>
-  <div class="authors">Julian D Parker, Anton Smirnov, Jordi Pons, CJ Carr, Zack Zukowski, Zach Evans et al.</div>
+  <h1 class="paper-title">The Well: a Large-Scale Collection of Diverse Physics Simulations for Machine Learning</h1>
+  <div class="authors">Ruben Ohana, Michael McCabe, Lucas Meyer, Rudy Morel, Fruzsina J. Agocs, Miguel Beneitez et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how to make speech sound good even when it's compressed to incredibly small file sizes using AI.</p><p>The core idea is that by using a very large, powerful AI model called a Transformer, which is typically used for text, and a special way of compressing information called Finite Scalar Quantization (FSQ), they can represent speech with very few bits. This means speech can be transmitted or stored using much less data than before, while still sounding clear and natural. Traditional methods relied on simpler AI models with built-in assumptions about speech, but this work demonstrates the power of a larger, more flexible approach.</p><p>This matters because it could lead to much more efficient ways to communicate online, making high-quality voice calls and audio streaming possible even on slow internet connections or with limited storage.</p>
+    <p>This paper introduces &quot;The Well,&quot; a massive collection of diverse physics simulations designed to train and test artificial intelligence models.  Current AI models for scientific simulations are often trained on very specific types of problems, limiting their usefulness. The Well overcomes this by providing 15 terabytes of data from 16 different simulation sets, covering everything from how fluids move to the complex physics of stars exploding, all curated by experts. This broad range of data allows researchers to build and evaluate AI models that can understand and predict a much wider array of physical phenomena.  Anyone interested in how AI can accelerate scientific discovery, from understanding biological processes to exploring the universe, will find this resource valuable.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine you're sending a voice message or storing audio. The more you compress it, the smaller the file size, but the worse it sounds. For a long time, researchers focused on making audio compression algorithms (called codecs) that were very efficient and didn't use much computer power, while still sounding decent. However, with the rise of powerful AI models that can *generate* speech or audio, the priorities have shifted. Now, the goal is to compress audio *as much as possible* – to make files incredibly small – while still maintaining the highest possible audio quality. This is crucial for making AI speech generation and understanding more efficient and faster.</p>
-<h3>What they did</h3><p>This research tackles the problem of creating a speech codec that can achieve extremely low compression rates without sacrificing quality. Traditionally, neural audio codecs (NACs) have used simpler architectures with strong built-in assumptions about data, like convolutional or recurrent networks. These are good for efficiency but don't scale well to very large models. This work proposes using a Transformer architecture, which is known for its ability to scale to billions of parameters (like those in large language models), for speech coding. They call their model the Transformer Audio AutoEncoder (TAAE).</p><p>Instead of the common Residual Vector Quantization (RVQ) method for compressing information into discrete codes (tokens), they use a more flexible approach called Finite Scalar Quantization (FSQ). FSQ works by projecting the audio's representation into a lower-dimensional space and then quantizing each dimension independently at regular intervals. This method is more efficient and avoids some issues with codebook usage that can plague RVQ. They also developed a way to modify the FSQ bottleneck *after* training, allowing for further flexibility in how the compressed data is represented, including a hierarchical &quot;residual&quot; decomposition that mimics RVQ but with better control. The TAAE model is trained using a combination of reconstruction losses (making the output sound like the input) and adversarial losses (where a &quot;discriminator&quot; tries to tell the difference between real and generated audio, pushing the generator to create more realistic output). They also incorporated a perceptual loss based on a pre-trained speech model (WavLM) to improve intelligibility.</p>
-<h3>What they found</h3><p>The TAAE model, when scaled to approximately 950 million parameters, achieved state-of-the-art results in speech coding at extremely low bitrates of 400 and 700 bits-per-second (bps). This is significantly lower than most existing codecs. In objective tests, TAAE outperformed established baselines like DAC, Encodec, SpeechTokenizer, SemantiCodec, and Mimi across various metrics measuring audio quality and fidelity. Subjective tests (MUSHRA) also showed TAAE's superiority, with listeners finding its reconstructions very close to the original high-quality audio. The research also demonstrated that the TAAE architecture scales well with model size, with larger models yielding better results. Furthermore, a causal version of the model, suitable for real-time streaming, showed only a minor drop in performance while still outperforming a strong streaming baseline. The model also generalized well to different languages, even though it was trained only on English.</p>
-<h3>Why it matters</h3><p>This research shows that by leveraging the scalability of Transformer architectures and a flexible quantization method (FSQ), it's possible to achieve unprecedented levels of speech compression while maintaining high quality. This is a significant step forward for applications that rely on efficient speech processing, such as real-time communication, voice assistants, and especially for generative AI models that create speech. By making speech data much smaller, these AI models can process and generate speech faster and with less computational cost. The ability to achieve such low bitrates opens up new possibilities for deploying advanced speech AI in resource-constrained environments. While the model is large, the research indicates that efficient implementations make it competitive in inference speed. A limitation noted is the training data being primarily English audiobooks at 16 kHz, suggesting that training on more diverse and higher-sampling-rate data could further improve performance.</p>
+      <h3>Background</h3><p>Scientists and engineers use computer simulations to understand how physical systems evolve over time. These simulations are crucial for everything from predicting weather patterns to designing new materials. However, running these simulations can be incredibly computationally expensive, sometimes taking months on supercomputers. To speed things up, researchers are developing &quot;surrogate models&quot; – essentially, AI models that learn to mimic the behavior of these complex simulations. The challenge is that existing datasets used to train these AI models are often too simple, only covering a narrow range of physical behaviors. This makes it hard to know if an AI model trained on simple problems will actually work well on the complex, real-world problems scientists care about.</p>
+<h3>What they did</h3><p>To address this gap, this work introduces &quot;The Well,&quot; a massive collection of diverse physics simulations. Think of it as a comprehensive library of simulated physical phenomena. It contains 15 terabytes of data from 16 different types of simulations, covering a wide array of scientific fields. These include things like how sound waves travel through complex materials (acoustic scattering), how collections of self-propelled particles move (active matter), the turbulent interiors of stars (convective envelope RSG, supernova explosions), and the dynamics of fluids under various conditions (fluid dynamics, MHD simulations). The data is collected from simulations that model physical systems over space and time. To make it easy for machine learning researchers to use, they've provided a unified interface using PyTorch, a popular machine learning framework. This interface allows users to load the data and train AI models on it. They also include example baseline models to show how the data can be used and to highlight the challenges it presents.</p>
+<h3>What they found</h3><p>The researchers tested several common AI model architectures (Fourier Neural Operator, Tucker-Factorized FNO, U-net, and CNextU-net) on the task of predicting the next step in a simulation, given a short history. They found that no single model architecture consistently outperformed others across all 16 datasets. For instance, in one-step predictions, the CNextU-net architecture was best on 8 out of 17 experiments, but there was a notable split: some problems favored models that work in the &quot;spatial domain&quot; (like U-nets), while others favored models that work in the &quot;spectral domain&quot; (like Fourier Neural Operators). This suggests that a one-size-fits-all approach might not be ideal for these complex simulations. When they evaluated how well these models could predict simulations over longer time periods (rollouts), performance generally worsened, highlighting the difficulty of long-term prediction. They also observed that for some simulations, the error actually decreased in later time steps, which they attribute to the physics becoming smoother or better mixed over time, making it easier to predict.</p>
+<h3>Why it matters</h3><p>The Well is significant because it provides a much-needed, large-scale, and diverse benchmark for developing and evaluating AI models that can accurately predict complex physical phenomena. By offering a wide range of challenging simulations, it pushes the boundaries of current machine learning techniques and encourages the development of more robust and capable &quot;surrogate models.&quot; This could dramatically accelerate scientific discovery by allowing researchers to explore more scenarios and test more hypotheses computationally. However, the paper acknowledges limitations: the datasets primarily use uniformly sampled grids at manageable resolutions, which might not capture the full complexity of some real-world engineering problems that require more intricate meshes. Furthermore, while the Well is a valuable data resource, other research areas like incorporating physical constraints (like conservation laws) into AI models are crucial for further progress. Ultimately, The Well is a vital step towards building AI that can truly understand and predict the physical world.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2411.19842" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2411.19842" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2412.00568" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2412.00568" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-19 16:11 UTC</span>
+    <span>Generated 2026-11-20 15:51 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2411.19842",
-    title:     "Scaling Transformers for Low-Bitrate High-Quality Speech Coding",
-    date:      "Thursday, November 19, 2026",
-    publishedDate: "2024-11-29",
-    absUrl:    "https://arxiv.org/abs/2411.19842",
+    id:        "2412.00568",
+    title:     "The Well: a Large-Scale Collection of Diverse Physics Simulations for Machine Learning",
+    date:      "Friday, November 20, 2026",
+    publishedDate: "2024-11-30",
+    absUrl:    "https://arxiv.org/abs/2412.00568",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
