@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Well: a Large-Scale Collection of Diverse Physics Simulations for Machine Learning — One Journal A Day by Abhijeet</title>
+<title>Yoked surface codes — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Friday, November 20, 2026</div>
+    <div class="date">Saturday, November 21, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2412.00568</span>
+    <span class="arxiv-id">arXiv:2312.04522</span>
     <span></span>
-    <span>Submitted 2024-11-30</span>
+    <span>Submitted 2023-12-07</span>
   </div>
 
-  <h1 class="paper-title">The Well: a Large-Scale Collection of Diverse Physics Simulations for Machine Learning</h1>
-  <div class="authors">Ruben Ohana, Michael McCabe, Lucas Meyer, Rudy Morel, Fruzsina J. Agocs, Miguel Beneitez et al.</div>
+  <h1 class="paper-title">Yoked surface codes</h1>
+  <div class="authors">Craig Gidney, Michael Newman, Peter Brooks, Cody Jones</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This paper introduces &quot;The Well,&quot; a massive collection of diverse physics simulations designed to train and test artificial intelligence models.  Current AI models for scientific simulations are often trained on very specific types of problems, limiting their usefulness. The Well overcomes this by providing 15 terabytes of data from 16 different simulation sets, covering everything from how fluids move to the complex physics of stars exploding, all curated by experts. This broad range of data allows researchers to build and evaluate AI models that can understand and predict a much wider array of physical phenomena.  Anyone interested in how AI can accelerate scientific discovery, from understanding biological processes to exploring the universe, will find this resource valuable.</p>
+    <p>This research introduces a new way to build more powerful quantum computers using existing surface codes.</p><p>The core innovation is &quot;yoked surface codes,&quot; which are created by cleverly arranging standard surface codes in a grid and linking them together. This &quot;yoking&quot; allows for a much higher density of logical qubits, which are the reliable units of quantum information, for every physical qubit, the basic building blocks. This is achieved by measuring parity checks, essentially tests for errors, across rows and optionally columns of these linked codes, using a technique called lattice surgery. Crucially, this improvement works even with limited connections between qubits and at a realistic error rate.</p><p>This development is exciting because it offers a significant leap forward in efficiently packing more quantum computing power into a given hardware footprint, potentially accelerating the timeline for building useful quantum computers.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,24 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Scientists and engineers use computer simulations to understand how physical systems evolve over time. These simulations are crucial for everything from predicting weather patterns to designing new materials. However, running these simulations can be incredibly computationally expensive, sometimes taking months on supercomputers. To speed things up, researchers are developing &quot;surrogate models&quot; – essentially, AI models that learn to mimic the behavior of these complex simulations. The challenge is that existing datasets used to train these AI models are often too simple, only covering a narrow range of physical behaviors. This makes it hard to know if an AI model trained on simple problems will actually work well on the complex, real-world problems scientists care about.</p>
-<h3>What they did</h3><p>To address this gap, this work introduces &quot;The Well,&quot; a massive collection of diverse physics simulations. Think of it as a comprehensive library of simulated physical phenomena. It contains 15 terabytes of data from 16 different types of simulations, covering a wide array of scientific fields. These include things like how sound waves travel through complex materials (acoustic scattering), how collections of self-propelled particles move (active matter), the turbulent interiors of stars (convective envelope RSG, supernova explosions), and the dynamics of fluids under various conditions (fluid dynamics, MHD simulations). The data is collected from simulations that model physical systems over space and time. To make it easy for machine learning researchers to use, they've provided a unified interface using PyTorch, a popular machine learning framework. This interface allows users to load the data and train AI models on it. They also include example baseline models to show how the data can be used and to highlight the challenges it presents.</p>
-<h3>What they found</h3><p>The researchers tested several common AI model architectures (Fourier Neural Operator, Tucker-Factorized FNO, U-net, and CNextU-net) on the task of predicting the next step in a simulation, given a short history. They found that no single model architecture consistently outperformed others across all 16 datasets. For instance, in one-step predictions, the CNextU-net architecture was best on 8 out of 17 experiments, but there was a notable split: some problems favored models that work in the &quot;spatial domain&quot; (like U-nets), while others favored models that work in the &quot;spectral domain&quot; (like Fourier Neural Operators). This suggests that a one-size-fits-all approach might not be ideal for these complex simulations. When they evaluated how well these models could predict simulations over longer time periods (rollouts), performance generally worsened, highlighting the difficulty of long-term prediction. They also observed that for some simulations, the error actually decreased in later time steps, which they attribute to the physics becoming smoother or better mixed over time, making it easier to predict.</p>
-<h3>Why it matters</h3><p>The Well is significant because it provides a much-needed, large-scale, and diverse benchmark for developing and evaluating AI models that can accurately predict complex physical phenomena. By offering a wide range of challenging simulations, it pushes the boundaries of current machine learning techniques and encourages the development of more robust and capable &quot;surrogate models.&quot; This could dramatically accelerate scientific discovery by allowing researchers to explore more scenarios and test more hypotheses computationally. However, the paper acknowledges limitations: the datasets primarily use uniformly sampled grids at manageable resolutions, which might not capture the full complexity of some real-world engineering problems that require more intricate meshes. Furthermore, while the Well is a valuable data resource, other research areas like incorporating physical constraints (like conservation laws) into AI models are crucial for further progress. Ultimately, The Well is a vital step towards building AI that can truly understand and predict the physical world.</p>
+      <h3>Background</h3><p>Building a large-scale, fault-tolerant quantum computer is a monumental challenge. One of the biggest hurdles is the sheer number of physical qubits required to encode a single, reliable &quot;logical&quot; qubit. Current leading methods, like the surface code, need thousands of physical qubits for each logical qubit to achieve the error rates necessary for complex calculations. This is like needing a whole stadium full of unreliable components to build a single, dependable lightbulb. Researchers are constantly searching for ways to reduce this &quot;qubit overhead&quot; without sacrificing the reliability of the quantum information.</p>
+<h3>What they did</h3><p>This research proposes a new way to arrange and manage surface codes to make them more efficient. They call their approach &quot;yoked surface codes.&quot; Imagine taking many standard surface code &quot;patches&quot; and arranging them in a rectangular grid. Then, instead of just checking the errors within each patch, they add extra checks that span entire rows (and optionally columns) of these patches. These row/column checks are called &quot;yokes.&quot;</p><p>These yokes act like a higher-level error correction layer, or an &quot;outer code,&quot; that works on top of the individual surface code patches (the &quot;inner code&quot;). This concatenation strategy aims to leverage the strengths of both. The inner surface codes provide high-quality, low-error logical qubits, while the outer yokes provide a more efficient way to encode more logical qubits within the same physical space.</p><p>To implement these yokes, they use a technique called &quot;lattice surgery.&quot; This is a way to perform quantum operations and measurements on qubits that are not physically adjacent, by cleverly manipulating their spatial and temporal arrangement. They also developed sophisticated simulation techniques to estimate the performance of these yoked codes, including a method called &quot;gap simulation&quot; that uses statistical information about errors to predict performance without simulating every single quantum operation.</p>
+<h3>What they found</h3><p>The main finding is that yoked surface codes can significantly reduce the qubit overhead compared to standard surface codes. Specifically, in the &quot;teraquop regime&quot; (a target for very high-performance quantum computing, aiming for a trillion operations per logical qubit), they estimate that yoked surface codes can achieve nearly</p>
+<h3>three times</h3><p>the number of logical qubits per physical qubit. This improvement comes from packing more logical qubits into the same physical space by using these row and column checks. They also explored different &quot;storage&quot; methods: &quot;cold storage&quot; where qubits are packed very densely but are slower to access, and &quot;hot storage&quot; where qubits are more readily available for computation. In hot storage, yoked surface codes still offer nearly</p>
+<h3>twice</h3><p>the logical qubits per physical qubit compared to standard surface codes.</p>
+<h3>Why it matters</h3><p>This work offers a promising path towards building more practical quantum computers. Reducing the qubit overhead is crucial because building and controlling thousands or millions of physical qubits is incredibly difficult and expensive. By nearly tripling the density of logical qubits, yoked surface codes could make fault-tolerant quantum computing more achievable with fewer physical resources. This is especially important because their construction doesn't require any special hardware beyond the standard nearest-neighbor connections already assumed for surface codes.</p><p>However, it's important to note that these are estimates based on sophisticated simulations and extrapolations. Full-scale, real-world implementation and testing are still needed to confirm these exact savings. Furthermore, while this work focuses on improving memory density, integrating these yoked codes into actual quantum algorithms and understanding how to operate on these encoded qubits efficiently is a next step. Nevertheless, this research provides a significant step forward in making the dream of large-scale quantum computation more tangible by addressing one of its most significant bottlenecks: qubit quantity.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2412.00568" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2412.00568" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2312.04522" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2312.04522" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-20 15:51 UTC</span>
+    <span>Generated 2026-11-21 15:00 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +465,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2412.00568",
-    title:     "The Well: a Large-Scale Collection of Diverse Physics Simulations for Machine Learning",
-    date:      "Friday, November 20, 2026",
-    publishedDate: "2024-11-30",
-    absUrl:    "https://arxiv.org/abs/2412.00568",
+    id:        "2312.04522",
+    title:     "Yoked surface codes",
+    date:      "Saturday, November 21, 2026",
+    publishedDate: "2023-12-07",
+    absUrl:    "https://arxiv.org/abs/2312.04522",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
