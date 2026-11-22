@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yoked surface codes — One Journal A Day by Abhijeet</title>
+<title>Thermodynamic Computing System for AI Applications — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Saturday, November 21, 2026</div>
+    <div class="date">Sunday, November 22, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2312.04522</span>
+    <span class="arxiv-id">arXiv:2312.04836</span>
     <span></span>
-    <span>Submitted 2023-12-07</span>
+    <span>Submitted 2023-12-08</span>
   </div>
 
-  <h1 class="paper-title">Yoked surface codes</h1>
-  <div class="authors">Craig Gidney, Michael Newman, Peter Brooks, Cody Jones</div>
+  <h1 class="paper-title">Thermodynamic Computing System for AI Applications</h1>
+  <div class="authors">Denis Melanson, Mohammad Abu Khater, Maxwell Aifer, Kaelan Donatella, Max Hunter Gordon, Thomas Ahle et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces a new way to build more powerful quantum computers using existing surface codes.</p><p>The core innovation is &quot;yoked surface codes,&quot; which are created by cleverly arranging standard surface codes in a grid and linking them together. This &quot;yoking&quot; allows for a much higher density of logical qubits, which are the reliable units of quantum information, for every physical qubit, the basic building blocks. This is achieved by measuring parity checks, essentially tests for errors, across rows and optionally columns of these linked codes, using a technique called lattice surgery. Crucially, this improvement works even with limited connections between qubits and at a realistic error rate.</p><p>This development is exciting because it offers a significant leap forward in efficiently packing more quantum computing power into a given hardware footprint, potentially accelerating the timeline for building useful quantum computers.</p>
+    <p>This research introduces a new type of computer designed to speed up artificial intelligence (AI) tasks by using principles from physics. The core idea is to build a &quot;stochastic processing unit&quot; (SPU) using simple electronic circuits (RLC circuits) that naturally behave in a way that mimics random processes, which are fundamental to certain AI algorithms like generative AI. This hardware can perform tasks like generating random numbers with specific patterns (Gaussian sampling) and solving mathematical problems involving matrices, marking a first for this kind of &quot;thermodynamic&quot; computing. This development is exciting because it offers a potentially faster and more energy-efficient way to power the next generation of AI, especially for applications that deal with uncertainty or generating new data.</p>
   </div>
 
   <details class="deep">
@@ -434,24 +434,26 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Building a large-scale, fault-tolerant quantum computer is a monumental challenge. One of the biggest hurdles is the sheer number of physical qubits required to encode a single, reliable &quot;logical&quot; qubit. Current leading methods, like the surface code, need thousands of physical qubits for each logical qubit to achieve the error rates necessary for complex calculations. This is like needing a whole stadium full of unreliable components to build a single, dependable lightbulb. Researchers are constantly searching for ways to reduce this &quot;qubit overhead&quot; without sacrificing the reliability of the quantum information.</p>
-<h3>What they did</h3><p>This research proposes a new way to arrange and manage surface codes to make them more efficient. They call their approach &quot;yoked surface codes.&quot; Imagine taking many standard surface code &quot;patches&quot; and arranging them in a rectangular grid. Then, instead of just checking the errors within each patch, they add extra checks that span entire rows (and optionally columns) of these patches. These row/column checks are called &quot;yokes.&quot;</p><p>These yokes act like a higher-level error correction layer, or an &quot;outer code,&quot; that works on top of the individual surface code patches (the &quot;inner code&quot;). This concatenation strategy aims to leverage the strengths of both. The inner surface codes provide high-quality, low-error logical qubits, while the outer yokes provide a more efficient way to encode more logical qubits within the same physical space.</p><p>To implement these yokes, they use a technique called &quot;lattice surgery.&quot; This is a way to perform quantum operations and measurements on qubits that are not physically adjacent, by cleverly manipulating their spatial and temporal arrangement. They also developed sophisticated simulation techniques to estimate the performance of these yoked codes, including a method called &quot;gap simulation&quot; that uses statistical information about errors to predict performance without simulating every single quantum operation.</p>
-<h3>What they found</h3><p>The main finding is that yoked surface codes can significantly reduce the qubit overhead compared to standard surface codes. Specifically, in the &quot;teraquop regime&quot; (a target for very high-performance quantum computing, aiming for a trillion operations per logical qubit), they estimate that yoked surface codes can achieve nearly</p>
-<h3>three times</h3><p>the number of logical qubits per physical qubit. This improvement comes from packing more logical qubits into the same physical space by using these row and column checks. They also explored different &quot;storage&quot; methods: &quot;cold storage&quot; where qubits are packed very densely but are slower to access, and &quot;hot storage&quot; where qubits are more readily available for computation. In hot storage, yoked surface codes still offer nearly</p>
-<h3>twice</h3><p>the logical qubits per physical qubit compared to standard surface codes.</p>
-<h3>Why it matters</h3><p>This work offers a promising path towards building more practical quantum computers. Reducing the qubit overhead is crucial because building and controlling thousands or millions of physical qubits is incredibly difficult and expensive. By nearly tripling the density of logical qubits, yoked surface codes could make fault-tolerant quantum computing more achievable with fewer physical resources. This is especially important because their construction doesn't require any special hardware beyond the standard nearest-neighbor connections already assumed for surface codes.</p><p>However, it's important to note that these are estimates based on sophisticated simulations and extrapolations. Full-scale, real-world implementation and testing are still needed to confirm these exact savings. Furthermore, while this work focuses on improving memory density, integrating these yoked codes into actual quantum algorithms and understanding how to operate on these encoded qubits efficiently is a next step. Nevertheless, this research provides a significant step forward in making the dream of large-scale quantum computation more tangible by addressing one of its most significant bottlenecks: qubit quantity.</p>
+      <h3>Background</h3><p>Modern artificial intelligence (AI), especially the kind that generates new content (generative AI) or deals with uncertainty and probabilities (probabilistic AI), is hitting a wall. Current computer chips, designed for traditional tasks, are struggling to keep up with the immense computational demands of these advanced AI algorithms. Think of it like trying to run a super-fast race car on a bumpy, old dirt road – the road just isn't built for that kind of speed and complexity. Researchers believe that a fundamental shift in computing hardware, one that embraces the inherent randomness and physical principles of the universe, might be the key to unlocking the next level of AI capabilities.</p>
+<h3>What they did</h3><p>This research introduces a new type of computer called a &quot;stochastic processing unit&quot; (SPU), which is a type of &quot;thermodynamic computer.&quot; Instead of relying on precise, deterministic on/off switches like regular computers, this SPU uses the natural, unpredictable fluctuations found in physical systems, much like how heat causes atoms to jiggle. Specifically, it's built using interconnected electrical circuits (RLC circuits) on a circuit board. These circuits are designed to mimic the behavior of physical systems governed by thermodynamics, the branch of physics that deals with heat, work, and energy, and importantly, with random processes.</p><p>The core idea is that the natural &quot;noise&quot; or randomness in these circuits can be harnessed to perform calculations. By carefully designing the circuits and how they interact, the researchers can make them settle into specific statistical patterns, or &quot;distributions.&quot; The SPU has 8 interconnected &quot;unit cells,&quot; each containing an inductor (L), capacitor (C), and resistor (R), along with a controlled source of electrical noise. The connections between these cells are made using &quot;switched capacitances,&quot; which allow for adjustable &quot;coupling&quot; – how much one cell's behavior influences another. This adjustable coupling is crucial for programming the SPU.</p><p>They demonstrated two main capabilities:
+1.</p>
+<h3>Gaussian Sampling</h3><p>Generating random numbers that follow a specific bell-shaped probability distribution (a Gaussian distribution). This is fundamental for many AI tasks, especially those involving uncertainty. They showed they could program the SPU to sample from user-defined 8-dimensional Gaussian distributions.
+2.</p>
+<h3>Linear Algebra</h3><p>Performing basic matrix operations, specifically matrix inversion (finding the inverse of a matrix). This is another cornerstone of many computational tasks, including those in AI. They achieved the first-ever &quot;thermodynamic linear algebra experiment&quot; by inverting 4x4 and 8x8 matrices.</p><p>Furthermore, they showed how these capabilities could be applied to AI tasks like Gaussian Process Regression (a way to make predictions with uncertainty) and uncertainty quantification for neural networks (making AI models more reliable by understanding when they are unsure).</p>
+<h3>What they found</h3><p>The researchers successfully built and tested their 8-cell SPU. They demonstrated that it could accurately sample from specified Gaussian distributions, with the accuracy improving as more samples were collected. For matrix inversion, they showed that the SPU could invert matrices, and the accuracy of the inversion increased with the number of samples taken, eventually producing results visually similar to the true inverse. For example, in their 8x8 matrix inversion experiment, after collecting 12,000 samples, the resulting inverse was visually similar to the target inverse, with the error decreasing as more samples were gathered. They also showed that their hardware could be used in AI applications like Gaussian Process Regression and uncertainty quantification for neural networks, producing results comparable to digital methods.</p><p>Crucially, they projected that if this hardware were scaled up significantly (to thousands of dimensions), it could offer a substantial speed and energy advantage over current high-performance GPUs for tasks like Gaussian sampling. Their model suggests that for problems with around 3,000 dimensions, the SPU could become faster, and it's predicted to be more energy-efficient across all dimensions.</p>
+<h3>Why it matters</h3><p>This work represents a significant step towards a new paradigm in computing tailored for AI. By harnessing the principles of thermodynamics and physical noise, this &quot;thermodynamic computing&quot; approach offers a potential path to overcome the limitations of current digital hardware. The ability to perform probabilistic AI tasks and linear algebra efficiently and with low power consumption is critical for developing more reliable, capable, and potentially more intelligent AI systems. While this is an early-stage demonstration with only 8 unit cells, the researchers envision that scaled-up versions of this technology could be instrumental in advancing fields like generative AI, probabilistic reasoning, and even the pursuit of artificial general intelligence (AGI). The key takeaway is that by embracing, rather than fighting, the inherent randomness of physical systems, we might unlock unprecedented computational power for the AI of the future.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2312.04522" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2312.04522" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2312.04836" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2312.04836" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-21 15:00 UTC</span>
+    <span>Generated 2026-11-22 14:58 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -465,11 +467,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2312.04522",
-    title:     "Yoked surface codes",
-    date:      "Saturday, November 21, 2026",
-    publishedDate: "2023-12-07",
-    absUrl:    "https://arxiv.org/abs/2312.04522",
+    id:        "2312.04836",
+    title:     "Thermodynamic Computing System for AI Applications",
+    date:      "Sunday, November 22, 2026",
+    publishedDate: "2023-12-08",
+    absUrl:    "https://arxiv.org/abs/2312.04836",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
