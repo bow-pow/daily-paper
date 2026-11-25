@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Survey of generalized Turán problems -- counting subgraphs — One Journal A Day by Abhijeet</title>
+<title>Malle's conjecture and Brauer groups of stacks — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -393,13 +393,13 @@
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2506.03418</span>
+    <span class="arxiv-id">arXiv:2412.04196</span>
     <span></span>
-    <span>Submitted 2025-06-03</span>
+    <span>Submitted 2024-12-05</span>
   </div>
 
-  <h1 class="paper-title">Survey of generalized Turán problems -- counting subgraphs</h1>
-  <div class="authors">Dániel Gerbner, Cory Palmer</div>
+  <h1 class="paper-title">Malle's conjecture and Brauer groups of stacks</h1>
+  <div class="authors">Daniel Loughran, Tim Santens</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This survey explores how many times a small graph can appear as a &quot;subgraph&quot; within a larger graph, given that the larger graph avoids containing a specific forbidden structure.  The central concept is the &quot;generalized Turán number,&quot; denoted $\mathrm{ex}(n,H,F)$, which quantifies this maximum count.  Essentially, if we have a large graph with $n$ vertices and we're not allowed to have a particular graph $F$ anywhere inside it, how many copies of another graph $H$ can we still pack in? This field, launched by Alon and Shikhelman in 2016, investigates this extremal problem.  Understanding these limits on subgraph counts has implications for network design and data analysis, where we might want to maximize certain patterns while preventing others.</p>
+    <p>This research proposes a refined prediction for how many number fields of a certain type exist, based on a new mathematical framework.</p><p>The core idea connects the distribution of number fields to the geometry of abstract mathematical objects called &quot;algebraic stacks.&quot; Specifically, it uses a newly defined &quot;unramified Brauer group of an algebraic stack&quot; to guide the prediction. This group helps understand certain symmetries and structures within these stacks, which in turn sheds light on the number field problem.</p><p>Understanding this connection could lead to a deeper understanding of fundamental questions about the distribution of mathematical objects, potentially impacting areas like number theory and algebraic geometry.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine you have a large collection of items, and you want to know the maximum number of specific &quot;sub-collections&quot; you can find within this larger collection, with the constraint that the entire collection must not contain certain &quot;forbidden&quot; structures. This is the core idea behind generalized Turán problems. Specifically, researchers are interested in counting how many times a particular small graph, let's call it graph $H$, appears as a subgraph within a larger graph on $n$ vertices. The catch is that this larger graph must *not* contain any copy of another specific graph, graph $F$. The number $\mathrm{ex}(n,H,F)$ represents the absolute maximum number of copies of $H$ you can have in an $n$-vertex graph that is free of $F$. This is a generalization of a classic problem in graph theory where you count the maximum number of edges (which are themselves simple graphs) in a graph that doesn't contain a specific forbidden graph.</p>
-<h3>What they did</h3><p>This paper is a survey, meaning it doesn't present new research but rather organizes and explains existing work on generalized Turán problems. The authors have collected and categorized a vast amount of research that has been done in this area, particularly since a foundational paper by Alon and Shikhelman in 2016. They explain the key concepts, historical development, and the different types of results that have emerged. The survey is structured to first introduce the problem and its history, then discuss general results that apply broadly, followed by detailed sections on specific cases. These cases are divided into &quot;non-degenerate&quot; and &quot;degenerate&quot; scenarios, which refer to whether the number of copies of $H$ grows linearly with the size of the host graph ($n$) or sub-linearly, respectively. The paper also dedicates a significant portion to explaining the various mathematical techniques used to tackle these problems, such as the regularity lemma, probabilistic methods, and flag algebras.</p>
-<h3>What they found</h3><p>The survey reveals a rich landscape of results. A central finding is the distinction between &quot;non-degenerate&quot; and &quot;degenerate&quot; cases. The non-degenerate case, where the number of copies of $H$ is at least linear in $n$, often occurs when the forbidden graph $F$ is &quot;more complex&quot; than the graph $H$ being counted (e.g., has a higher chromatic number). In these situations, the maximum number of copies of $H$ is often found in specific structures called Turán graphs, which are complete multipartite graphs with partitions as equal in size as possible. The degenerate case, where the number of copies of $H$ grows sub-linearly with $n$, happens when $F$ is a subgraph of a &quot;blowup&quot; of $H$ (a construction where each vertex of $H$ is replaced by multiple vertices). The paper details numerous specific results for counting various graphs $H$ (like triangles, cliques, cycles, paths, and stars) when forbidden graphs $F$ are also specific (like complete graphs, cycles, or bipartite graphs). For example, counting triangles ($K_3$) in $C_5$-free graphs has seen significant progress, with results establishing bounds like $(1 + o(1)) \frac{1}{2\sqrt{6}} n^{3/2}$. The survey also highlights that for many specific graphs $H$ and $F$, the extremal graphs (those achieving the maximum count) are well-understood, often being Turán graphs or closely related structures.</p>
-<h3>Why it matters</h3><p>Generalized Turán problems offer a powerful lens for understanding the structure of graphs that avoid certain substructures. While the abstract mathematical definitions might seem niche, these problems have connections to various areas of computer science, particularly in understanding the limitations of network structures or the properties of large datasets represented as graphs. The distinction between degenerate and non-degenerate cases helps categorize the complexity of these problems. The survey's extensive collection of results and methods provides a valuable resource for researchers, guiding future investigations into the intricate relationships between forbidden subgraphs and the counts of other subgraphs. It shows how fundamental questions about graph structure can lead to deep mathematical challenges and sophisticated solution techniques.</p>
+      <h3>Background</h3><p>Mathematicians are interested in understanding how often certain types of number fields appear. A number field is like an extension of the familiar numbers (like integers or rational numbers) by including roots of polynomials. The &quot;discriminant&quot; of a number field is a fundamental quantity associated with it, somewhat analogous to the determinant of a matrix. Malle's conjecture, a significant idea in this area, predicts how often number fields with a specific structure (determined by their Galois group, which describes their symmetries) will have a discriminant less than a certain bound. While the conjecture gives a general shape to this prediction (involving powers of the bound and logarithms), it has two major shortcomings: the exact power of the logarithm is sometimes wrong, and crucially, it doesn't predict the &quot;leading constant&quot; – the precise numerical factor that scales the count. This leading constant is notoriously difficult to pin down and can behave in unexpected ways. This paper aims to resolve these issues by providing a precise conjecture for the leading constant and correcting the logarithmic term.</p>
+<h3>What they did</h3><p>The core of this work is a novel approach to Malle's conjecture by viewing it through the lens of &quot;algebraic stacks.&quot; Specifically, they associate a mathematical object called the &quot;classifying stack BG&quot; to a group G. This stack is a sophisticated generalization of familiar mathematical spaces. The authors then connect Malle's conjecture to a related problem: counting &quot;rational points of bounded height&quot; on certain geometric objects called Fano varieties. They adapt existing conjectures about rational points (like those of Batyrev-Manin and Peyre) to the setting of algebraic stacks.</p><p>A key innovation is the development of a new framework for &quot;Brauer groups of stacks.&quot; Brauer groups are abstract algebraic structures that capture certain properties of fields and algebras. In this paper, they introduce the &quot;unramified Brauer group&quot; and the &quot;partially unramified Brauer group&quot; for algebraic stacks. These new Brauer groups are crucial for understanding the leading constant in their refined conjecture. They also develop a &quot;stacky Hensel's Lemma,&quot; a new technical tool for analyzing these stacks, and define &quot;height functions&quot; on them, which generalize the discriminant. The authors propose that the leading constant in Malle's conjecture arises from these Brauer groups and specific height functions, and that certain &quot;breaking cocycles&quot; (related to specific types of field extensions) must be excluded to obtain the correct asymptotic formula.</p>
+<h3>What they found</h3><p>The paper presents a refined version of Malle's conjecture that correctly predicts the power of the logarithm term and provides a precise formula for the leading constant. For example, they offer an explicit conjecture for counting A4-quartic fields (fields with a specific symmetry group A4 and degree 4) of bounded discriminant, stating the count is approximately $c(Q, A4, ∆)B^{1/2} \log B$, where $c(Q, A4, ∆) = 35648 \prod_{p&gt;3} (1 - 1/p^2) (1 + (-3/p)/p + 1/p)$ and B is the bound on the discriminant. They also provide a more complex conjecture for counting fields with a different height function, involving sums of Euler products, like $c_{R4}(Q, A4, H)B + c_{C2}(Q, A4, H)B$, where $c_{R4}(Q, A4, H)$ and $c_{C2}(Q, A4, H)$ are explicitly defined constants involving infinite products over prime numbers.</p><p>Their work introduces a new framework for understanding Malle's conjecture using algebraic stacks, leading to a &quot;Mass formula&quot; for counting local field extensions and a &quot;Stacky Hensel's Lemma.&quot; A central result is the definition and study of the &quot;unramified Brauer group&quot; and &quot;partially unramified Brauer group&quot; of stacks, with a &quot;Purity theorem&quot; for the unramified Brauer group and a version of &quot;Harari's formal lemma&quot; for stacks. They also prove the finiteness and computability of the partially unramified Brauer group for certain stacks, which is essential for calculating the leading constant. Furthermore, they identify and formalize the &quot;breaking cocycles&quot; that lead to counterexamples to the original Malle's conjecture, showing they form a &quot;thin set&quot; that must be excluded.</p>
+<h3>Why it matters</h3><p>This research offers a significant breakthrough in understanding the distribution of number fields. By providing a precise prediction for the leading constant in Malle's conjecture, it resolves a long-standing open problem. The introduction of algebraic stacks and new Brauer group theories provides a powerful new framework for tackling problems in number theory that were previously intractable. The explicit formulas and conjectures given in the paper serve as concrete challenges and tools for future research. The connection to counting rational points on geometric objects also highlights deep links between different areas of mathematics. For a non-specialist, the takeaway is that mathematicians have found a more sophisticated mathematical language (algebraic stacks) to describe and predict the frequency of number fields, leading to a more complete and accurate understanding of their distribution. The ability to precisely calculate the leading constant is a major step forward in the field.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2506.03418" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2506.03418" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2412.04196" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2412.04196" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-25 07:05 UTC</span>
+    <span>Generated 2026-11-25 07:15 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2506.03418",
-    title:     "Survey of generalized Turán problems -- counting subgraphs",
+    id:        "2412.04196",
+    title:     "Malle's conjecture and Brauer groups of stacks",
     date:      "Wednesday, November 25, 2026",
-    publishedDate: "2025-06-03",
-    absUrl:    "https://arxiv.org/abs/2506.03418",
+    publishedDate: "2024-12-05",
+    absUrl:    "https://arxiv.org/abs/2412.04196",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
