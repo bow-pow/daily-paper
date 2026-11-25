@@ -16,8 +16,10 @@ it because I wanted a low-friction way to follow what's happening in physics,
 math, AI, and adjacent fields without drowning in papers or settling for
 hype-driven newsletters.
 
-Topics rotate through the week — physics on Monday, astrophysics Tuesday,
-math Wednesday, AI Thursday, ML Friday, quantum Saturday, condensed matter
+Topics rotate through the week, with five of seven days on physics,
+astrophysics and maths — physics on Monday, astrophysics Tuesday, pure math
+Wednesday, AI/ML Thursday, gravity and high-energy theory Friday, applied
+math and mathematical physics Saturday, quantum and condensed matter
 Sunday. Each day the script casts a wide net across the last 3-5 years of
 that topic, scores every candidate by citation impact via Semantic Scholar,
 filters out papers I've already been shown, and picks the highest-rated one
