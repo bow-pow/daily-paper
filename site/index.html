@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stepping Up Superradiance Constraints on Axions — One Journal A Day by Abhijeet</title>
+<title>Survey of generalized Turán problems -- counting subgraphs — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -389,17 +389,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Tuesday, November 24, 2026</div>
+    <div class="date">Wednesday, November 25, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2412.03655</span>
+    <span class="arxiv-id">arXiv:2506.03418</span>
     <span></span>
-    <span>Submitted 2024-12-04</span>
+    <span>Submitted 2025-06-03</span>
   </div>
 
-  <h1 class="paper-title">Stepping Up Superradiance Constraints on Axions</h1>
-  <div class="authors">Samuel J. Witte, Andrew Mummery</div>
+  <h1 class="paper-title">Survey of generalized Turán problems -- counting subgraphs</h1>
+  <div class="authors">Dániel Gerbner, Cory Palmer</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +422,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how a hypothetical particle called an axion can &quot;steal&quot; rotational energy from spinning black holes.</p><p>When a black hole spins very fast, it can amplify certain types of axions, a phenomenon called superradiance. These amplified axions then form &quot;clouds&quot; around the black hole, effectively slowing it down. Previous studies looked at only a few of these axion clouds, but this work considers many more, showing that their interactions significantly alter how quickly the black hole spins down. This improved understanding allows for much stronger limits on how common these axions can be.</p><p>This is interesting because it uses the observed spins of black holes to search for new fundamental particles, offering a unique way to probe physics beyond our current understanding of the universe.</p>
+    <p>This survey explores how many times a small graph can appear as a &quot;subgraph&quot; within a larger graph, given that the larger graph avoids containing a specific forbidden structure.  The central concept is the &quot;generalized Turán number,&quot; denoted $\mathrm{ex}(n,H,F)$, which quantifies this maximum count.  Essentially, if we have a large graph with $n$ vertices and we're not allowed to have a particular graph $F$ anywhere inside it, how many copies of another graph $H$ can we still pack in? This field, launched by Alon and Shikhelman in 2016, investigates this extremal problem.  Understanding these limits on subgraph counts has implications for network design and data analysis, where we might want to maximize certain patterns while preventing others.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +434,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine a black hole that's spinning very fast. Physicists have known for a long time that certain types of very light, fundamental particles, if they exist, could interact with this spinning black hole in a peculiar way. This interaction, called &quot;superradiance,&quot; allows these particles to steal rotational energy from the black hole, causing it to spin down. This process is so efficient that it could happen on timescales much shorter than typical cosmic events. The observation of black holes that are still spinning fast, or have a certain range of spins, therefore acts as a powerful constraint on the existence and properties of these hypothetical particles, particularly axions. The problem this research addresses is that previous studies of this axion-black hole interaction were too simplistic, potentially overestimating how strongly we could rule out certain types of axions.</p>
-<h3>What they did</h3><p>This research delves deeper into how axions, a specific type of hypothetical light particle, interact with spinning black holes. Axions aren't just simple particles; they can interact with themselves, a phenomenon called &quot;self-interaction.&quot; These self-interactions can cause different &quot;energy levels&quot; or &quot;states&quot; of axions around the black hole to influence each other. Previously, scientists mostly considered only the two most energetic states of axions that could be amplified by the black hole. This work significantly expands this by calculating the coupled evolution of *all* axion states up to a principal quantum number of *n=5*. This means they're looking at a much richer and more complex picture of how axions accumulate around the black hole. They used a sophisticated mathematical approach called &quot;fully relativistic&quot; calculations, meaning they accounted for the extreme gravity near the black hole, and employed a statistical method called a &quot;Bayesian framework&quot; to analyze observational data from black holes. This framework allows them to rigorously derive constraints on axions based on the observed spins of real black holes.</p>
-<h3>What they found</h3><p>The key finding is that previous methods for constraining axions using black hole spins were significantly underestimating our current sensitivity. By including the effects of more axion states (up to n=5) and using a more accurate, fully relativistic treatment, the researchers found that the constraints on the axion's &quot;decay constant&quot; ($f_a$) – a measure related to its interaction strength and mass – are about an order of magnitude stronger than previously thought. This means that a wider range of axion properties can be ruled out. Specifically, their analysis, using data from solar-mass black holes, shows that the inclusion of these higher-order states allows for a more accurate capture of how typical high-spin black holes evolve. This, in turn, allows them to extend the exclusion limits to more massive axions.</p>
-<h3>Why it matters</h3><p>This research is crucial for the ongoing search for axions, which are a leading candidate for dark matter and could also explain other fundamental physics puzzles. By refining the way we interpret observations of spinning black holes, this work makes the search for axions more sensitive. The improved constraints mean that if axions exist with certain properties, we are now better equipped to detect them or, conversely, to rule out those possibilities. This has direct implications for our understanding of fundamental physics and the composition of the universe. The paper also includes a detailed discussion of the uncertainties and potential errors involved in measuring black hole spins from X-ray observations, highlighting the importance of careful data analysis in this field. Ultimately, this work pushes the boundaries of our ability to use astrophysical objects like black holes as laboratories for fundamental physics.</p>
+      <h3>Background</h3><p>Imagine you have a large collection of items, and you want to know the maximum number of specific &quot;sub-collections&quot; you can find within this larger collection, with the constraint that the entire collection must not contain certain &quot;forbidden&quot; structures. This is the core idea behind generalized Turán problems. Specifically, researchers are interested in counting how many times a particular small graph, let's call it graph $H$, appears as a subgraph within a larger graph on $n$ vertices. The catch is that this larger graph must *not* contain any copy of another specific graph, graph $F$. The number $\mathrm{ex}(n,H,F)$ represents the absolute maximum number of copies of $H$ you can have in an $n$-vertex graph that is free of $F$. This is a generalization of a classic problem in graph theory where you count the maximum number of edges (which are themselves simple graphs) in a graph that doesn't contain a specific forbidden graph.</p>
+<h3>What they did</h3><p>This paper is a survey, meaning it doesn't present new research but rather organizes and explains existing work on generalized Turán problems. The authors have collected and categorized a vast amount of research that has been done in this area, particularly since a foundational paper by Alon and Shikhelman in 2016. They explain the key concepts, historical development, and the different types of results that have emerged. The survey is structured to first introduce the problem and its history, then discuss general results that apply broadly, followed by detailed sections on specific cases. These cases are divided into &quot;non-degenerate&quot; and &quot;degenerate&quot; scenarios, which refer to whether the number of copies of $H$ grows linearly with the size of the host graph ($n$) or sub-linearly, respectively. The paper also dedicates a significant portion to explaining the various mathematical techniques used to tackle these problems, such as the regularity lemma, probabilistic methods, and flag algebras.</p>
+<h3>What they found</h3><p>The survey reveals a rich landscape of results. A central finding is the distinction between &quot;non-degenerate&quot; and &quot;degenerate&quot; cases. The non-degenerate case, where the number of copies of $H$ is at least linear in $n$, often occurs when the forbidden graph $F$ is &quot;more complex&quot; than the graph $H$ being counted (e.g., has a higher chromatic number). In these situations, the maximum number of copies of $H$ is often found in specific structures called Turán graphs, which are complete multipartite graphs with partitions as equal in size as possible. The degenerate case, where the number of copies of $H$ grows sub-linearly with $n$, happens when $F$ is a subgraph of a &quot;blowup&quot; of $H$ (a construction where each vertex of $H$ is replaced by multiple vertices). The paper details numerous specific results for counting various graphs $H$ (like triangles, cliques, cycles, paths, and stars) when forbidden graphs $F$ are also specific (like complete graphs, cycles, or bipartite graphs). For example, counting triangles ($K_3$) in $C_5$-free graphs has seen significant progress, with results establishing bounds like $(1 + o(1)) \frac{1}{2\sqrt{6}} n^{3/2}$. The survey also highlights that for many specific graphs $H$ and $F$, the extremal graphs (those achieving the maximum count) are well-understood, often being Turán graphs or closely related structures.</p>
+<h3>Why it matters</h3><p>Generalized Turán problems offer a powerful lens for understanding the structure of graphs that avoid certain substructures. While the abstract mathematical definitions might seem niche, these problems have connections to various areas of computer science, particularly in understanding the limitations of network structures or the properties of large datasets represented as graphs. The distinction between degenerate and non-degenerate cases helps categorize the complexity of these problems. The survey's extensive collection of results and methods provides a valuable resource for researchers, guiding future investigations into the intricate relationships between forbidden subgraphs and the counts of other subgraphs. It shows how fundamental questions about graph structure can lead to deep mathematical challenges and sophisticated solution techniques.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2412.03655" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2412.03655" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2506.03418" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2506.03418" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-24 18:30 UTC</span>
+    <span>Generated 2026-11-25 07:05 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +463,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2412.03655",
-    title:     "Stepping Up Superradiance Constraints on Axions",
-    date:      "Tuesday, November 24, 2026",
-    publishedDate: "2024-12-04",
-    absUrl:    "https://arxiv.org/abs/2412.03655",
+    id:        "2506.03418",
+    title:     "Survey of generalized Turán problems -- counting subgraphs",
+    date:      "Wednesday, November 25, 2026",
+    publishedDate: "2025-06-03",
+    absUrl:    "https://arxiv.org/abs/2506.03418",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
