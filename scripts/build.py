@@ -29,14 +29,35 @@ from pathlib import Path
 
 # Topic rotation: index by weekday (Monday=0). Tweak freely.
 # arXiv category reference: https://arxiv.org/category_taxonomy
+#
+# Physics, astrophysics and maths get five days a week; AI/ML and
+# quantum/condensed matter share the other two.
 WEEKLY_TOPICS = {
-    0: ("physics", "physics.gen-ph OR physics.flu-dyn OR physics.optics"),
-    1: ("astro-ph", "astro-ph.GA OR astro-ph.CO OR astro-ph.HE OR astro-ph.SR"),
-    2: ("math",    "math.PR OR math.NT OR math.AG OR math.CO OR math.DG"),
-    3: ("cs.AI",   "cs.AI"),
-    4: ("cs.LG",   "cs.LG"),
-    5: ("quant-ph","quant-ph"),
-    6: ("cond-mat","cond-mat.stat-mech OR cond-mat.soft OR cond-mat.mes-hall"),
+    # Mon: physics (classical, fluids, optics, atomic, plasma, computational...)
+    0: ("physics",
+        "physics.optics OR physics.flu-dyn OR physics.atom-ph OR physics.plasm-ph "
+        "OR physics.comp-ph OR physics.class-ph OR physics.gen-ph OR physics.bio-ph "
+        "OR physics.app-ph OR physics.data-an"),
+    # Tue: astrophysics, every subfield incl. exoplanets and instrumentation
+    1: ("astro-ph",
+        "astro-ph.GA OR astro-ph.CO OR astro-ph.HE OR astro-ph.SR "
+        "OR astro-ph.EP OR astro-ph.IM"),
+    # Wed: pure maths
+    2: ("math",
+        "math.NT OR math.AG OR math.CO OR math.DG OR math.GT OR math.AT "
+        "OR math.RT OR math.CA OR math.FA OR math.LO OR math.GR"),
+    # Thu: AI and machine learning
+    3: ("cs.AI/cs.LG", "cs.AI OR cs.LG OR stat.ML"),
+    # Fri: gravity, cosmology and high-energy theory
+    4: ("gr-qc/hep-th", "gr-qc OR hep-th OR hep-ph OR astro-ph.CO"),
+    # Sat: applied maths, probability, dynamics, mathematical physics
+    5: ("math-applied",
+        "math.PR OR math.DS OR math.AP OR math.NA OR math.OC OR math.ST "
+        "OR math-ph"),
+    # Sun: quantum physics and condensed matter
+    6: ("quant-ph/cond-mat",
+        "quant-ph OR cond-mat.stat-mech OR cond-mat.mes-hall OR cond-mat.str-el "
+        "OR cond-mat.soft"),
 }
 
 ARXIV_API = "https://export.arxiv.org/api/query"
@@ -61,6 +82,12 @@ SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1/paper/batch"
 # citations build more slowly, so we widen the window to 5 years.
 def years_back_for(topic_label: str) -> int:
     return 3 if topic_label.startswith("cs.") else 5
+
+
+# How many papers to request per time slice. Physics, astro and maths days
+# cover many subfields, so they get a bigger pool to rank from.
+def per_slice_for(topic_label: str) -> int:
+    return 30 if topic_label.startswith("cs.") else 50
 
 
 # --- Data model --------------------------------------------------------------
@@ -267,7 +294,10 @@ def fetch_candidates(
     now = datetime.now(timezone.utc)
     # Bucket boundaries in months back from now
     if years_back >= 5:
-        bucket_months = [(0, 3), (3, 12), (12, 24), (24, 36), (36, 60)]
+        # Finer slices: each query returns the newest papers in its window,
+        # so more, shorter windows spread the pool across all five years.
+        bucket_months = [(0, 3), (3, 6), (6, 12), (12, 18), (18, 24),
+                         (24, 30), (30, 36), (36, 48), (48, 60)]
     else:  # 3
         bucket_months = [(0, 3), (3, 12), (12, 24), (24, 36)]
 
@@ -486,15 +516,19 @@ def _cache_path(topic_label: str) -> Path:
     return CACHE_DIR / f"{safe}.json"
 
 
-def load_cached_candidates(topic_label: str) -> list[Paper] | None:
+def load_cached_candidates(topic_label: str, category_query: str) -> list[Paper] | None:
     """Load a cached candidate pool if it's fresh enough. Returns None if no
-    cache exists or the cache is older than CACHE_MAX_AGE_DAYS.
+    cache exists, the cache is older than CACHE_MAX_AGE_DAYS, or it was built
+    from a different category query (e.g. after editing WEEKLY_TOPICS).
     """
     path = _cache_path(topic_label)
     if not path.exists():
         return None
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
+        if data.get("query") != category_query:
+            print(f"  cache for {topic_label} uses old categories; will refetch")
+            return None
         fetched_at = datetime.fromisoformat(data["fetched_at"])
         age = datetime.now(timezone.utc) - fetched_at
         if age.days >= CACHE_MAX_AGE_DAYS:
@@ -508,12 +542,13 @@ def load_cached_candidates(topic_label: str) -> list[Paper] | None:
         return None
 
 
-def save_cached_candidates(topic_label: str, papers: list[Paper]) -> None:
+def save_cached_candidates(topic_label: str, category_query: str, papers: list[Paper]) -> None:
     """Persist a freshly-fetched candidate pool for reuse this week."""
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     path = _cache_path(topic_label)
     data = {
         "topic": topic_label,
+        "query": category_query,
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "papers": [p.__dict__ for p in papers],
     }
@@ -873,13 +908,16 @@ def main() -> int:
     print(f"[{today_iso}] Topic: {topic_label} ({category_query}); window: last {years} years")
 
     # Try cache first — if a fresh pool exists for this topic, skip arXiv entirely.
-    candidates = load_cached_candidates(topic_label)
+    candidates = load_cached_candidates(topic_label, category_query)
 
     if not candidates:
         try:
-            candidates = fetch_candidates(category_query, years_back=years)
+            candidates = fetch_candidates(
+                category_query, years_back=years,
+                per_slice=per_slice_for(topic_label),
+            )
             if candidates:
-                save_cached_candidates(topic_label, candidates)
+                save_cached_candidates(topic_label, category_query, candidates)
         except Exception as e:
             print(f"  fetch failed: {e!r}", file=sys.stderr)
             candidates = []
