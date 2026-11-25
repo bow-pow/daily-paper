@@ -886,8 +886,11 @@ def synthesize_brief_audio(brief_text: str, out_path: Path) -> bool:
 
 def render_page(
     paper: Paper, brief: str, deep_html: str,
-    generated_at: str, today_label: str, audio_url: str = ""
+    generated_at: str, today_label: str, audio_url: str = "",
+    root: str = "./",
 ) -> str:
+    """root: relative path from this page to the site root ("./" for
+    index.html, "../" for archive pages), used for app manifest/icons."""
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     authors_str = ", ".join(paper.authors[:6]) + (" et al." if len(paper.authors) > 6 else "")
     cats_str = ", ".join(paper.categories[:4])
@@ -912,6 +915,7 @@ def render_page(
         .replace("{{GENERATED_AT}}", escape(generated_at))
         .replace("{{TODAY_LABEL}}", escape(today_label))
         .replace("{{AUDIO_URL}}", escape_js(audio_url))
+        .replace("{{ROOT}}", root)
     )
 
 
@@ -1080,6 +1084,7 @@ def main() -> int:
     html_archive = render_page(
         paper, brief, deep_html, generated_at, today_label,
         audio_url=f"{archive_stem}.mp3" if audio_ok else "",
+        root="../",
     )
     (ARCHIVE_DIR / f"{archive_stem}.html").write_text(html_archive, encoding="utf-8")
 
@@ -1090,6 +1095,14 @@ def main() -> int:
         (SITE_DIR / "favorites.html").write_text(
             favs_src.read_text(encoding="utf-8"), encoding="utf-8"
         )
+
+    # App files (manifest, service worker, icons) so the site installs as an
+    # app on Android. Copied every run so edits in scripts/pwa/ go live.
+    pwa_src = ROOT / "scripts" / "pwa"
+    if pwa_src.is_dir():
+        for f in pwa_src.iterdir():
+            if f.is_file():
+                (SITE_DIR / f.name).write_bytes(f.read_bytes())
 
     print(f"Wrote site/index.html and archive/{archive_stem}.html")
     return 0
