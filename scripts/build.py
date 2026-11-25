@@ -87,7 +87,18 @@ def years_back_for(topic_label: str) -> int:
 # How many papers to request per time slice. Physics, astro and maths days
 # cover many subfields, so they get a bigger pool to rank from.
 def per_slice_for(topic_label: str) -> int:
-    return 30 if topic_label.startswith("cs.") else 50
+    # Fewer, bigger requests: arXiv rate-limits by request count, not size.
+    return 30 if topic_label.startswith("cs.") else 100
+
+
+# If arXiv is unreachable and a topic has no cache of its own, borrow the pool
+# from these older cache files (from before the rotation changed).
+LEGACY_CACHES = {
+    "cs.AI/cs.LG": ["cs.AI", "cs.LG"],
+    "quant-ph/cond-mat": ["quant-ph", "cond-mat"],
+    "gr-qc/hep-th": ["astro-ph", "physics"],
+    "math-applied": ["math"],
+}
 
 
 # --- Data model --------------------------------------------------------------
@@ -184,8 +195,9 @@ def _fetch_via_api(
     url = f"{ARXIV_API}?{urllib.parse.urlencode(params)}"
     # arXiv asks clients to wait ~3s between requests; pause before each one
     # to be a polite neighbour on shared cloud IPs.
-    time.sleep(3)
-    body = _http_get(url, timeout=45).decode("utf-8")
+    time.sleep(5)
+    # Multi-category queries are slow on arXiv's side; give them room.
+    body = _http_get(url, timeout=90).decode("utf-8")
     return _parse_atom(body)
 
 
@@ -294,10 +306,7 @@ def fetch_candidates(
     now = datetime.now(timezone.utc)
     # Bucket boundaries in months back from now
     if years_back >= 5:
-        # Finer slices: each query returns the newest papers in its window,
-        # so more, shorter windows spread the pool across all five years.
-        bucket_months = [(0, 3), (3, 6), (6, 12), (12, 18), (18, 24),
-                         (24, 30), (30, 36), (36, 48), (48, 60)]
+        bucket_months = [(0, 3), (3, 12), (12, 24), (24, 36), (36, 60)]
     else:  # 3
         bucket_months = [(0, 3), (3, 12), (12, 24), (24, 36)]
 
@@ -338,16 +347,35 @@ def fetch_candidates(
                 added += 1
         print(f"  slice {newer}-{older}mo: +{added} (got {len(chunk)})")
 
-    if all_papers:
-        return all_papers
-
-    # Atom API returned nothing usable (empty, or fully blocked). Try RSS
-    # which lives on different infrastructure and is rarely rate-limited.
     if rate_limited:
-        print("  Atom API is rate-limiting us; falling back to RSS", file=sys.stderr)
-    else:
-        print("  Atom API returned no candidates; trying RSS fallback", file=sys.stderr)
-    return _fetch_via_rss(category_query)
+        print("  Atom API is rate-limiting us", file=sys.stderr)
+    # May be empty or partial; main() decides between cache and RSS fallbacks.
+    return all_papers
+
+
+def load_any_cache(topic_label: str) -> list[Paper]:
+    """Last-resort pool: this topic's cache at any age or query, else the
+    legacy caches mapped in LEGACY_CACHES. Returns [] if nothing is usable."""
+    papers: list[Paper] = []
+    ids: set[str] = set()
+    for label in [topic_label] + LEGACY_CACHES.get(topic_label, []):
+        path = _cache_path(label)
+        if not path.exists():
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            added = 0
+            for p in data["papers"]:
+                if p["arxiv_id"] not in ids:
+                    ids.add(p["arxiv_id"])
+                    papers.append(Paper(**p))
+                    added += 1
+            print(f"  using saved pool {path.name}: +{added} papers")
+        except Exception as e:
+            print(f"  cache read failed for {label}: {e!r}", file=sys.stderr)
+        if label == topic_label and papers:
+            break  # own cache is enough; don't mix in legacy pools
+    return papers
 
 
 # --- Semantic Scholar scoring ----------------------------------------------
@@ -911,27 +939,35 @@ def main() -> int:
     candidates = load_cached_candidates(topic_label, category_query)
 
     if not candidates:
+        per_slice = per_slice_for(topic_label)
         try:
             candidates = fetch_candidates(
-                category_query, years_back=years,
-                per_slice=per_slice_for(topic_label),
+                category_query, years_back=years, per_slice=per_slice,
             )
-            if candidates:
-                save_cached_candidates(topic_label, category_query, candidates)
         except Exception as e:
             print(f"  fetch failed: {e!r}", file=sys.stderr)
             candidates = []
 
-        # If fresh fetch failed, last-ditch: try a stale cache (any age)
+        # Only cache a pool that looks complete. A partial fetch (arXiv cut us
+        # off midway) is topped up from saved pools and not cached, so the next
+        # run tries again instead of living with a thin pool for a week.
+        if len(candidates) >= per_slice * 3:
+            save_cached_candidates(topic_label, category_query, candidates)
+        else:
+            if candidates:
+                print(f"  partial fetch ({len(candidates)} papers); "
+                      "topping up from saved pools, not caching")
+            ids = {p.arxiv_id for p in candidates}
+            candidates += [p for p in load_any_cache(topic_label) if p.arxiv_id not in ids]
+
+        # Nothing fetched and nothing saved: RSS (recent papers, first category only)
         if not candidates:
-            stale_path = _cache_path(topic_label)
-            if stale_path.exists():
-                try:
-                    data = json.loads(stale_path.read_text(encoding="utf-8"))
-                    candidates = [Paper(**p) for p in data["papers"]]
-                    print(f"  using STALE cache for {topic_label}: {len(candidates)} papers")
-                except Exception as e:
-                    print(f"  stale cache read failed: {e!r}", file=sys.stderr)
+            print("  no saved pool; trying RSS fallback", file=sys.stderr)
+            try:
+                candidates = _fetch_via_rss(category_query)
+            except Exception as e:
+                print(f"  RSS fallback failed: {e!r}", file=sys.stderr)
+                candidates = []
 
     if not candidates:
         print("No candidates returned and no cache; aborting", file=sys.stderr)
