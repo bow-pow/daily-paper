@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Malle's conjecture and Brauer groups of stacks — One Journal A Day by Abhijeet</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#f4efe6">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './' });</script>
+<title>Counting minimal cutsets and $p_c&lt;1$ — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -393,13 +398,13 @@
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2412.04196</span>
+    <span class="arxiv-id">arXiv:2412.04539</span>
     <span></span>
     <span>Submitted 2024-12-05</span>
   </div>
 
-  <h1 class="paper-title">Malle's conjecture and Brauer groups of stacks</h1>
-  <div class="authors">Daniel Loughran, Tim Santens</div>
+  <h1 class="paper-title">Counting minimal cutsets and $p_c&lt;1$</h1>
+  <div class="authors">Philip Easo, Franco Severo, Vincent Tassion</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -422,7 +427,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research proposes a refined prediction for how many number fields of a certain type exist, based on a new mathematical framework.</p><p>The core idea connects the distribution of number fields to the geometry of abstract mathematical objects called &quot;algebraic stacks.&quot; Specifically, it uses a newly defined &quot;unramified Brauer group of an algebraic stack&quot; to guide the prediction. This group helps understand certain symmetries and structures within these stacks, which in turn sheds light on the number field problem.</p><p>Understanding this connection could lead to a deeper understanding of fundamental questions about the distribution of mathematical objects, potentially impacting areas like number theory and algebraic geometry.</p>
+    <p>This research explores the behavior of random networks, specifically when they transition from being disconnected to connected.</p><p>The core finding is that if a random network becomes connected with a probability less than 1 (denoted as $p_c &lt; 1$), then the number of ways to &quot;cut&quot; the network into two pieces, separating a specific point from the rest of the network, grows predictably with the size of the cut. This confirms a long-standing mathematical conjecture. Additionally, it's shown that all &quot;uniformly transient&quot; graphs, a broad class of networks, will always have this critical connection probability less than 1.</p><p>This is interesting because it provides a fundamental understanding of how robust random connections are, with implications for designing reliable communication networks or understanding the spread of information in complex systems.</p>
   </div>
 
   <details class="deep">
@@ -434,22 +439,22 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Mathematicians are interested in understanding how often certain types of number fields appear. A number field is like an extension of the familiar numbers (like integers or rational numbers) by including roots of polynomials. The &quot;discriminant&quot; of a number field is a fundamental quantity associated with it, somewhat analogous to the determinant of a matrix. Malle's conjecture, a significant idea in this area, predicts how often number fields with a specific structure (determined by their Galois group, which describes their symmetries) will have a discriminant less than a certain bound. While the conjecture gives a general shape to this prediction (involving powers of the bound and logarithms), it has two major shortcomings: the exact power of the logarithm is sometimes wrong, and crucially, it doesn't predict the &quot;leading constant&quot; – the precise numerical factor that scales the count. This leading constant is notoriously difficult to pin down and can behave in unexpected ways. This paper aims to resolve these issues by providing a precise conjecture for the leading constant and correcting the logarithmic term.</p>
-<h3>What they did</h3><p>The core of this work is a novel approach to Malle's conjecture by viewing it through the lens of &quot;algebraic stacks.&quot; Specifically, they associate a mathematical object called the &quot;classifying stack BG&quot; to a group G. This stack is a sophisticated generalization of familiar mathematical spaces. The authors then connect Malle's conjecture to a related problem: counting &quot;rational points of bounded height&quot; on certain geometric objects called Fano varieties. They adapt existing conjectures about rational points (like those of Batyrev-Manin and Peyre) to the setting of algebraic stacks.</p><p>A key innovation is the development of a new framework for &quot;Brauer groups of stacks.&quot; Brauer groups are abstract algebraic structures that capture certain properties of fields and algebras. In this paper, they introduce the &quot;unramified Brauer group&quot; and the &quot;partially unramified Brauer group&quot; for algebraic stacks. These new Brauer groups are crucial for understanding the leading constant in their refined conjecture. They also develop a &quot;stacky Hensel's Lemma,&quot; a new technical tool for analyzing these stacks, and define &quot;height functions&quot; on them, which generalize the discriminant. The authors propose that the leading constant in Malle's conjecture arises from these Brauer groups and specific height functions, and that certain &quot;breaking cocycles&quot; (related to specific types of field extensions) must be excluded to obtain the correct asymptotic formula.</p>
-<h3>What they found</h3><p>The paper presents a refined version of Malle's conjecture that correctly predicts the power of the logarithm term and provides a precise formula for the leading constant. For example, they offer an explicit conjecture for counting A4-quartic fields (fields with a specific symmetry group A4 and degree 4) of bounded discriminant, stating the count is approximately $c(Q, A4, ∆)B^{1/2} \log B$, where $c(Q, A4, ∆) = 35648 \prod_{p&gt;3} (1 - 1/p^2) (1 + (-3/p)/p + 1/p)$ and B is the bound on the discriminant. They also provide a more complex conjecture for counting fields with a different height function, involving sums of Euler products, like $c_{R4}(Q, A4, H)B + c_{C2}(Q, A4, H)B$, where $c_{R4}(Q, A4, H)$ and $c_{C2}(Q, A4, H)$ are explicitly defined constants involving infinite products over prime numbers.</p><p>Their work introduces a new framework for understanding Malle's conjecture using algebraic stacks, leading to a &quot;Mass formula&quot; for counting local field extensions and a &quot;Stacky Hensel's Lemma.&quot; A central result is the definition and study of the &quot;unramified Brauer group&quot; and &quot;partially unramified Brauer group&quot; of stacks, with a &quot;Purity theorem&quot; for the unramified Brauer group and a version of &quot;Harari's formal lemma&quot; for stacks. They also prove the finiteness and computability of the partially unramified Brauer group for certain stacks, which is essential for calculating the leading constant. Furthermore, they identify and formalize the &quot;breaking cocycles&quot; that lead to counterexamples to the original Malle's conjecture, showing they form a &quot;thin set&quot; that must be excluded.</p>
-<h3>Why it matters</h3><p>This research offers a significant breakthrough in understanding the distribution of number fields. By providing a precise prediction for the leading constant in Malle's conjecture, it resolves a long-standing open problem. The introduction of algebraic stacks and new Brauer group theories provides a powerful new framework for tackling problems in number theory that were previously intractable. The explicit formulas and conjectures given in the paper serve as concrete challenges and tools for future research. The connection to counting rational points on geometric objects also highlights deep links between different areas of mathematics. For a non-specialist, the takeaway is that mathematicians have found a more sophisticated mathematical language (algebraic stacks) to describe and predict the frequency of number fields, leading to a more complete and accurate understanding of their distribution. The ability to precisely calculate the leading constant is a major step forward in the field.</p>
+      <h3>Background</h3><p>Imagine a vast, interconnected network, like a city's road system or the internet. In this network, we're interested in how &quot;connected&quot; things are. Specifically, we're looking at a phenomenon called &quot;percolation,&quot; which is like a disease spreading through the network. If we think of connections (edges) as being &quot;open&quot; with a certain probability, we want to know if there's a critical probability, $p_c$, above which a large, connected &quot;component&quot; (like a disease outbreak) will likely spread indefinitely. A key question in this field is: what properties of the network itself guarantee that this critical probability $p_c$ is less than 1? If $p_c &lt; 1$, it means even if we don't open *all* connections, there's still a good chance of a giant, infinite cluster forming. This is important because it tells us about the robustness of connectivity in different types of networks. The paper tackles two related questions: first, understanding a geometric property of networks that implies $p_c &lt; 1$, and second, finding a new condition that guarantees $p_c &lt; 1$.</p>
+<h3>What they did</h3><p>The paper makes two main contributions. The first result is about &quot;minimal cutsets.&quot; Think of a cutset as a set of bridges you need to remove to disconnect a specific point (say, your house) from the &quot;outside world&quot; (infinity). A *minimal* cutset is the smallest such set of bridges. The researchers define a quantity, $\kappa(G)$, which measures how quickly the number of minimal cutsets of a certain size grows. They show that if the critical percolation probability $p_c$ is less than 1, then the number of minimal cutsets of size $n$ separating a vertex from infinity grows at most exponentially in $n$. This is the converse of a classical argument by Peierls. The second result focuses on a property called &quot;uniform transience.&quot; This property is related to how likely a &quot;random walk&quot; (imagine a drunkard wandering randomly on the network) is to wander off and never return to its starting point. They prove that if a graph is uniformly transient, then its critical percolation probability $p_c$ is less than 1. This provides a new way to show that many types of graphs have $p_c &lt; 1$.</p>
+<h3>What they found</h3><p>The paper establishes a precise equivalence: a graph has a critical percolation probability $p_c &lt; 1$ if and only if the number of minimal cutsets separating a vertex from infinity grows at most exponentially with their size. This resolves a conjecture from 1999. Furthermore, they prove that any &quot;uniformly transient&quot; graph has $p_c &lt; 1$. This solves a problem posed by other researchers and offers a new proof for a known result about graphs with &quot;superlinear growth.&quot; Specifically, they show that if $p_c &lt; 1$, then the number of minimal cutsets of size $n$ separating a given vertex from infinity is bounded above by $K^n$ for some constant $K$. They also show that uniform transience implies this bound on the number of cutsets.</p>
+<h3>Why it matters</h3><p>These results connect fundamental geometric properties of networks to their behavior under random processes like percolation. The first result provides a precise geometric characterization of when percolation has a &quot;phase transition&quot; at a probability less than 1. This is a deep insight into the structure of networks. The second result offers a powerful new tool: uniform transience, a property related to random walks, is a sufficient condition for $p_c &lt; 1$. This is significant because it provides a new pathway to understanding percolation on a wide range of graphs, including those relevant to physics and computer science. For a non-specialist, this work tells us that the &quot;shape&quot; and &quot;connectivity dynamics&quot; of a network (captured by cutsets and random walk behavior) are intimately linked to whether large-scale connected structures can emerge even when not all connections are open. It provides a more complete picture of how connectivity emerges in complex systems.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2412.04196" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2412.04196" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2412.04539" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2412.04539" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-25 07:15 UTC</span>
+    <span>Generated 2026-11-25 07:28 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -463,11 +468,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2412.04196",
-    title:     "Malle's conjecture and Brauer groups of stacks",
+    id:        "2412.04539",
+    title:     "Counting minimal cutsets and $p_c<1$",
     date:      "Wednesday, November 25, 2026",
     publishedDate: "2024-12-05",
-    absUrl:    "https://arxiv.org/abs/2412.04196",
+    absUrl:    "https://arxiv.org/abs/2412.04539",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
