@@ -9,6 +9,12 @@ on:
 permissions:
   contents: write      # needed to commit the generated HTML back to the repo
 
+# Never run two builds at once (e.g. a manual run during the scheduled one):
+# they would both push and both try to deploy.
+concurrency:
+  group: daily-paper
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -46,6 +52,17 @@ jobs:
             git push
           fi
 
+      # Package the site here, in the job that just built it, instead of
+      # re-checking out and pulling in the deploy job. The deploy job then
+      # only has to find this one artifact.
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -56,17 +73,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-      - name: Pull the freshly committed page
-        run: git pull --rebase
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
