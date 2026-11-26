@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './' });</script>
-<title>Nonnegative Ricci Curvature and Uniformly Convex Boundary Forces Compactness — One Journal A Day by Abhijeet</title>
+<title>APOLLO: SGD-like Memory, AdamW-level Performance — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -394,17 +394,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Wednesday, November 25, 2026</div>
+    <div class="date">Thursday, November 26, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2605.31477</span>
+    <span class="arxiv-id">arXiv:2412.05270</span>
     <span></span>
-    <span>Submitted 2026-05-29</span>
+    <span>Submitted 2024-12-06</span>
   </div>
 
-  <h1 class="paper-title">Nonnegative Ricci Curvature and Uniformly Convex Boundary Forces Compactness</h1>
-  <div class="authors">Zetian Yan, Xingyu Zhu</div>
+  <h1 class="paper-title">APOLLO: SGD-like Memory, AdamW-level Performance</h1>
+  <div class="authors">Hanqing Zhu, Zhenyu Zhang, Wenyan Cong, Xi Liu, Sem Park, Vikas Chandra et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -427,7 +427,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research proves that certain types of geometric spaces with specific boundary properties must be finite in size.</p><p>Imagine a space that curves in a way that's always &quot;outward&quot; or &quot;flat&quot; (nonnegative Ricci curvature), and its edges are smoothly rounded in a particular way (uniformly convex boundary with the second fundamental form satisfying $h \ge 1$). This work shows that such spaces, if they extend infinitely, must actually be finite and &quot;closed off.&quot; The proof cleverly uses special functions that behave nicely and stay positive, which helps measure the space's size.</p><p>This finding is interesting because it connects fundamental properties of shape and curvature to the overall size and structure of geometric objects, offering insights into the basic building blocks of space.</p>
+    <p>This research introduces a new, memory-saving method for training very large AI models, like the ones that power chatbots.</p><p>The core idea is that the popular AdamW optimizer, while effective, uses a lot of memory to keep track of how to adjust the model's learning rate. APOLLO simplifies this process by using a clever approximation based on random projections, essentially creating a smaller, &quot;low-rank&quot; representation of the optimizer's state. This allows it to achieve similar training performance to AdamW but with drastically reduced memory requirements. Even a very small version, APOLLO-Mini, outperforms AdamW while using as little memory as a simpler optimizer called SGD.</p><p>This is exciting because it means we can train bigger and better AI models more efficiently, potentially making advanced AI more accessible and faster to develop, even on less powerful hardware.</p>
   </div>
 
   <details class="deep">
@@ -439,22 +439,27 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Mathematicians are fascinated by how the &quot;shape&quot; of a space, specifically its curvature, influences its overall structure and topology. Imagine a perfectly flat sheet of paper versus a sphere. The sphere curves, and this curvature affects how you can draw lines on it, for example. This paper focuses on a specific type of space called a Riemannian manifold, which is a smooth space equipped with a notion of distance and curvature. A key question in this field is: if a space has certain &quot;nice&quot; properties in its interior (like non-negative Ricci curvature) and its boundary is also &quot;nice&quot; (like being uniformly convex), can we conclude that the space must be finite in extent (compact) and have a simple connectivity structure (finite fundamental group)? This is the conjecture by M. Li that this work addresses.</p>
-<h3>What they did</h3><p>The core of the proof involves constructing special &quot;potential&quot; functions that behave predictably on the manifold. These potentials are like carefully chosen rulers or thermometers that help measure the geometry. The researchers use two types of potentials depending on whether the manifold is &quot;parabolic&quot; or &quot;nonparabolic.&quot;</p><p>In the &quot;parabolic&quot; case, they construct a positive harmonic function (a function whose second derivative averages to zero, like temperature distribution in steady state) that satisfies a &quot;Neumann boundary condition&quot; outside a large region. This condition essentially means the function's gradient is perpendicular to the boundary, or zero if the boundary is flat. They then examine the level sets of this function (where the function takes a constant value). A key step is deriving a &quot;monotonicity formula&quot; for an integral quantity associated with these level sets. This formula shows that under the given curvature conditions, this quantity tends to increase or decrease in a controlled way. The &quot;uniformly convex boundary&quot; condition (where the second fundamental form, a measure of boundary curvature, is at least 1) is crucial here, as it quantifies how the boundary influences this quantity. By analyzing the growth rate of this quantity, they arrive at a contradiction, showing that a noncompact parabolic manifold with these properties cannot exist.</p><p>In the &quot;nonparabolic&quot; case, they use a different potential: the Neumann Green's function, which is related to the solution of a specific type of differential equation with boundary conditions. Again, they examine the level sets of a related &quot;Green distance&quot; function. A similar monotonicity formula is derived, this time involving a scale-invariant quantity. The &quot;uniformly convex boundary&quot; condition is again essential for controlling boundary contributions. The argument then proceeds by analyzing the growth of this scale-invariant quantity, leading to a contradiction in a similar fashion to the parabolic case. The proof relies heavily on a fundamental inequality called the &quot;trace Poincaré inequality,&quot; which relates the size of a function to the size of its gradient and its values on the boundary.</p>
-<h3>What they found</h3><p>The main result is a confirmation of M. Li's conjecture. Specifically, if a complete Riemannian manifold has non-negative Ricci curvature and a uniformly convex boundary (meaning its second fundamental form is at least 1), then the manifold must be compact. As a consequence of being compact, its fundamental group (which describes the types of loops you can draw on the manifold) must be finite. This result generalizes previous findings and provides a strong link between interior curvature, boundary curvature, and the overall size and topological simplicity of a manifold.</p>
-<h3>Why it matters</h3><p>This work provides a definitive answer to a significant conjecture in Riemannian geometry. It demonstrates that strong curvature conditions, both in the interior and at the boundary, can force a manifold to be finite and topologically simple. This is important because it helps mathematicians understand the fundamental constraints on the shapes of spaces. For a non-specialist, it means that spaces with &quot;smooth&quot; and &quot;well-behaved&quot; interiors and boundaries, under specific curvature rules, cannot extend infinitely. This finiteness has profound implications for understanding the possible structures of geometric objects. The proof's reliance on advanced techniques from geometric analysis, like harmonic functions and Green's functions, highlights the power of these tools in studying complex geometric problems. While the paper confirms a conjecture about compactness, it notes that its approach does not directly address related questions about the precise size or area of the boundary, suggesting avenues for future research.</p>
+      <h3>Background</h3><p>Training very large language models (LLMs) like GPT-3 or LLaMA requires an enormous amount of computational power and memory. A significant portion of this memory burden comes from the optimizer, a crucial component that helps the model learn by adjusting its internal parameters. The most popular optimizer, AdamW, is particularly memory-hungry because it keeps track of two &quot;momentum&quot; values for each parameter. This means that for every parameter in the model, AdamW needs to store three copies of information: the parameter itself, and two momentum values. This memory overhead forces researchers to use more expensive hardware, more GPUs, or smaller &quot;batch sizes&quot; (the number of training examples processed at once), all of which can slow down or limit the training process. While other memory-saving optimizers exist, they often involve complex and slow calculations (like Singular Value Decomposition, or SVD) or still require substantial memory to perform well.</p>
+<h3>What they did</h3><p>This research proposes a new optimizer called APOLLO (Approximated Gradient Scaling for Memory-Efficient LLM Optimization). The core idea is to simplify how AdamW adjusts its learning rate, which is how much it changes a parameter at each step. The researchers observed that AdamW's element-wise adjustments (changing each parameter's learning rate individually) are more detailed than necessary for LLMs. They found that grouping parameters into &quot;channels&quot; (like columns in a matrix) and applying a single learning rate adjustment to all parameters within that channel is sufficient.</p><p>To make this memory-efficient, APOLLO doesn't calculate these channel-wise adjustments directly from the full AdamW momentum values. Instead, it uses an &quot;auxiliary low-rank optimizer state.&quot; This means it takes a compressed, lower-dimensional version of the gradient (the direction of steepest ascent for the loss function) using a technique called &quot;random projection.&quot; Random projection is a way to reduce the dimensionality of data without losing too much information, and importantly, it's much faster and less memory-intensive than SVD. APOLLO then computes the momentum values on this compressed, low-rank representation and uses them to derive the channel-wise scaling factors.</p><p>For extreme memory savings, they developed APOLLO-Mini, which further simplifies this by using a &quot;rank-1&quot; space and a &quot;tensor-wise&quot; scaling factor (a single scaling factor for an entire tensor or layer). This dramatically reduces the memory needed for the optimizer states, bringing it down to levels comparable to the much simpler SGD optimizer.</p>
+<h3>What they found</h3><p>The experiments show that APOLLO and APOLLO-Mini achieve performance comparable to, and often better than, AdamW, while using significantly less memory for optimizer states. For instance, APOLLO-Mini can achieve &quot;SGD-level memory costs&quot; but outperform AdamW. In pre-training experiments on LLaMA models, APOLLO and APOLLO-Mini consistently outperformed AdamW, showing up to a 2.8 reduction in validation perplexity (a measure of how well the model predicts text).</p><p>Crucially, APOLLO offers substantial system-level benefits. On an 8-GPU setup, APOLLO achieved up to 3x higher training throughput compared to AdamW by allowing for 4x larger batch sizes. APOLLO-Mini even enabled the pre-training of a LLaMA-13B model on standard A100 GPUs without needing complex system optimizations. Furthermore, by combining APOLLO-Mini with weight quantization (reducing the precision of model weights), they demonstrated pre-training a LLaMA-7B model on a single GPU using less than 12 GB of memory, a significant breakthrough for accessibility. The paper also shows that APOLLO works well with random projection, avoiding the slow SVD operations that plague other memory-efficient methods.</p>
+<h3>Why it matters</h3><p>This work makes training large language models much more accessible and efficient. By drastically reducing the memory required by the optimizer, APOLLO allows researchers and developers to:</p><p>*</p>
+<h3>Train larger models on less hardware</h3><p>The ability to train models like LLaMA-7B on a single GPU with 12GB of memory democratizes LLM training, making it feasible for individuals and smaller institutions.
+*</p>
+<h3>Speed up training</h3><p>The increased throughput means training can be completed much faster, saving time and computational costs.
+*</p>
+<h3>Improve scalability</h3><p>APOLLO-Mini's ability to train larger models like LLaMA-13B without complex system setups simplifies the process of scaling up.</p><p>Essentially, APOLLO offers a way to get the performance benefits of sophisticated optimizers like AdamW without their prohibitive memory costs, making cutting-edge LLM development more practical and widespread.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2605.31477" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2605.31477" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2412.05270" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2412.05270" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-25 17:43 UTC</span>
+    <span>Generated 2026-11-26 17:27 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -468,11 +473,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2605.31477",
-    title:     "Nonnegative Ricci Curvature and Uniformly Convex Boundary Forces Compactness",
-    date:      "Wednesday, November 25, 2026",
-    publishedDate: "2026-05-29",
-    absUrl:    "https://arxiv.org/abs/2605.31477",
+    id:        "2412.05270",
+    title:     "APOLLO: SGD-like Memory, AdamW-level Performance",
+    date:      "Thursday, November 26, 2026",
+    publishedDate: "2024-12-06",
+    absUrl:    "https://arxiv.org/abs/2412.05270",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
