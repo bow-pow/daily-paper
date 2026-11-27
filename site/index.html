@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './' });</script>
-<title>APOLLO: SGD-like Memory, AdamW-level Performance — One Journal A Day by Abhijeet</title>
+<title>Entanglement and HBAR entropy in a Lorentzian non-commutative black hole — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -394,17 +394,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Thursday, November 26, 2026</div>
+    <div class="date">Friday, November 27, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2412.05270</span>
+    <span class="arxiv-id">arXiv:2611.34706</span>
     <span></span>
-    <span>Submitted 2024-12-06</span>
+    <span>Submitted 2026-11-25</span>
   </div>
 
-  <h1 class="paper-title">APOLLO: SGD-like Memory, AdamW-level Performance</h1>
-  <div class="authors">Hanqing Zhu, Zhenyu Zhang, Wenyan Cong, Xi Liu, Sem Park, Vikas Chandra et al.</div>
+  <h1 class="paper-title">Entanglement and HBAR entropy in a Lorentzian non-commutative black hole</h1>
+  <div class="authors">A. A. Araújo Filho, N. Heidari, P. H. M. Barros, V. B. Bezerra, A. R. Queiroz, A. F. Santos et al.</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -427,7 +427,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research introduces a new, memory-saving method for training very large AI models, like the ones that power chatbots.</p><p>The core idea is that the popular AdamW optimizer, while effective, uses a lot of memory to keep track of how to adjust the model's learning rate. APOLLO simplifies this process by using a clever approximation based on random projections, essentially creating a smaller, &quot;low-rank&quot; representation of the optimizer's state. This allows it to achieve similar training performance to AdamW but with drastically reduced memory requirements. Even a very small version, APOLLO-Mini, outperforms AdamW while using as little memory as a simpler optimizer called SGD.</p><p>This is exciting because it means we can train bigger and better AI models more efficiently, potentially making advanced AI more accessible and faster to develop, even on less powerful hardware.</p>
+    <p>This research explores how a specific modification to the structure of spacetime near a black hole influences quantum phenomena like entanglement and a particular type of radiation.</p><p>The key finding is that introducing &quot;non-commutative smearing&quot; – a way of fuzzing out the precise location of spacetime points – alters how quantum information is shared between the inside and outside of a black hole. This smearing reduces the black hole's &quot;surface gravity&quot; (a measure of how strongly gravity pulls at its edge), increases the correlations between quantum particles, and affects the probability of emitting radiation. The way this smearing impacts the black hole's properties, like its mass and the radiation it emits, is also detailed.</p><p>This work is interesting because it connects abstract ideas about quantum mechanics and gravity in extreme environments, potentially offering insights into the fundamental nature of black holes and the information paradox.</p>
   </div>
 
   <details class="deep">
@@ -439,27 +439,34 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Training very large language models (LLMs) like GPT-3 or LLaMA requires an enormous amount of computational power and memory. A significant portion of this memory burden comes from the optimizer, a crucial component that helps the model learn by adjusting its internal parameters. The most popular optimizer, AdamW, is particularly memory-hungry because it keeps track of two &quot;momentum&quot; values for each parameter. This means that for every parameter in the model, AdamW needs to store three copies of information: the parameter itself, and two momentum values. This memory overhead forces researchers to use more expensive hardware, more GPUs, or smaller &quot;batch sizes&quot; (the number of training examples processed at once), all of which can slow down or limit the training process. While other memory-saving optimizers exist, they often involve complex and slow calculations (like Singular Value Decomposition, or SVD) or still require substantial memory to perform well.</p>
-<h3>What they did</h3><p>This research proposes a new optimizer called APOLLO (Approximated Gradient Scaling for Memory-Efficient LLM Optimization). The core idea is to simplify how AdamW adjusts its learning rate, which is how much it changes a parameter at each step. The researchers observed that AdamW's element-wise adjustments (changing each parameter's learning rate individually) are more detailed than necessary for LLMs. They found that grouping parameters into &quot;channels&quot; (like columns in a matrix) and applying a single learning rate adjustment to all parameters within that channel is sufficient.</p><p>To make this memory-efficient, APOLLO doesn't calculate these channel-wise adjustments directly from the full AdamW momentum values. Instead, it uses an &quot;auxiliary low-rank optimizer state.&quot; This means it takes a compressed, lower-dimensional version of the gradient (the direction of steepest ascent for the loss function) using a technique called &quot;random projection.&quot; Random projection is a way to reduce the dimensionality of data without losing too much information, and importantly, it's much faster and less memory-intensive than SVD. APOLLO then computes the momentum values on this compressed, low-rank representation and uses them to derive the channel-wise scaling factors.</p><p>For extreme memory savings, they developed APOLLO-Mini, which further simplifies this by using a &quot;rank-1&quot; space and a &quot;tensor-wise&quot; scaling factor (a single scaling factor for an entire tensor or layer). This dramatically reduces the memory needed for the optimizer states, bringing it down to levels comparable to the much simpler SGD optimizer.</p>
-<h3>What they found</h3><p>The experiments show that APOLLO and APOLLO-Mini achieve performance comparable to, and often better than, AdamW, while using significantly less memory for optimizer states. For instance, APOLLO-Mini can achieve &quot;SGD-level memory costs&quot; but outperform AdamW. In pre-training experiments on LLaMA models, APOLLO and APOLLO-Mini consistently outperformed AdamW, showing up to a 2.8 reduction in validation perplexity (a measure of how well the model predicts text).</p><p>Crucially, APOLLO offers substantial system-level benefits. On an 8-GPU setup, APOLLO achieved up to 3x higher training throughput compared to AdamW by allowing for 4x larger batch sizes. APOLLO-Mini even enabled the pre-training of a LLaMA-13B model on standard A100 GPUs without needing complex system optimizations. Furthermore, by combining APOLLO-Mini with weight quantization (reducing the precision of model weights), they demonstrated pre-training a LLaMA-7B model on a single GPU using less than 12 GB of memory, a significant breakthrough for accessibility. The paper also shows that APOLLO works well with random projection, avoiding the slow SVD operations that plague other memory-efficient methods.</p>
-<h3>Why it matters</h3><p>This work makes training large language models much more accessible and efficient. By drastically reducing the memory required by the optimizer, APOLLO allows researchers and developers to:</p><p>*</p>
-<h3>Train larger models on less hardware</h3><p>The ability to train models like LLaMA-7B on a single GPU with 12GB of memory democratizes LLM training, making it feasible for individuals and smaller institutions.
+      <h3>Background</h3><p>Imagine a black hole, a region of spacetime so dense that nothing, not even light, can escape. For decades, physicists have understood that black holes aren't entirely black; they emit a faint thermal radiation, known as Hawking radiation, due to quantum effects near their event horizon (the point of no return). This radiation carries information about the black hole and is crucial for understanding the &quot;information paradox&quot; – the puzzle of what happens to information that falls into a black hole. This research delves into how certain modifications to the fabric of spacetime, specifically a concept called &quot;non-commutative geometry,&quot; might alter this quantum behavior, affecting both the entanglement of quantum fields and the radiation emitted by black holes.</p>
+<h3>What they did</h3><p>The researchers explored how a specific type of &quot;smearing&quot; or smoothing of the black hole's mass distribution, called &quot;Lorentzian non-commutative smearing,&quot; influences quantum phenomena near the black hole. They treated the black hole as a region of spacetime described by a modified metric (a mathematical tool that defines distances and geometry). This smearing introduces a new length scale, denoted by $\Theta$, which effectively &quot;smooths out&quot; the black hole's singularity.</p><p>They analyzed two main aspects:
+1.</p>
+<h3>Entanglement</h3><p>They investigated how quantum entanglement, a bizarre connection between quantum particles where they remain linked no matter the distance, is affected. Specifically, they looked at the entanglement between quantum fields on the exterior of the black hole and their &quot;partner&quot; fields that would be inside the black hole. By &quot;tracing over&quot; (effectively ignoring) the interior partners, they could quantify the entanglement accessible to an outside observer. They used measures like logarithmic negativity and mutual information to do this.
+2.</p>
+<h3>Horizon Brightened Acceleration Radiation (HBAR)</h3><p>They examined the radiation emitted by a hypothetical atom falling into the black hole. This radiation, influenced by the atom's acceleration and the black hole's gravity, is related to Hawking radiation. They calculated the probabilities of the atom emitting or absorbing quanta of the scalar field and how these probabilities change with the smearing. They also explored the entropy production associated with this radiation, linking it to changes in the black hole's area.</p>
+<h3>What they found</h3><p>The introduction of Lorentzian non-commutative smearing has several key effects:
 *</p>
-<h3>Speed up training</h3><p>The increased throughput means training can be completed much faster, saving time and computational costs.
+<h3>Entanglement</h3><p>Increasing the smearing length ($\ell$) generally *increases* the accessible entanglement (measured by logarithmic negativity and mutual information) for quantum fields outside the black hole. For instance, at a fixed mass and frequency, increasing smearing leads to more correlations between the exterior field modes.
 *</p>
-<h3>Improve scalability</h3><p>APOLLO-Mini's ability to train larger models like LLaMA-13B without complex system setups simplifies the process of scaling up.</p><p>Essentially, APOLLO offers a way to get the performance benefits of sophisticated optimizers like AdamW without their prohibitive memory costs, making cutting-edge LLM development more practical and widespread.</p>
+<h3>Surface Gravity and Temperature</h3><p>Smearing causes the black hole's surface gravity ($\kappa$) and thus its Hawking temperature ($T_H$) to decrease. This effect begins at order $\sqrt{\Theta}$.
+*</p>
+<h3>Atomic Emission</h3><p>For a freely falling atom, the smearing suppresses the probability of emitting radiation at a given frequency. However, the emission and absorption processes still obey detailed balance at the modified Hawking temperature.
+*</p>
+<h3>Entropy and Area</h3><p>The relationship between the entropy of the emitted radiation (HBAR) and the change in the black hole's area is modified. When the radiated energy is treated as &quot;horizon heat,&quot; the entropy rate is approximately one-quarter of the radiative area loss ($\dot{S}_{HBAR} \simeq \dot{A}_p/4$). However, if the radiated energy is attributed to the black hole's mass loss, the relationship becomes $\dot{S}_{HBAR} \simeq \dot{A}_p/[4(1-\ell/r_+)]$, where $\ell$ is related to the smearing and $r_+$ is the horizon radius. This indicates that the mass dependence of the exterior source enters the entropy per unit area lost at order $\sqrt{\Theta}$.</p>
+<h3>Why it matters</h3><p>This research provides a deeper understanding of how quantum mechanics and gravity interact in extreme environments like black holes, especially when considering modifications to spacetime geometry. The findings suggest that smoothing out the black hole's singularity might enhance quantum correlations outside the event horizon. Furthermore, it clarifies how such modifications affect the fundamental process of black hole radiation and its thermodynamic properties, like entropy. The work connects theoretical concepts like non-commutative geometry to observable (though currently unobservable) phenomena like Hawking radiation and entanglement, offering insights into the nature of spacetime at its most fundamental level and potentially shedding light on the black hole information paradox. The specific quantitative results, like the order of corrections ($\sqrt{\Theta}$ and $\Theta$), provide concrete predictions for future theoretical or experimental investigations.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2412.05270" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2412.05270" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2611.34706" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2611.34706" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-26 17:27 UTC</span>
+    <span>Generated 2026-11-27 17:05 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -473,11 +480,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2412.05270",
-    title:     "APOLLO: SGD-like Memory, AdamW-level Performance",
-    date:      "Thursday, November 26, 2026",
-    publishedDate: "2024-12-06",
-    absUrl:    "https://arxiv.org/abs/2412.05270",
+    id:        "2611.34706",
+    title:     "Entanglement and HBAR entropy in a Lorentzian non-commutative black hole",
+    date:      "Friday, November 27, 2026",
+    publishedDate: "2026-11-25",
+    absUrl:    "https://arxiv.org/abs/2611.34706",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
