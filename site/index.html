@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './' });</script>
-<title>Entanglement and HBAR entropy in a Lorentzian non-commutative black hole — One Journal A Day by Abhijeet</title>
+<title>A review of low-rank methods for time-dependent kinetic simulations — One Journal A Day by Abhijeet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -394,17 +394,17 @@
       <div class="brand">One Journal<span class="dot">·</span>A Day</div>
       <div class="byline">by <a href="https://www.linkedin.com/in/abhijeet-and-data/" target="_blank" rel="noopener">Abhijeet Sharma</a></div>
     </div>
-    <div class="date">Friday, November 27, 2026</div>
+    <div class="date">Saturday, November 28, 2026</div>
   </header>
 
   <div class="meta">
-    <span class="arxiv-id">arXiv:2611.34706</span>
+    <span class="arxiv-id">arXiv:2412.05912</span>
     <span></span>
-    <span>Submitted 2026-11-25</span>
+    <span>Submitted 2024-12-08</span>
   </div>
 
-  <h1 class="paper-title">Entanglement and HBAR entropy in a Lorentzian non-commutative black hole</h1>
-  <div class="authors">A. A. Araújo Filho, N. Heidari, P. H. M. Barros, V. B. Bezerra, A. R. Queiroz, A. F. Santos et al.</div>
+  <h1 class="paper-title">A review of low-rank methods for time-dependent kinetic simulations</h1>
+  <div class="authors">Lukas Einkemmer, Katharina Kormann, Jonas Kusch, Ryan G. McClarren, Jing-Mei Qiu</div>
 
   <div class="brief-section-head">
     <div class="section-label">The Brief</div>
@@ -427,7 +427,7 @@
     </div>
   </div>
   <div class="brief" id="brief">
-    <p>This research explores how a specific modification to the structure of spacetime near a black hole influences quantum phenomena like entanglement and a particular type of radiation.</p><p>The key finding is that introducing &quot;non-commutative smearing&quot; – a way of fuzzing out the precise location of spacetime points – alters how quantum information is shared between the inside and outside of a black hole. This smearing reduces the black hole's &quot;surface gravity&quot; (a measure of how strongly gravity pulls at its edge), increases the correlations between quantum particles, and affects the probability of emitting radiation. The way this smearing impacts the black hole's properties, like its mass and the radiation it emits, is also detailed.</p><p>This work is interesting because it connects abstract ideas about quantum mechanics and gravity in extreme environments, potentially offering insights into the fundamental nature of black holes and the information paradox.</p>
+    <p>This paper explores a clever way to make complex computer simulations of physical systems much faster.</p><p>Many scientific problems, like how particles move or how plasmas behave, involve tracking things in a very detailed six-dimensional &quot;phase space,&quot; which makes simulations incredibly slow. The core idea is that the actual behavior of these systems often simplifies, meaning the complex data can be represented by a &quot;low-rank&quot; approximation, like a compressed version of the information. The paper reviews two main techniques, Dynamical Low-Rank (DLR) and Step-and-Truncate (SAT), that exploit this simplification by evolving the solution directly on this compressed representation. This research could lead to significantly faster and more efficient simulations for a wide range of scientific and engineering challenges, from understanding fusion energy to modeling astrophysical phenomena.</p>
   </div>
 
   <details class="deep">
@@ -439,34 +439,29 @@
       <span class="chev">+</span>
     </summary>
     <div class="deep-body">
-      <h3>Background</h3><p>Imagine a black hole, a region of spacetime so dense that nothing, not even light, can escape. For decades, physicists have understood that black holes aren't entirely black; they emit a faint thermal radiation, known as Hawking radiation, due to quantum effects near their event horizon (the point of no return). This radiation carries information about the black hole and is crucial for understanding the &quot;information paradox&quot; – the puzzle of what happens to information that falls into a black hole. This research delves into how certain modifications to the fabric of spacetime, specifically a concept called &quot;non-commutative geometry,&quot; might alter this quantum behavior, affecting both the entanglement of quantum fields and the radiation emitted by black holes.</p>
-<h3>What they did</h3><p>The researchers explored how a specific type of &quot;smearing&quot; or smoothing of the black hole's mass distribution, called &quot;Lorentzian non-commutative smearing,&quot; influences quantum phenomena near the black hole. They treated the black hole as a region of spacetime described by a modified metric (a mathematical tool that defines distances and geometry). This smearing introduces a new length scale, denoted by $\Theta$, which effectively &quot;smooths out&quot; the black hole's singularity.</p><p>They analyzed two main aspects:
-1.</p>
-<h3>Entanglement</h3><p>They investigated how quantum entanglement, a bizarre connection between quantum particles where they remain linked no matter the distance, is affected. Specifically, they looked at the entanglement between quantum fields on the exterior of the black hole and their &quot;partner&quot; fields that would be inside the black hole. By &quot;tracing over&quot; (effectively ignoring) the interior partners, they could quantify the entanglement accessible to an outside observer. They used measures like logarithmic negativity and mutual information to do this.
-2.</p>
-<h3>Horizon Brightened Acceleration Radiation (HBAR)</h3><p>They examined the radiation emitted by a hypothetical atom falling into the black hole. This radiation, influenced by the atom's acceleration and the black hole's gravity, is related to Hawking radiation. They calculated the probabilities of the atom emitting or absorbing quanta of the scalar field and how these probabilities change with the smearing. They also explored the entropy production associated with this radiation, linking it to changes in the black hole's area.</p>
-<h3>What they found</h3><p>The introduction of Lorentzian non-commutative smearing has several key effects:
+      <h3>Background</h3><p>Many scientific and engineering problems involve simulating the behavior of large numbers of particles. Think of gas molecules in a container, plasma in a fusion reactor, or even neutrons in a nuclear reactor. These simulations are often described by &quot;kinetic models,&quot; which are mathematical equations that track the distribution of these particles across their &quot;phase space.&quot; Phase space includes not just their position in space but also their velocity. The problem is that this phase space is typically six-dimensional (three dimensions for position, three for velocity). Simulating such a high-dimensional system directly requires an enormous amount of computational power and memory, making it practically impossible for many real-world scenarios. This research addresses the challenge of making these complex kinetic simulations computationally feasible.</p>
+<h3>What they did</h3><p>The core idea explored in this paper is that the solutions to many kinetic problems don't actually spread out and fill the entire six-dimensional phase space. Instead, they often reside on a much &quot;simpler,&quot; lower-dimensional &quot;manifold.&quot; Imagine a complex 3D shape that can be perfectly described by a flat 2D surface – that's a simplified analogy for a solution living on a low-dimensional manifold. The researchers propose and review methods that exploit this property by representing the solution not as a full, high-dimensional grid of data, but as a &quot;low-rank approximation.&quot;</p><p>A low-rank approximation is like describing a complex image using a few key building blocks and their combinations, rather than storing every single pixel. Mathematically, this is often done using &quot;tensor decompositions,&quot; which break down a large, multi-dimensional array (like the solution in phase space) into smaller, more manageable pieces. The paper focuses on two main classes of these low-rank methods:</p><p>1.</p>
+<h3>Dynamical Low-Rank (DLR) methods</h3><p>These methods don't just approximate the solution; they derive *new differential equations* that govern how the &quot;low-rank factors&quot; (the building blocks of the approximation) evolve over time. This means the simulation stays on the low-dimensional manifold throughout the process. They discuss sophisticated ways to solve these new equations, like the &quot;projector splitting integrator&quot; and &quot;basis update and Galerkin (BUG) integrators,&quot; which are designed to handle the mathematical complexities of evolving on this manifold.</p><p>2.</p>
+<h3>Step-and-Truncate (SAT) methods</h3><p>These methods take a more traditional approach. They first perform a standard simulation step, which might temporarily increase the &quot;rank&quot; (complexity) of the solution. Then, after each step, they &quot;truncate&quot; the solution back to a low-rank representation by discarding the least important components. This is like taking a snapshot, letting it evolve slightly, and then cleaning it up to keep it simple.</p><p>The paper also delves into the details of how to discretize (represent on a computer grid) the phase space and how to handle the time evolution of these low-rank representations, discussing concepts like &quot;tensor decompositions,&quot; &quot;time integrators,&quot; and &quot;structure preservation.&quot;</p>
+<h3>What they found</h3><p>The central finding is that for a wide range of kinetic problems, the solution *does* indeed live on a low-dimensional manifold, meaning it can be accurately represented by a low-rank approximation. This significantly reduces the computational cost. For instance, in some cases, the memory consumption can be reduced from a prohibitive $O(n^6)$ (where $n$ is the number of grid points in each dimension) to $O(rn^3)$, where $r$ is the rank, which is much smaller. The paper provides examples where a rank as low as 1 or 2 is sufficient for accurate simulations, such as in weakly nonlinear collisionless plasma dynamics or certain radiative transfer scenarios. For a bump-on-tail instability in plasma physics, a 2+2 dimensional problem (2 spatial, 2 velocity dimensions) saw memory consumption reduced by approximately three orders of magnitude. They also show that the required rank can change dynamically during a simulation, highlighting the importance of &quot;rank-adaptive&quot; methods that can adjust the complexity as needed.</p>
+<h3>Why it matters</h3><p>The implications of this work are substantial for computational science and engineering. By enabling simulations of kinetic phenomena that were previously too computationally expensive, these low-rank methods open doors to more accurate and detailed understanding of complex systems. This includes applications in areas like:</p><p>*</p>
+<h3>Plasma physics</h3><p>Crucial for fusion energy research and understanding space weather.
 *</p>
-<h3>Entanglement</h3><p>Increasing the smearing length ($\ell$) generally *increases* the accessible entanglement (measured by logarithmic negativity and mutual information) for quantum fields outside the black hole. For instance, at a fixed mass and frequency, increasing smearing leads to more correlations between the exterior field modes.
+<h3>Radiative transfer</h3><p>Important for nuclear reactor design, astrophysics, and medical treatments like radiotherapy.
 *</p>
-<h3>Surface Gravity and Temperature</h3><p>Smearing causes the black hole's surface gravity ($\kappa$) and thus its Hawking temperature ($T_H$) to decrease. This effect begins at order $\sqrt{\Theta}$.
-*</p>
-<h3>Atomic Emission</h3><p>For a freely falling atom, the smearing suppresses the probability of emitting radiation at a given frequency. However, the emission and absorption processes still obey detailed balance at the modified Hawking temperature.
-*</p>
-<h3>Entropy and Area</h3><p>The relationship between the entropy of the emitted radiation (HBAR) and the change in the black hole's area is modified. When the radiated energy is treated as &quot;horizon heat,&quot; the entropy rate is approximately one-quarter of the radiative area loss ($\dot{S}_{HBAR} \simeq \dot{A}_p/4$). However, if the radiated energy is attributed to the black hole's mass loss, the relationship becomes $\dot{S}_{HBAR} \simeq \dot{A}_p/[4(1-\ell/r_+)]$, where $\ell$ is related to the smearing and $r_+$ is the horizon radius. This indicates that the mass dependence of the exterior source enters the entropy per unit area lost at order $\sqrt{\Theta}$.</p>
-<h3>Why it matters</h3><p>This research provides a deeper understanding of how quantum mechanics and gravity interact in extreme environments like black holes, especially when considering modifications to spacetime geometry. The findings suggest that smoothing out the black hole's singularity might enhance quantum correlations outside the event horizon. Furthermore, it clarifies how such modifications affect the fundamental process of black hole radiation and its thermodynamic properties, like entropy. The work connects theoretical concepts like non-commutative geometry to observable (though currently unobservable) phenomena like Hawking radiation and entanglement, offering insights into the nature of spacetime at its most fundamental level and potentially shedding light on the black hole information paradox. The specific quantitative results, like the order of corrections ($\sqrt{\Theta}$ and $\Theta$), provide concrete predictions for future theoretical or experimental investigations.</p>
+<h3>Rarefied gas dynamics</h3><p>Relevant for aerospace engineering, particularly for spacecraft re-entry.</p><p>The key takeaway for a non-specialist is that complex, high-dimensional problems that seem intractable might be solvable by cleverly recognizing and exploiting underlying simplicity in their solutions. While these methods are not a magic bullet and require careful implementation, they offer a powerful toolkit for pushing the boundaries of what can be simulated in science and engineering. The limitation is that the &quot;low-rank&quot; property isn't guaranteed for *all* kinetic problems, and determining the appropriate rank can still require expertise and careful analysis.</p>
     </div>
   </details>
 
   <div class="links">
-    <a href="https://arxiv.org/abs/2611.34706" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
-    <a href="https://arxiv.org/pdf/2611.34706" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/abs/2412.05912" target="_blank" rel="noopener">arXiv abstract <span class="arrow">→</span></a>
+    <a href="https://arxiv.org/pdf/2412.05912" target="_blank" rel="noopener">Full PDF <span class="arrow">→</span></a>
     <a href="favorites.html" rel="noopener">Favorites <span class="arrow">→</span></a>
     <a href="archive/" rel="noopener">Archive <span class="arrow">→</span></a>
   </div>
 
   <footer class="colophon">
-    <span>Generated 2026-11-27 17:05 UTC</span>
+    <span>Generated 2026-11-28 15:54 UTC</span>
     <span>One paper a day · arXiv + Gemini</span>
   </footer>
 
@@ -480,11 +475,11 @@
 
   // ====== Paper metadata (injected from template) ======
   const PAPER = {
-    id:        "2611.34706",
-    title:     "Entanglement and HBAR entropy in a Lorentzian non-commutative black hole",
-    date:      "Friday, November 27, 2026",
-    publishedDate: "2026-11-25",
-    absUrl:    "https://arxiv.org/abs/2611.34706",
+    id:        "2412.05912",
+    title:     "A review of low-rank methods for time-dependent kinetic simulations",
+    date:      "Saturday, November 28, 2026",
+    publishedDate: "2024-12-08",
+    absUrl:    "https://arxiv.org/abs/2412.05912",
     audioUrl:  "today.mp3",
     pageUrl:   location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname
   };
